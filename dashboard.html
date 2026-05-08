@@ -1,0 +1,539 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Géographie Master — Mon Espace</title>
+<style>
+:root{--primary:#27ae60;--secondary:#229954;--success:#48bb78;--error:#f56565;--warning:#ed8936;--gold:#ffd700}
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
+body{background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;padding:15px}
+.container{max-width:1000px;margin:0 auto;background:white;border-radius:20px;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+h1{text-align:center;color:var(--primary);font-size:2.1em;margin-bottom:4px}
+.subtitle{text-align:center;color:#718096;margin-bottom:20px}
+.nav-tabs{display:flex;gap:8px;margin-bottom:22px;border-bottom:2px solid #e2e8f0;padding-bottom:10px;flex-wrap:wrap;align-items:center}
+.tab-btn{padding:10px 18px;border:none;background:#f0f0f0;border-radius:20px;cursor:pointer;font-weight:bold;transition:all .25s;white-space:nowrap;font-size:.9em}
+.tab-btn:hover,.tab-btn.active{background:var(--primary);color:white}
+.tab-content{display:none}
+.tab-content.active{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:15px;margin-bottom:25px}
+.stat-card{background:linear-gradient(145deg,var(--primary),var(--secondary));color:white;padding:20px;border-radius:15px;text-align:center}
+.stat-num{font-size:2.3em;font-weight:800;display:block}
+.stat-label{font-size:.8em;opacity:.9;text-transform:uppercase;letter-spacing:.5px}
+.level-progress{margin-top:20px}
+.level-progress h3{margin-bottom:12px;color:#2d3748}
+.level-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:.9em}
+.level-row-label{width:100px;color:#4a5568;font-weight:600;flex-shrink:0}
+.progress-bar{flex:1;height:14px;background:#e2e8f0;border-radius:7px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--success),#68d391);border-radius:7px;transition:width .6s}
+.progress-fill.locked{background:#e2e8f0}
+.level-row-pct{width:38px;text-align:right;color:#718096;font-size:.85em}
+
+/* BADGES */
+.badges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin-top:10px}
+.badge{background:#f5f7fa;border:2px solid #e2e8f0;border-radius:14px;padding:14px;text-align:center;opacity:.45;filter:grayscale(1);transition:all .3s}
+.badge.unlocked{opacity:1;filter:none;border-color:var(--gold);background:linear-gradient(145deg,#fff9e6,#fff3cd);box-shadow:0 4px 15px rgba(255,215,0,.25)}
+.badge-icon{font-size:2.4em;margin-bottom:6px;display:block}
+.badge-name{font-weight:bold;font-size:.85em;color:#2d3748;margin-bottom:3px}
+.badge-desc{font-size:.72em;color:#718096}
+
+/* CAMÉLÉON */
+.cam-box{background:#e8f4ff;border-radius:15px;padding:22px}
+.cam-avatar{text-align:center;font-size:4em;margin-bottom:10px}
+.cam-name{text-align:center;font-weight:bold;color:var(--secondary);margin-bottom:14px}
+.cam-bubble{background:white;border:2px dashed var(--error);border-radius:12px;padding:16px;margin-bottom:16px;font-size:1.1em;font-family:monospace;color:#c53030;text-align:center}
+.cam-instruction{font-weight:bold;color:#2d3748;margin-bottom:12px;text-align:center}
+.cam-options{display:grid;gap:10px}
+.cam-btn{padding:13px;border:2px solid #c6d3f7;background:white;border-radius:10px;cursor:pointer;font-size:.95em;text-align:left;transition:all .2s}
+.cam-btn:hover{border-color:var(--primary);background:#f0f4ff}
+.cam-btn.correct{background:#c6f6d5;border-color:var(--success);color:#276749}
+.cam-btn.wrong{background:#fed7d7;border-color:var(--error);color:#c53030}
+.cam-btn:disabled{cursor:not-allowed}
+.cam-score{text-align:center;margin-top:14px;font-weight:bold;color:var(--secondary)}
+.cam-no-errors{text-align:center;color:#718096;padding:30px}
+
+/* FICHES */
+.fiche-card{background:white;border-left:4px solid var(--primary);padding:16px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:12px}
+.fiche-q{font-weight:bold;color:#2d3748;margin-bottom:6px}
+.fiche-wrong{color:var(--error);text-decoration:line-through;font-size:.95em}
+.fiche-correct{color:var(--success);font-weight:bold;font-size:.95em}
+.fiche-expl{color:#718096;font-size:.85em;margin-top:5px;font-style:italic}
+.print-btn{background:var(--primary);color:white;border:none;padding:10px 22px;border-radius:20px;cursor:pointer;font-weight:bold;margin-bottom:16px;display:block}
+
+/* PLAYER SELECT */
+.player-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.player-header select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:10px;font-size:.95em;flex:1;min-width:150px}
+.btn{padding:9px 18px;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:.9em;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white}
+.btn-link{background:#f0f4ff;color:var(--primary)}
+
+.no-print-info{background:#f0fff4;border-left:4px solid var(--success);padding:10px 14px;border-radius:0 8px 8px 0;font-size:.85em;color:#276749;margin-bottom:16px}
+@media print{.nav-tabs,.player-header,.print-btn,.no-print{display:none}}
+@media(max-width:600px){.stats-grid{grid-template-columns:repeat(2,1fr)}.badges-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>📊 Mon Espace English Master</h1>
+<div class="subtitle">Tous tes progrès, badges et révisions en un coup d'œil</div>
+
+<div class="player-header no-print">
+  <select id="playerSelect" onchange="loadPlayer(this.value)"><option value="">-- Choisir un joueur --</option></select>
+
+<button class="btn btn-primary" onclick="goToQuiz()">🎮 Quiz</button>
+
+<button class="btn btn-link" onclick="window.location.href='lexique.html'">📖 Lexique</button>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px" class="no-print">
+  <button class="btn" onclick="exportSave()" style="flex:1;background:#f0fff4;color:#276749;font-size:.85em">⬇️ Exporter ma sauvegarde</button>
+  <label class="btn" style="flex:1;background:#f0f4ff;color:#27ae60;font-size:.85em;cursor:pointer;text-align:center">
+    ⬆️ Importer une sauvegarde
+    <input type="file" accept=".json" onchange="importSave(event)" style="display:none">
+  </label>
+</div>
+
+<div class="nav-tabs">
+  <button class="tab-btn active" onclick="showTab('stats',this)">📈 Statistiques</button>
+  <button class="tab-btn" onclick="showTab('badges',this)">🏅 Badges (<span id="badgeCount">0</span>/30)</button>
+  <button class="tab-btn" onclick="showTab('cameleon',this)">🎭 Mode Caméléon</button>
+<button class="tab-btn" onclick="showTab('niveaux',this)">🎮 Mes Niveaux</button>
+<button class="tab-btn" onclick="showTab('fiches',this)">📝 Mes Fiches</button>
+
+<button class="tab-btn" onclick="showTab('historique',this)">📜 Historique</button>
+
+</div>
+
+<!-- STATS -->
+<div id="stats" class="tab-content active">
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-num" id="statLevel">1</span><span class="stat-label">Niveau actuel</span></div>
+    <div class="stat-card"><span class="stat-num" id="statScore">0</span><span class="stat-label">Points totaux</span></div>
+    <div class="stat-card"><span class="stat-num" id="statStreak">0</span><span class="stat-label">Série 🔥</span></div>
+    <div class="stat-card"><span class="stat-num" id="statRate">0%</span><span class="stat-label">Précision</span></div>
+  </div>
+  <div class="level-progress">
+    <h3>📚 Progression par niveau</h3>
+    <div id="levelBars"></div>
+  </div>
+</div>
+
+<!-- BADGES -->
+<div id="badges" class="tab-content">
+  <div class="no-print-info">Les badges se débloquent automatiquement selon ta progression dans le quiz.</div>
+  <div class="badges-grid" id="badgesGrid"></div>
+</div>
+
+<!-- CAMÉLÉON -->
+<div id="cameleon" class="tab-content">
+  <div class="cam-box">
+    <div class="cam-avatar">🦎</div>
+    <div class="cam-name">Mode Caméléon — Aide Lucas !</div>
+    <div id="cameleonContent"></div>
+    <div class="cam-score" id="camScore"></div>
+  </div>
+</div>
+
+<!-- FICHES -->
+
+
+<div id="fiches" class="tab-content">
+  <button class="print-btn no-print" onclick="window.print()">🖨️ Imprimer mes fiches</button>
+  <div id="fichesContent"></div>
+</div>
+
+<!-- NIVEAUX -->
+<div id="niveaux" class="tab-content">
+  <div class="no-print-info">Clique sur un niveau pour jouer.</div>
+  <div id="niveauxGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-top:10px"></div>
+</div>
+
+<!-- HISTORIQUE -->
+<div id="historique" class="tab-content">
+  <div class="no-print-info">Historique de tes sessions.</div>
+  <div id="historiqueContent"></div>
+</div>
+</div>
+
+
+<script>
+
+const STORAGE_KEY = "francaisMaster_v1";
+const PLAYERS_KEY = "francaisMaster_players";
+
+const LEVEL_NAMES = {
+  1:"Salutations 🙋",
+  2:"Au marché 🛒",
+  3:"Au jardin 🌿",
+  4:"Les voisins 🏘️",
+  5:"Goûts & envies ❤️",
+  6:"Le commerçant 🏬",
+  7:"Amis & sorties 👫",
+  8:"Le temps & météo 🌤️",
+  9:"Verbes essentiels ⚡",
+  10:"Politesse & expressions 🎩"
+};
+
+
+const BADGES_DEF = [
+  {id:1, icon:"🙋", name:"Premier contact", desc:"Terminer le niveau 1", check:p=>p.completed&&p.completed.includes(1)},
+  {id:2, icon:"🛒", name:"Client régulier", desc:"Terminer le niveau 2", check:p=>p.completed&&p.completed.includes(2)},
+  {id:3, icon:"🌿", name:"Jardinier", desc:"Terminer le niveau 3", check:p=>p.completed&&p.completed.includes(3)},
+  {id:4, icon:"🏘️", name:"Voisin idéal", desc:"Terminer le niveau 4", check:p=>p.completed&&p.completed.includes(4)},
+  {id:5, icon:"❤️", name:"Connaisseur", desc:"Terminer le niveau 5", check:p=>p.completed&&p.completed.includes(5)},
+  {id:6, icon:"🏬", name:"Commerçant", desc:"Terminer le niveau 6", check:p=>p.completed&&p.completed.includes(6)},
+  {id:7, icon:"👫", name:"Sociable", desc:"Terminer le niveau 7", check:p=>p.completed&&p.completed.includes(7)},
+  {id:8, icon:"🌤️", name:"Météo", desc:"Terminer le niveau 8", check:p=>p.completed&&p.completed.includes(8)},
+  {id:9, icon:"⚡", name:"Conjugueur", desc:"Terminer le niveau 9", check:p=>p.completed&&p.completed.includes(9)},
+  {id:10, icon:"🎩", name:"Français Master", desc:"Terminer le niveau 10", check:p=>p.completed&&p.completed.includes(10)},
+  {id:11, icon:"🎯", name:"Sniper", desc:"Avoir 100% à un niveau", check:p=>false},
+  {id:12, icon:"🔥", name:"En feu !", desc:"Série de 10 bonnes réponses", check:p=>(p.streak||0)>=10},
+  {id:13, icon:"⚡", name:"Éclair", desc:"Série de 20 bonnes réponses", check:p=>(p.streak||0)>=20},
+  {id:14, icon:"💎", name:"Diamant", desc:"Dépasser 500 points", check:p=>(p.score||0)>=500},
+  {id:15, icon:"🌟", name:"Étoile", desc:"Dépasser 1000 points", check:p=>(p.score||0)>=1000},
+  {id:16, icon:"🌈", name:"Arc-en-ciel", desc:"Dépasser 2000 points", check:p=>(p.score||0)>=2000},
+  {id:17, icon:"📝", name:"Scripteur", desc:"Répondre à 50 questions", check:p=>(p.totalQuestions||0)>=50},
+  {id:18, icon:"📚", name:"Bosseur", desc:"Répondre à 100 questions", check:p=>(p.totalQuestions||0)>=100},
+  {id:19, icon:"🧠", name:"Génie", desc:"Répondre à 200 questions", check:p=>(p.totalQuestions||0)>=200},
+  {id:20, icon:"✅", name:"Précis", desc:"80% de bonnes réponses sur 20 questions", check:p=>p.totalQuestions>=20&&((p.totalCorrect||0)/p.totalQuestions)>=0.8},
+  {id:21, icon:"🦅", name:"Aigle", desc:"90% de bonnes réponses sur 50 questions", check:p=>p.totalQuestions>=50&&((p.totalCorrect||0)/p.totalQuestions)>=0.9},
+  {id:22, icon:"🏅", name:"Médaillé", desc:"5 niveaux terminés", check:p=>(p.completed||[]).length>=5},
+  {id:23, icon:"🎓", name:"Diplômé", desc:"8 niveaux terminés", check:p=>(p.completed||[]).length>=8},
+  {id:24, icon:"🦁", name:"Courageux", desc:"Rejouer après une erreur", check:p=>(p.totalQuestions||0)>=2},
+  {id:25, icon:"🔁", name:"Persévérant", desc:"Revenir sur ses erreurs", check:p=>(p.errorHistory||[]).length>0},
+  {id:26, icon:"🎭", name:"Ami de Lucas", desc:"Aider Lucas 1 fois", check:p=>(p.cameleonHelped||0)>=1},
+  {id:27, icon:"👨‍🏫", name:"Professeur", desc:"Aider Lucas 5 fois", check:p=>(p.cameleonHelped||0)>=5},
+  {id:28, icon:"🧑‍🎓", name:"Maître", desc:"Aider Lucas 10 fois", check:p=>(p.cameleonHelped||0)>=10},
+  {id:29, icon:"🌍", name:"Citoyen du monde", desc:"Tous les niveaux terminés", check:p=>(p.completed||[]).length>=10},
+  {id:30, icon:"🏆", name:"Légendaire", desc:"2000+ pts + tous niveaux terminés", check:p=>(p.score||0)>=2000&&(p.completed||[]).length>=10}
+];
+
+
+const CAMELEON_EXERCISES = [
+  {error:"Je suis fini.", correct:"J'ai fini.", rule:"En français, on dit 'J'ai fini' (calque de 'I have finished'), pas 'Je suis fini' (calque de 'I am finished').",
+  options:["J'ai fini.","Je suis fini.","Je fais fini.","Je vais fini."]},
+  
+  {error:"Je suis 60 ans.", correct:"J'ai 60 ans.", rule:"L'âge = AVOIR en français. On dit 'J'ai 60 ans', jamais 'Je suis 60 ans'.",
+  options:["J'ai 60 ans.","Je suis 60 ans.","Je fais 60 ans.","Je vais 60 ans."]},
+  
+  {error:"Je suis faim.", correct:"J'ai faim.", rule:"La faim, la soif, le sommeil = AVOIR en français. 'J'ai faim', 'J'ai soif', 'J'ai sommeil'.",
+  options:["J'ai faim.","Je suis faim.","Je fais faim.","Je vais faim."]},
+  
+  {error:"C'est du soleil aujourd'hui.", correct:"Il fait du soleil aujourd'hui.", rule:"La météo = IL FAIT. On dit 'Il fait du soleil', jamais 'C'est du soleil'.",
+  options:["Il fait du soleil aujourd'hui.","C'est du soleil aujourd'hui.","Il est du soleil.","Ça fait du soleil."]},
+  
+  {error:"J'ai envie de to manger.", correct:"J'ai envie de manger.", rule:"Après 'envie de', le verbe est à l'infinitif SANS 'to'. Pas de 'to' en français !",
+  options:["J'ai envie de manger.","J'ai envie de to manger.","J'ai envie à manger.","J'ai envie pour manger."]},
+  
+  {error:"Je connais que c'est vrai.", correct:"Je sais que c'est vrai.", rule:"SAVOIR = un fait, une information. CONNAÎTRE = une personne, un lieu, une chose.",
+  options:["Je sais que c'est vrai.","Je connais que c'est vrai.","Je sais ça vrai.","Je connais c'est vrai."]},
+  
+  {error:"Je regarde à la télé.", correct:"Je regarde la télé.", rule:"En français, on regarde LA télé (direct), pas 'à la télé'.",
+  options:["Je regarde la télé.","Je regarde à la télé.","Je regarde sur la télé.","Je regarde dans la télé."]},
+  
+  {error:"Je vais à la maison de mon ami.", correct:"Je vais chez mon ami.", rule:"CHEZ = chez quelqu'un (personne). On ne dit pas 'à la maison de' pour une personne.",
+  options:["Je vais chez mon ami.","Je vais à la maison de mon ami.","Je vais dans mon ami.","Je vais sur mon ami."]},
+  
+  {error:"Je suis excité de vous rencontrer.", correct:"Je suis ravi de vous rencontrer.", rule:"'Excité' en français a un sens sexuel. Pour 'excited', dites 'ravi', 'enthousiaste' ou 'J'ai hâte'.",
+  options:["Je suis ravi de vous rencontrer.","Je suis excité de vous rencontrer.","Je suis excitée de vous rencontrer.","Je suis chaud de vous rencontrer."]},
+  
+  {error:"S'il vous plait, je voudrais un café.", correct:"S'il vous plaît, je voudrais un café.", rule:"PLAÎT = verbe plaire, avec un accent circonflexe sur le 'i'. 'Plait' sans accent n'existe pas.",
+  options:["S'il vous plaît, je voudrais un café.","S'il vous plait, je voudrais un café.","S'il vous plait, je veux un café.","S'il te plaît, je voudrais un café."]}
+];
+
+let currentPlayerData = null;
+let currentPlayerName = null;
+let camIdx = 0;
+let camHelped = 0;
+let currentCamOptions = [];
+
+
+function exportSave(){
+  const players=getPlayers();
+  if(Object.keys(players).length===0){alert("Aucune sauvegarde à exporter.");return;}
+  const blob=new Blob([JSON.stringify(players,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download="geo-master-sauvegarde-"+new Date().toISOString().slice(0,10)+".json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function importSave(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      if(typeof data==="object"&&data!==null){
+        savePlayers(data);
+        loadPlayerList();
+        alert("Sauvegarde importée !");
+      } else alert("Fichier invalide.");
+    } catch(err){alert("Erreur : fichier non reconnu.");}
+  };
+  reader.readAsText(file);
+  event.target.value="";
+}
+
+function getPlayers(){try{return JSON.parse(localStorage.getItem(PLAYERS_KEY))||{};}catch(e){return {};}}
+function savePlayers(p){localStorage.setItem(PLAYERS_KEY,JSON.stringify(p));}
+
+function goToQuiz() {
+  const playerParam = currentPlayerName
+    ? "?player=" + encodeURIComponent(currentPlayerName)
+    : "";
+  window.location.href = "quiz.html" + playerParam;
+}
+
+function loadPlayerList() {
+  const sel     = document.getElementById("playerSelect");
+  const players = getPlayers();
+  const names   = Object.keys(players);
+
+  // Remplir le <select> avec tous les joueurs existants
+  sel.innerHTML = "<option value=''>-- Choisir un joueur --</option>";
+  names.forEach(n => {
+    const o = document.createElement("option");
+    o.value = n;
+    o.textContent = n + " (Niv." + players[n].currentLevel + ")";
+    sel.appendChild(o);
+  });
+
+  // Priorité : joueur passé dans l'URL (?player=Prénom) → sinon premier de la liste
+  const urlPlayer = new URLSearchParams(window.location.search).get('player');
+
+  if (urlPlayer && players[urlPlayer]) {
+    sel.value = urlPlayer;
+    loadPlayer(urlPlayer);
+  } else if (names.length > 0) {
+    sel.value = names[0];
+    loadPlayer(names[0]);
+  }
+}
+
+function loadPlayer(name){
+  if(!name){currentPlayerData=null;return;}
+  const players=getPlayers();
+  currentPlayerData=players[name]||null;
+  currentPlayerName=name;
+  if(currentPlayerData){renderAll();}
+}
+
+function showTab(id,btn){
+ // recharger les données fraîches avant onglet suivant 
+  if(currentPlayerName){
+    const players=getPlayers();
+    currentPlayerData=players[currentPlayerName]||null;
+  }
+  // ⬆️ FIN rafraîchissement avant onglet suivant 
+  document.querySelectorAll(".tab-content").forEach(t=>t.classList.remove("active"));
+  document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  if(btn)btn.classList.add("active");
+  
+
+
+
+if(id==="cameleon")renderCameleon();
+if(id==="fiches")renderFiches();
+if(id==="niveaux")renderNiveaux();
+if(id==="historique")renderHistorique();
+
+}
+
+function renderAll(){
+  if(!currentPlayerData)return;
+  const p=currentPlayerData;
+  document.getElementById("statLevel").textContent=p.currentLevel||1;
+  document.getElementById("statScore").textContent=p.score||0;
+  document.getElementById("statStreak").textContent=p.streak||0;
+  const rate=p.totalQuestions>0?Math.round((p.totalCorrect||0)/p.totalQuestions*100):0;
+  document.getElementById("statRate").textContent=rate+"%";
+  renderLevelBars();
+  renderBadges();
+}
+
+
+function renderLevelBars(){
+  const p=currentPlayerData;
+  const completed=p.completed||[];
+  const current=p.currentLevel||1;
+  let h="";
+  for(let i=1;i<=5;i++){
+    const done=completed.includes(i);
+    const isCur=i===current&&!done;
+    const locked=i>current&&!done;
+    let pct=done?100:isCur?50:0;
+    h+=`<div class="level-row">
+      <span class="level-row-label">Niv. ${i}</span>
+      <div class="progress-bar"><div class="progress-fill${locked?" locked":""}" style="width:${pct}%"></div></div>
+      <span class="level-row-pct">${done?"✅":isCur?"▶":locked?"🔒":"—"}</span>
+    </div>`;
+  }
+  document.getElementById("levelBars").innerHTML=h;
+}
+
+
+function renderBadges(){
+  const p=currentPlayerData;
+  let unlocked=0;
+  const h=BADGES_DEF.map(b=>{
+    const ok=b.check(p);
+    if(ok)unlocked++;
+    return `<div class="badge${ok?" unlocked":""}">
+      <span class="badge-icon">${b.icon}</span>
+      <div class="badge-name">${b.name}</div>
+      <div class="badge-desc">${b.desc}</div>
+    </div>`;
+  }).join("");
+  document.getElementById("badgesGrid").innerHTML=h;
+  document.getElementById("badgeCount").textContent=unlocked;
+}
+
+
+function renderCameleon(){
+  const p=currentPlayerData;
+  const ex=CAMELEON_EXERCISES[camIdx%CAMELEON_EXERCISES.length];
+  currentCamOptions = ex.options;
+  const helped=p?p.cameleonHelped||0:0;
+  const c=document.getElementById("cameleonContent");
+  c.innerHTML=`
+    <div class="cam-bubble">❌ Lucas dit : "${ex.error}"</div>
+    <div class="cam-instruction">Quelle est la phrase correcte ?</div>
+    <div class="cam-options">
+      ${ex.options.map((opt,i)=>`<button class="cam-btn" id="camBtn${i}" onclick="checkCameleon(${i})">${opt}</button>`).join("")}
+    </div>
+    <div style="margin-top:12px;font-size:.85em;color:#718096">Lucas aidé ${helped} fois ✅</div>`;
+  document.getElementById("camScore").textContent="";
+}
+
+
+function checkCameleon(idx){
+  const ex=CAMELEON_EXERCISES[camIdx%CAMELEON_EXERCISES.length];
+  const chosen = currentCamOptions[idx];
+  const correct = ex.correct;
+  const isOk=chosen===correct;
+  document.querySelectorAll(".cam-btn").forEach(b=>b.disabled=true);
+  document.getElementById("camBtn"+idx).classList.add(isOk?"correct":"wrong");
+  if(!isOk){
+    const opts=document.querySelectorAll(".cam-btn");
+    opts.forEach(b=>{if(b.textContent===correct)b.classList.add("correct");});
+  }
+  document.getElementById("camScore").innerHTML=`
+    ${isOk?"✅ Bravo ! Tu as aidé Lucas !":"❌ Pas tout à fait… Retiens bien :"}<br>
+    <em>${ex.rule}</em>
+    <br><br><button class="btn btn-primary" onclick="nextCameleon()" style="margin-top:8px">Exercice suivant →</button>`;
+  if(isOk&&currentPlayerName){
+    const players=getPlayers();
+    const pp=players[currentPlayerName];
+    if(pp){pp.cameleonHelped=(pp.cameleonHelped||0)+1;savePlayers(players);currentPlayerData=pp;}
+  }
+}
+
+
+function nextCameleon(){
+  camIdx++;
+  renderCameleon();
+}
+
+
+    /* ══════════════════════════════════════════════════════
+     📝 FICHES D'ERREURS (Version Duolingo — Compteur actif)
+     ══════════════════════════════════════════════════════ */
+  function renderFiches() {
+    const p      = currentPlayerData;
+    const errors = p && p.errorHistory ? p.errorHistory : [];
+    const c      = document.getElementById("fichesContent");
+
+    if (!errors.length) {
+      c.innerHTML = "<div class='cam-no-errors'>🎉 Aucune erreur enregistrée ! Continue comme ça !</div>";
+      return;
+    }
+
+    /* --- LOGIQUE DE COMPTAGE --- */
+    // On groupe par question pour compter les répétitions
+    const stats = errors.reduce((acc, curr) => {
+      acc[curr.question] = acc[curr.question] || { ...curr, count: 0 };
+      acc[curr.question].count += 1;
+      return acc;
+    }, {});
+
+    // On trie : les erreurs les plus fréquentes apparaissent en premier
+    const sorted = Object.values(stats).sort((a, b) => b.count - a.count);
+
+    /* --- RENDU HTML (Style & Classes conservés) --- */
+    c.innerHTML = `<p style="color:#718096; margin-bottom:14px;">📝 ${sorted.length} notion(s) à réviser :</p>` +
+      sorted.map(e => `
+        <div class="fiche-card" style="${e.count > 1 ? 'border-left: 5px solid var(--error);' : ''}">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div class="fiche-q" style="margin-bottom:0">❓ ${e.question}</div>
+            ${e.count > 1 ? `<span style="background:var(--error); color:white; padding:2px 8px; border-radius:12px; font-size:0.75em; font-weight:bold;">Trompé ${e.count} fois</span>` : ''}
+          </div>
+          <div class="fiche-wrong">✗ Ta dernière réponse : ${e.userAnswer || "—"}</div>
+          <div class="fiche-correct">✓ Bonne réponse : ${e.correctAnswer}</div>
+          ${e.explanation ? `<div class="fiche-expl">💡 ${e.explanation}</div>` : ""}
+        </div>`
+      ).join("");
+  }
+
+
+document.addEventListener("DOMContentLoaded",()=>{loadPlayerList();});
+
+function renderNiveaux(){
+  const p=currentPlayerData;
+  const c=document.getElementById("niveauxGrid");
+  if(!p){c.innerHTML="<div class='cam-no-errors'>Connecte-toi d'abord.</div>";return;}
+  const completed=p.completed||[];
+  const current=p.currentLevel||1;
+  const activeSession=p.activeSession;
+  const LEVEL_NAMES={1:"Décollage 🚀",2:"Routine 📅",3:"En ce moment 👁️",4:"Questions ❓",5:"Retour ⏪",6:"Aventurier ⚔️",7:"Voyant 🔮",8:"Expériences 🏆",9:"Pouvoirs 🪄",10:"Maîtrise 👑"};
+  let h="";
+  for(let i=1;i<=5;i++){
+    const done=completed.includes(i);
+    const isCur=i===current&&!done;
+    const locked=i>current&&!done;
+    const hasSession=activeSession&&activeSession.level===i;
+    let cls="level-card",status="";
+    if(locked){cls+=" locked";status="🔒 Verrouillé";}
+    else if(done){cls+=" completed";status="✅ Terminé";}
+    else if(isCur){cls+=" current";status="🎯 En cours";}
+    else{status="▶️ Disponible";}
+    if(hasSession)status+=" 📝 Session en cours";
+    h+=`<div class="${cls}" style="cursor:${locked?'not-allowed':'pointer'}" onclick="${locked?'':'launchLevel('+i+')'}"><div style="font-weight:bold">Niveau ${i}</div><div style="font-size:.9em">${LEVEL_NAMES[i]}</div><div style="font-size:.75em">${status}</div>${hasSession?`<div style="font-size:.7em;color:var(--warning)">⏸️ Q${activeSession.currentQuestionIndex+1}/${activeSession.questions.length}</div>`:""}</div>`;
+  }
+  c.innerHTML=h;
+}
+  // Retour quiz vers Dashboard avec joueur conservé 
+
+function launchLevel(lvl) {
+  // Passe le joueur actif dans l'URL pour que le quiz le charge directement
+  const playerParam = currentPlayerName
+    ? "&player=" + encodeURIComponent(currentPlayerName)
+    : "";
+  window.location.href = "quiz.html?level=" + lvl + playerParam;
+}
+
+function renderHistorique(){
+  const p=currentPlayerData;
+  const c=document.getElementById("historiqueContent");
+  if(!p||!p.sessionHistory||p.sessionHistory.length===0){c.innerHTML="<div class='cam-no-errors'>📭 Aucune session enregistrée.</div>";return;}
+  const sessions=p.sessionHistory.slice().reverse();
+  c.innerHTML=`<p style="color:#718096">${sessions.length} session(s)</p>`+sessions.map(s=>{
+    const d=new Date(s.date);
+    const dateStr=d.toLocaleDateString('fr-FR',{day:'numeric',month:'short'});
+    const timeStr=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+    const color=s.passed?"var(--success)":"var(--error)";
+    return `<div class="fiche-card" style="border-left-color:${color}"><div style="display:flex;justify-content:space-between"><span style="font-weight:bold">Niveau ${s.level}</span><span style="font-size:.8em">${dateStr} ${timeStr}</span></div><div style="font-size:.9em"><span style="color:${color};font-weight:bold">${s.passed?"✅ Réussi":"❌ À réviser"}</span> | ${s.correct}/${s.total} (${s.pct}%) | ${s.mode||'mixte'}</div></div>`;
+  }).join("");
+}
+
+
+
+</script>
+</body>
+</html>
