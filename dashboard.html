@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Géographie Master — Mon Espace</title>
+<title>Français Master — Mon Espace</title>
 <style>
 :root{--primary:#27ae60;--secondary:#229954;--success:#48bb78;--error:#f56565;--warning:#ed8936;--gold:#ffd700}
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
@@ -78,7 +78,7 @@ h1{text-align:center;color:var(--primary);font-size:2.1em;margin-bottom:4px}
 </head>
 <body>
 <div class="container">
-<h1>📊 Mon Espace English Master</h1>
+<h1>📊 Mon Espace Français Master</h1>
 <div class="subtitle">Tous tes progrès, badges et révisions en un coup d'œil</div>
 
 <div class="player-header no-print">
@@ -258,7 +258,7 @@ function exportSave(){
   const url=URL.createObjectURL(blob);
   const a=document.createElement("a");
   a.href=url;
-  a.download="geo-master-sauvegarde-"+new Date().toISOString().slice(0,10)+".json";
+  a.download="francais-master-sauvegarde-"+new Date().toISOString().slice(0,10)+".json";
   a.click();
   URL.revokeObjectURL(url);
 }
@@ -364,7 +364,7 @@ function renderLevelBars(){
   const completed=p.completed||[];
   const current=p.currentLevel||1;
   let h="";
-  for(let i=1;i<=5;i++){
+  for(let i=1;i<=10;i++){
     const done=completed.includes(i);
     const isCur=i===current&&!done;
     const locked=i>current&&!done;
@@ -491,9 +491,6 @@ function renderNiveaux(){
   const completed=p.completed||[];
   const current=p.currentLevel||1;
   const activeSession=p.activeSession;
-  const LEVEL_NAMES={1:"Décollage 🚀",2:"Routine 📅",3:"En ce moment 👁️",4:"Questions ❓",5:"Retour ⏪",6:"Aventurier ⚔️",7:"Voyant 🔮",8:"Expériences 🏆",9:"Pouvoirs 🪄",10:"Maîtrise 👑"};
-  let h="";
-  for(let i=1;i<=5;i++){
     const done=completed.includes(i);
     const isCur=i===current&&!done;
     const locked=i>current&&!done;
