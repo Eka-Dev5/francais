@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Master — Lexique</title>
+<title>Francais Master — Lexique</title>
 <style>
 :root{--primary:#667eea;--secondary:#764ba2;--success:#48bb78;--bg:#f7fafc;--text:#2d3748}
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
@@ -43,14 +43,14 @@ h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
 </head>
 <body>
 <div class="container">
-<h1>📖 Lexique English Master</h1>
-<p class="subtitle">125 mots essentiels — Niveaux 1 à 10</p>
+<h1>📖 Lexique Ffançais Master</h1>
+<p class="subtitle">150 mots essentiels — Niveaux 1 à 10</p>
 <div class="nav-links">
 <a href="quiz.html">🎮 Retour au Quiz</a>
 <a href="dashboard.html">📊 Mon Espace</a>
 
 </div>
-<div class="stat-bar" id="statBar">125 mots disponibles</div>
+<div class="stat-bar" id="statBar">150 mots disponibles</div>
 <input type="text" class="search-box" id="searchBox" placeholder="🔍 Chercher un mot en français ou en anglais…" oninput="filterWords()">
 <div class="level-tabs">
   <button class="level-tab active" onclick="filterByLevel(0,this)">Tous</button>
@@ -341,11 +341,15 @@ function renderWords(){
   grid.innerHTML=filtered.map(w=>`
     <div class="word-card" onclick="openModal(${LEXIQUE.indexOf(w)})">
       <span class="word-lv">Niv.${w.level}</span>
-      <div class="word-en">${w.en}</div>
-      <div class="word-fr">${w.fr}</div>
+      <div class="word-en">${w.fr}</div>
+      <div class="word-fr">${w.en}</div>
+      <div class="word-phon">${w.phon}</div>
       <span class="word-cat">${w.cat}</span>
+      .word-phon{font-size:.85em;color:var(--secondary);font-weight:600;margin-top:4px;font-style:italic}
+
     </div>`).join("");
 }
+
 
 function filterByLevel(lvl,btn){
   currentLevel=lvl;
