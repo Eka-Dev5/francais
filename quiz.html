@@ -244,6 +244,10 @@ word-break: break-word;
 ```
 
 }
+
+.phon {font-weight:600;color:var(--secondary);transition:all .2s;cursor:help}
+.phon:hover {background:#f0f4ff;padding:2px 8px;border-radius:6px;box-shadow:0 2px 8px rgba(102,126,234,.15)}
+
 /* fin de modif des affichages pour écran petits  */
 
 </style>
@@ -395,6 +399,7 @@ style="background:#f5e8ff;color:#553c9a">📖 Lexique</button>
   <div class="question-box">
     <div class="question-num" id="questionNum"></div>
     <div class="question-text" id="questionText"></div>
+    <div id="hintBox" style="display:none;background:#fff5d6;border-left:4px solid var(--warning);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:10px;font-size:.9em;color:#744210"></div>
     <div class="options-grid" id="qcmOptions" style="display:none"></div>
     <div id="libreInput" style="display:none">
       <input type="text" class="answer-input" id="answerInput" placeholder="Tape ta réponse..." onkeyup="if(event.key==='Enter')validateAnswer()">
@@ -1408,6 +1413,12 @@ function renderQuestion(){
   document.getElementById("progressFill").style.width=(idx/total*100)+"%";
   document.getElementById("questionNum").textContent=(idx+1)+". "+q.type.toUpperCase();
   document.getElementById("questionText").textContent=q.q;
+  const hintBox = document.getElementById("hintBox");
+  if(hintBox) {
+    if(q.hint) { hintBox.textContent="💡 "+q.hint; hintBox.style.display="block"; }
+    else { hintBox.style.display="none"; }
+  }
+
   document.getElementById("feedback").style.display="none";
   document.getElementById("feedback").className="feedback";
   document.getElementById("validateBtn").style.display="inline-block";
@@ -1698,6 +1709,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Fin init
+// Auto-wrap phonétique dans les leçons
+document.addEventListener("DOMContentLoaded", () => {
+  setTimeout(() => {
+    document.querySelectorAll('.lesson-rule, #lessonIntroContent').forEach(el => {
+      el.innerHTML = el.innerHTML.replace(/\*([^*]+)\*/g, '<span class="phon">*$1*</span>');
+    });
+  }, 500);
+});
 
 </script>
 
