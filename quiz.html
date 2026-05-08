@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>English Master 🎓</title>
+<title>Français Master 🥖</title>
 <style>
 /* ═══════════════════════════════════════════
    SUJET CONFIG : changer ici pour adapter à une autre matière
@@ -301,8 +301,8 @@ style="background:#f5e8ff;color:#553c9a">📖 Lexique</button>
 <!-- ACCUEIL -->
 
 <div id="accueil" class="section active">
-<div class="home-title">English Master 🎓</div>
-  <div class="home-sub">Deviens champion d'English, un niveau à la fois !</div>
+<div class="home-title">Français Master 🥖</div>
+  <div class="home-sub">Deviens champion de Français, un niveau à la fois !</div>
   <div class="home-stats">
     <div class="home-stat"><div class="home-stat-num" id="homeLevel">1</div><div class="home-stat-label">Niveau</div></div>
     <div class="home-stat"><div class="home-stat-num" id="homeScore">0</div><div class="home-stat-label">Points</div></div>
@@ -461,9 +461,7 @@ const SUBJECT_CONFIG = {
 };
 
 
-// ═══════════════════════════════════════════════════════════════════
-// LEÇONS (basées sur le cahier CM2)
-// ═══════════════════════════════════════════════════════════════════
+
 // ═══════════════════════════════════════════════════════════════════
 // LEÇONS — Français Master (français courant pour anglophones 45+)
 // ═══════════════════════════════════════════════════════════════════
@@ -708,7 +706,7 @@ const LESSONS_DATA = [
 
 // ═══════════════════════════════════════════════════════════════════
 // BASE DE DONNÉES DES QUESTIONS (10 niveaux × 40 questions)
-// Français Master — Niveaux 1-5 (200 questions)
+// Français Master — Niveaux 1-10 (200 questions)
 // ═══════════════════════════════════════════════════════════════════
 const QUESTIONS_DB = {
   1:{title:"Salutations 🙋",objective:"Dire bonjour, se présenter, tutoyer/vouvoyer",
@@ -935,10 +933,9 @@ const QUESTIONS_DB = {
     {q:"Complétez : '___ vous dit d'aller au marché ?' (Does it sound good)",answer:"Ça",alternatives:["sa"],explanation:"Ça vous dit ? = Does that sound good to you? / Fancy it? Prononciation : *sa voo DEE*"},
     {q:"Comment dit-on 'I am tempted by this cheese' ?",answer:"Ça me tente ce fromage",alternatives:["sa me tante ce fromage"],explanation:"Ça me tente = I'm tempted. Prononciation : *sa muh TONT suh fro-MAHZH*"},
     {q:"Complétez : 'Je ___ le thé au café.' (prefer)",answer:"préfère",alternatives:["préfere"],explanation:"Je préfère le thé au café = I prefer tea to coffee. Préférer = to prefer."}
-  ]}
-};
-  6:{title:"Chez le commerçant 🏬",objective:"Magasins, commerces, formules d'achat",
-  qcm:[
+    ]},
+    6:{title:"Chez le commerçant 🏬",objective:"Magasins, commerces, formules d'achat",
+ qcm:[
     {q:"Où achète-t-on du pain et des croissants ?",options:["À la boucherie","À la boulangerie","À la pharmacie","À la poste"],correct:"À la boulangerie",explanation:"La boulangerie = bread, pastries, croissants. Boucherie = meat. Prononciation : *boo-lan-zhuh-REE*"},
     {q:"Comment dit-on 'a cake shop' ?",options:["une boulangerie","une pâtisserie","une épicerie","une charcuterie"],correct:"une pâtisserie",explanation:"Une pâtisserie = pastry shop/cake shop. Prononciation : *pa-tee-suh-REE*"},
     {q:"Qu'achète-t-on à la charcuterie ?",options:["Du pain","Des viandes séchées, du jambon","Des médicaments","Des légumes"],correct:"Des viandes séchées, du jambon",explanation:"La charcuterie = cured meats, ham, sausages. Prononciation : *shar-koo-tuh-REE*"},
@@ -1137,8 +1134,8 @@ const QUESTIONS_DB = {
     {q:"Quelle est la prononciation de 'lentement' ?",options:["lon-TUH-mon","lon-TEM-on","lan-TUH-mon","lon-TAN-mon"],correct:"lon-TUH-mon",explanation:"lon-TUH-mon. 'en' = nasal UH. Final 'ent' mute. Prononciation : *lon-TUH-mon*"},
     {q:"Comment dit-on 'Pardon' (léger, dans la rue) ?",options:["Pardon !","Excusez-moi !","Je suis désolé !","Les deux A et B"],correct:"Les deux A et B",explanation:"Both used. 'Pardon' = lighter, more spontaneous. 'Excusez-moi' = slightly more formal."},
     {q:"Qu'est-ce qu'on dit en partant d'un magasin ?",options:["Rien","Au revoir, merci.","Salut.","À plus."],correct:"Au revoir, merci.",explanation:"Au revoir, merci = Goodbye, thank you. Essential politeness when leaving."},
-    {q:"Comment dit-on 'I am looking for my words' (when hesitant) ?",options:["Je cherche mes mots.","Je perds mes mots.","J'oublie mes mots.","Je trouve mes mots."],correct:"Je cherche mes mots.",explanation:"Je cherche mes mots = I'm looking for my words. Very natural when you hesitate speaking French."}
-  ],
+    {q:"Comment dit-on 'I am looking for my words' (when hesitant) ?",options:["Je cherche mes mots.","Je perds mes mots.","J'oublie mes mots.","Je trouve mes mots."],correct:"Je cherche mes mots.",explanation:"Je cherche mes mots = I'm looking for my words. Very natural when you hesitate speaking French."},
+  ]
   libre:[
     {q:"Comment dit-on 'Excuse me' (attirer l'attention, formel)",answer:"Excusez-moi",alternatives:["excusez moi"],explanation:"Excusez-moi = Excuse me (formal). Prononciation : *ek-skew-zay-MWAH*"},
     {q:"Complétez : 'Je suis ___ .' (sorry, masculin)",answer:"désolé",alternatives:["desole"],explanation:"Je suis désolé = I'm sorry (male). Désolée = female. Prononciation : *zhuh SWEE day-zo-LAY*"},
