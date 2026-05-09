@@ -1428,7 +1428,7 @@ function renderQuestion(){
     document.getElementById("qcmOptions").style.display="grid";
     document.getElementById("libreInput").style.display="none";
     const g=document.getElementById("qcmOptions");
-    g.innerHTML=q.options.map(opt=>`<button class="option-btn" onclick="selectOption(this,'${opt.replace(/'/g,"\'")}')">　${opt}</button>`).join("");
+g.innerHTML=q.options.map((opt,i)=>`<button class="option-btn" onclick="selectOption(this,${i})">${opt}</button>`).join("");
   } else {
     document.getElementById("qcmOptions").style.display="none";
     document.getElementById("libreInput").style.display="block";
@@ -1614,7 +1614,7 @@ function exportSave(){
   const a=document.createElement("a");
   a.href=url;
   const date=new Date().toISOString().slice(0,10);
-  a.download="english-master-sauvegarde-"+date+".json";
+  a.download="francais-master-sauvegarde-"+date+".json";
   a.click();
   URL.revokeObjectURL(url);
   showToast("Sauvegarde téléchargée !");
