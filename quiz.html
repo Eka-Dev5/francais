@@ -261,8 +261,9 @@ word-break: break-word;
   <div class="player-info">
     <div class="player-avatar" id="playerAvatar">?</div>
     <div>
-      <div class="player-name" id="playerNameDisplay">Aucun joueur</div>
-      <div class="player-stats" id="playerStats">Connecte-toi !</div>
+     <div class="player-name" id="playerNameDisplay">Crée ton profil !</div>
+      <div class="player-stats" id="playerStats">Clique sur + Nouveau</div>
+
     </div>
   </div>
 
@@ -1139,8 +1140,8 @@ const QUESTIONS_DB = {
     {q:"Quelle est la prononciation de 'lentement' ?",options:["lon-TUH-mon","lon-TEM-on","lan-TUH-mon","lon-TAN-mon"],correct:"lon-TUH-mon",explanation:"lon-TUH-mon. 'en' = nasal UH. Final 'ent' mute. Prononciation : *lon-TUH-mon*"},
     {q:"Comment dit-on 'Pardon' (léger, dans la rue) ?",options:["Pardon !","Excusez-moi !","Je suis désolé !","Les deux A et B"],correct:"Les deux A et B",explanation:"Both used. 'Pardon' = lighter, more spontaneous. 'Excusez-moi' = slightly more formal."},
     {q:"Qu'est-ce qu'on dit en partant d'un magasin ?",options:["Rien","Au revoir, merci.","Salut.","À plus."],correct:"Au revoir, merci.",explanation:"Au revoir, merci = Goodbye, thank you. Essential politeness when leaving."},
-    {q:"Comment dit-on 'I am looking for my words' (when hesitant) ?",options:["Je cherche mes mots.","Je perds mes mots.","J'oublie mes mots.","Je trouve mes mots."],correct:"Je cherche mes mots.",explanation:"Je cherche mes mots = I'm looking for my words. Very natural when you hesitate speaking French."},
-  ]},
+    {q:"Comment dit-on 'I am looking for my words'...",correct:"...",explanation:"..."},
+  ],
   libre:[
     {q:"Comment dit-on 'Excuse me' (attirer l'attention, formel)",answer:"Excusez-moi",alternatives:["excusez moi"],explanation:"Excusez-moi = Excuse me (formal). Prononciation : *ek-skew-zay-MWAH*"},
     {q:"Complétez : 'Je suis ___ .' (sorry, masculin)",answer:"désolé",alternatives:["desole"],explanation:"Je suis désolé = I'm sorry (male). Désolée = female. Prononciation : *zhuh SWEE day-zo-LAY*"},
@@ -1445,14 +1446,15 @@ function validateAnswer(){
   const q=gameState.questions[gameState.currentQuestionIndex];
   let isCorrect=false; let userAnswer="";
   if(q.type==="qcm"){
-    if(!gameState.selectedOption){showToast("Choisis une réponse !");return;}
+    if(gameState.selectedOption===null){showToast("Choisis une réponse !");return;}
     userAnswer=gameState.selectedOption;
-    isCorrect=userAnswer===q.correct;
-    document.querySelectorAll(".option-btn").forEach(btn=>{
+    const selectedText=q.options[userAnswer];
+    isCorrect=selectedText===q.correct;
+    document.querySelectorAll(".option-btn").forEach((btn,idx)=>{
       btn.disabled=true;
       const v=btn.textContent.trim();
       if(v===q.correct)btn.classList.add("correct");
-      else if(v===gameState.selectedOption&&!isCorrect)btn.classList.add("wrong");
+      else if(idx===gameState.selectedOption&&!isCorrect)btn.classList.add("wrong");
     });
   } else {
     const inp=document.getElementById("answerInput");
@@ -1686,20 +1688,11 @@ document.addEventListener("DOMContentLoaded", () => {
     // Cas 2 : aucun joueur dans l'URL → on prend le premier de la liste
     switchPlayer(names[0]);
 
-  } else {
-    // Cas 3 : aucun joueur existant → création automatique de "Joueur 1"
-    const defaultName = "Joueur 1";
-    players[defaultName] = {
-      name: defaultName, currentLevel: 1, score: 0,
-      completed: [], totalQuestions: 0, totalCorrect: 0,
-      streak: 0, lastPlayed: new Date().toISOString(),
-      errorHistory: [], sessionHistory: [], activeSession: null
-    };
-    savePlayers(players);
-    switchPlayer(defaultName);
-    showToast("Bienvenue ! Joueur créé automatiquement.");
+    } else {
+    // Cas 3 : aucun joueur → inviter explicitement à créer un profil
+    showToast("Bienvenue ! Crée ton profil joueur pour commencer 👤");
+    setTimeout(() => showNewPlayerModal(), 800);
   }
-
   // ── Démarrage automatique d'un niveau si demandé par l'URL ────────
   if (lvlParam) {
     const lvl = parseInt(lvlParam);
