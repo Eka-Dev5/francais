@@ -491,6 +491,8 @@ function renderNiveaux(){
   const completed=p.completed||[];
   const current=p.currentLevel||1;
   const activeSession=p.activeSession;
+  let h="";
+  for(let i=1;i<=10;i++){
     const done=completed.includes(i);
     const isCur=i===current&&!done;
     const locked=i>current&&!done;
@@ -505,7 +507,6 @@ function renderNiveaux(){
   }
   c.innerHTML=h;
 }
-  // Retour quiz vers Dashboard avec joueur conservé 
 
 function launchLevel(lvl) {
   // Passe le joueur actif dans l'URL pour que le quiz le charge directement
