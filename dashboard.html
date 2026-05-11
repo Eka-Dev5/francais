@@ -78,7 +78,7 @@ h1{text-align:center;color:var(--primary);font-size:2.1em;margin-bottom:4px}
 </head>
 <body>
 <div class="container">
-<h1>📊 Mon Espace Français Master</h1>
+<h1>📊 Mon Espace Français Master 🥖</h1>
 <div class="subtitle">Tous tes progrès, badges et révisions en un coup d'œil</div>
 
 <div class="player-header no-print">
@@ -90,7 +90,7 @@ h1{text-align:center;color:var(--primary);font-size:2.1em;margin-bottom:4px}
 </div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px" class="no-print">
   <button class="btn" onclick="exportSave()" style="flex:1;background:#f0fff4;color:#276749;font-size:.85em">⬇️ Exporter ma sauvegarde</button>
-  <label class="btn" style="flex:1;background:#f0f4ff;color:#27ae60;font-size:.85em;cursor:pointer;text-align:center">
+  <label class="btn" style="flex:1;background:#f0f4ff;color:#667eea;font-size:.85em;cursor:pointer;text-align:center">
     ⬆️ Importer une sauvegarde
     <input type="file" accept=".json" onchange="importSave(event)" style="display:none">
   </label>
@@ -160,88 +160,58 @@ h1{text-align:center;color:var(--primary);font-size:2.1em;margin-bottom:4px}
 
 
 <script>
-
 const STORAGE_KEY = "francaisMaster_v1";
 const PLAYERS_KEY = "francaisMaster_players";
 
 const LEVEL_NAMES = {
-  1:"Salutations 🙋",
-  2:"Au marché 🛒",
-  3:"Au jardin 🌿",
-  4:"Les voisins 🏘️",
-  5:"Goûts & envies ❤️",
-  6:"Le commerçant 🏬",
-  7:"Amis & sorties 👫",
-  8:"Le temps & météo 🌤️",
-  9:"Verbes essentiels ⚡",
-  10:"Politesse & expressions 🎩"
+  1:"Salutations 🙋",2:"Au marché 🛒",3:"Au jardin 🌿",4:"Les voisins 🏘️",5:"Goûts & envies ❤️",
+  6:"Le commerçant 🏬",7:"Amis & sorties 👫",8:"Météo 🌤️",9:"Verbes ⚡",10:"Politesse 🎩"
 };
 
-
 const BADGES_DEF = [
-  {id:1, icon:"🙋", name:"Premier contact", desc:"Terminer le niveau 1", check:p=>p.completed&&p.completed.includes(1)},
-  {id:2, icon:"🛒", name:"Client régulier", desc:"Terminer le niveau 2", check:p=>p.completed&&p.completed.includes(2)},
-  {id:3, icon:"🌿", name:"Jardinier", desc:"Terminer le niveau 3", check:p=>p.completed&&p.completed.includes(3)},
-  {id:4, icon:"🏘️", name:"Voisin idéal", desc:"Terminer le niveau 4", check:p=>p.completed&&p.completed.includes(4)},
-  {id:5, icon:"❤️", name:"Connaisseur", desc:"Terminer le niveau 5", check:p=>p.completed&&p.completed.includes(5)},
-  {id:6, icon:"🏬", name:"Commerçant", desc:"Terminer le niveau 6", check:p=>p.completed&&p.completed.includes(6)},
-  {id:7, icon:"👫", name:"Sociable", desc:"Terminer le niveau 7", check:p=>p.completed&&p.completed.includes(7)},
-  {id:8, icon:"🌤️", name:"Météo", desc:"Terminer le niveau 8", check:p=>p.completed&&p.completed.includes(8)},
-  {id:9, icon:"⚡", name:"Conjugueur", desc:"Terminer le niveau 9", check:p=>p.completed&&p.completed.includes(9)},
-  {id:10, icon:"🎩", name:"Français Master", desc:"Terminer le niveau 10", check:p=>p.completed&&p.completed.includes(10)},
-  {id:11, icon:"🎯", name:"Sniper", desc:"Avoir 100% à un niveau", check:p=>false},
-  {id:12, icon:"🔥", name:"En feu !", desc:"Série de 10 bonnes réponses", check:p=>(p.streak||0)>=10},
-  {id:13, icon:"⚡", name:"Éclair", desc:"Série de 20 bonnes réponses", check:p=>(p.streak||0)>=20},
-  {id:14, icon:"💎", name:"Diamant", desc:"Dépasser 500 points", check:p=>(p.score||0)>=500},
-  {id:15, icon:"🌟", name:"Étoile", desc:"Dépasser 1000 points", check:p=>(p.score||0)>=1000},
-  {id:16, icon:"🌈", name:"Arc-en-ciel", desc:"Dépasser 2000 points", check:p=>(p.score||0)>=2000},
-  {id:17, icon:"📝", name:"Scripteur", desc:"Répondre à 50 questions", check:p=>(p.totalQuestions||0)>=50},
-  {id:18, icon:"📚", name:"Bosseur", desc:"Répondre à 100 questions", check:p=>(p.totalQuestions||0)>=100},
-  {id:19, icon:"🧠", name:"Génie", desc:"Répondre à 200 questions", check:p=>(p.totalQuestions||0)>=200},
-  {id:20, icon:"✅", name:"Précis", desc:"80% de bonnes réponses sur 20 questions", check:p=>p.totalQuestions>=20&&((p.totalCorrect||0)/p.totalQuestions)>=0.8},
-  {id:21, icon:"🦅", name:"Aigle", desc:"90% de bonnes réponses sur 50 questions", check:p=>p.totalQuestions>=50&&((p.totalCorrect||0)/p.totalQuestions)>=0.9},
-  {id:22, icon:"🏅", name:"Médaillé", desc:"5 niveaux terminés", check:p=>(p.completed||[]).length>=5},
-  {id:23, icon:"🎓", name:"Diplômé", desc:"8 niveaux terminés", check:p=>(p.completed||[]).length>=8},
-  {id:24, icon:"🦁", name:"Courageux", desc:"Rejouer après une erreur", check:p=>(p.totalQuestions||0)>=2},
-  {id:25, icon:"🔁", name:"Persévérant", desc:"Revenir sur ses erreurs", check:p=>(p.errorHistory||[]).length>0},
-  {id:26, icon:"🎭", name:"Ami de Lucas", desc:"Aider Lucas 1 fois", check:p=>(p.cameleonHelped||0)>=1},
-  {id:27, icon:"👨‍🏫", name:"Professeur", desc:"Aider Lucas 5 fois", check:p=>(p.cameleonHelped||0)>=5},
-  {id:28, icon:"🧑‍🎓", name:"Maître", desc:"Aider Lucas 10 fois", check:p=>(p.cameleonHelped||0)>=10},
-  {id:29, icon:"🌍", name:"Citoyen du monde", desc:"Tous les niveaux terminés", check:p=>(p.completed||[]).length>=10},
-  {id:30, icon:"🏆", name:"Légendaire", desc:"2000+ pts + tous niveaux terminés", check:p=>(p.score||0)>=2000&&(p.completed||[]).length>=10}
+  {id:1,icon:"🚀",name:"Premier Pas",desc:"Terminer le niveau 1",check:p=>p.completed&&p.completed.includes(1)},
+  {id:2,icon:"📅",name:"Routinier",desc:"Terminer le niveau 2",check:p=>p.completed&&p.completed.includes(2)},
+  {id:3,icon:"👁️",name:"Observateur",desc:"Terminer le niveau 3",check:p=>p.completed&&p.completed.includes(3)},
+  {id:4,icon:"❓",name:"Questionneur",desc:"Terminer le niveau 4",check:p=>p.completed&&p.completed.includes(4)},
+  {id:5,icon:"⏪",name:"Archiviste",desc:"Terminer le niveau 5",check:p=>p.completed&&p.completed.includes(5)},
+  {id:6,icon:"⚔️",name:"Aventurier",desc:"Terminer le niveau 6",check:p=>p.completed&&p.completed.includes(6)},
+  {id:7,icon:"🔮",name:"Voyant",desc:"Terminer le niveau 7",check:p=>p.completed&&p.completed.includes(7)},
+  {id:8,icon:"🏆",name:"Champion",desc:"Terminer le niveau 8",check:p=>p.completed&&p.completed.includes(8)},
+  {id:9,icon:"🪄",name:"Magicien",desc:"Terminer le niveau 9",check:p=>p.completed&&p.completed.includes(9)},
+  {id:10,icon:"👑",name:"Français Master",desc:"Terminer le niveau 10",check:p=>p.completed&&p.completed.includes(10)},
+  {id:11,icon:"🎯",name:"Sniper",desc:"Avoir 100% à un niveau",check:p=>false},
+  {id:12,icon:"🔥",name:"En feu !",desc:"Série de 10 bonnes réponses",check:p=>(p.streak||0)>=10},
+  {id:13,icon:"⚡",name:"Éclair",desc:"Série de 20 bonnes réponses",check:p=>(p.streak||0)>=20},
+  {id:14,icon:"💎",name:"Diamant",desc:"Dépasser 500 points",check:p=>(p.score||0)>=500},
+  {id:15,icon:"🌟",name:"Étoile",desc:"Dépasser 1000 points",check:p=>(p.score||0)>=1000},
+  {id:16,icon:"🌈",name:"Arc-en-ciel",desc:"Dépasser 2000 points",check:p=>(p.score||0)>=2000},
+  {id:17,icon:"📝",name:"Scripteur",desc:"Répondre à 50 questions",check:p=>(p.totalQuestions||0)>=50},
+  {id:18,icon:"📚",name:"Bosseur",desc:"Répondre à 100 questions",check:p=>(p.totalQuestions||0)>=100},
+  {id:19,icon:"🧠",name:"Génie",desc:"Répondre à 200 questions",check:p=>(p.totalQuestions||0)>=200},
+  {id:20,icon:"✅",name:"Précis",desc:"80% de bonnes réponses sur 20 questions",check:p=>p.totalQuestions>=20&&((p.totalCorrect||0)/p.totalQuestions)>=0.8},
+  {id:21,icon:"🦅",name:"Aigle",desc:"90% de bonnes réponses sur 50 questions",check:p=>p.totalQuestions>=50&&((p.totalCorrect||0)/p.totalQuestions)>=0.9},
+  {id:22,icon:"🏅",name:"Médaillé",desc:"5 niveaux terminés",check:p=>(p.completed||[]).length>=5},
+  {id:23,icon:"🎓",name:"Diplômé",desc:"8 niveaux terminés",check:p=>(p.completed||[]).length>=8},
+  {id:24,icon:"🦁",name:"Courageux",desc:"Rejouer après une erreur",check:p=>(p.totalQuestions||0)>=2},
+  {id:25,icon:"🔁",name:"Persévérant",desc:"Revenir sur ses erreurs",check:p=>(p.errorHistory||[]).length>0},
+  {id:26,icon:"🎭",name:"Ami de Lucas",desc:"Aider Lucas 1 fois",check:p=>(p.cameleonHelped||0)>=1},
+  {id:27,icon:"👨‍🏫",name:"Professeur",desc:"Aider Lucas 5 fois",check:p=>(p.cameleonHelped||0)>=5},
+  {id:28,icon:"🧑‍🎓",name:"Maître",desc:"Aider Lucas 10 fois",check:p=>(p.cameleonHelped||0)>=10},
+  {id:29,icon:"🌍",name:"Citoyen du monde",desc:"Tous les niveaux terminés",check:p=>(p.completed||[]).length>=10},
+  {id:30,icon:"🏆",name:"Légendaire",desc:"2000+ pts + tous niveaux terminés",check:p=>(p.score||0)>=2000&&(p.completed||[]).length>=10}
 ];
 
-
 const CAMELEON_EXERCISES = [
-  {error:"Je suis fini.", correct:"J'ai fini.", rule:"En français, on dit 'J'ai fini' (calque de 'I have finished'), pas 'Je suis fini' (calque de 'I am finished').",
-  options:["J'ai fini.","Je suis fini.","Je fais fini.","Je vais fini."]},
-  
-  {error:"Je suis 60 ans.", correct:"J'ai 60 ans.", rule:"L'âge = AVOIR en français. On dit 'J'ai 60 ans', jamais 'Je suis 60 ans'.",
-  options:["J'ai 60 ans.","Je suis 60 ans.","Je fais 60 ans.","Je vais 60 ans."]},
-  
-  {error:"Je suis faim.", correct:"J'ai faim.", rule:"La faim, la soif, le sommeil = AVOIR en français. 'J'ai faim', 'J'ai soif', 'J'ai sommeil'.",
-  options:["J'ai faim.","Je suis faim.","Je fais faim.","Je vais faim."]},
-  
-  {error:"C'est du soleil aujourd'hui.", correct:"Il fait du soleil aujourd'hui.", rule:"La météo = IL FAIT. On dit 'Il fait du soleil', jamais 'C'est du soleil'.",
-  options:["Il fait du soleil aujourd'hui.","C'est du soleil aujourd'hui.","Il est du soleil.","Ça fait du soleil."]},
-  
-  {error:"J'ai envie de to manger.", correct:"J'ai envie de manger.", rule:"Après 'envie de', le verbe est à l'infinitif SANS 'to'. Pas de 'to' en français !",
-  options:["J'ai envie de manger.","J'ai envie de to manger.","J'ai envie à manger.","J'ai envie pour manger."]},
-  
-  {error:"Je connais que c'est vrai.", correct:"Je sais que c'est vrai.", rule:"SAVOIR = un fait, une information. CONNAÎTRE = une personne, un lieu, une chose.",
-  options:["Je sais que c'est vrai.","Je connais que c'est vrai.","Je sais ça vrai.","Je connais c'est vrai."]},
-  
-  {error:"Je regarde à la télé.", correct:"Je regarde la télé.", rule:"En français, on regarde LA télé (direct), pas 'à la télé'.",
-  options:["Je regarde la télé.","Je regarde à la télé.","Je regarde sur la télé.","Je regarde dans la télé."]},
-  
-  {error:"Je vais à la maison de mon ami.", correct:"Je vais chez mon ami.", rule:"CHEZ = chez quelqu'un (personne). On ne dit pas 'à la maison de' pour une personne.",
-  options:["Je vais chez mon ami.","Je vais à la maison de mon ami.","Je vais dans mon ami.","Je vais sur mon ami."]},
-  
-  {error:"Je suis excité de vous rencontrer.", correct:"Je suis ravi de vous rencontrer.", rule:"'Excité' en français a un sens sexuel. Pour 'excited', dites 'ravi', 'enthousiaste' ou 'J'ai hâte'.",
-  options:["Je suis ravi de vous rencontrer.","Je suis excité de vous rencontrer.","Je suis excitée de vous rencontrer.","Je suis chaud de vous rencontrer."]},
-  
-  {error:"S'il vous plait, je voudrais un café.", correct:"S'il vous plaît, je voudrais un café.", rule:"PLAÎT = verbe plaire, avec un accent circonflexe sur le 'i'. 'Plait' sans accent n'existe pas.",
-  options:["S'il vous plaît, je voudrais un café.","S'il vous plait, je voudrais un café.","S'il vous plait, je veux un café.","S'il te plaît, je voudrais un café."]}
+  {error:"Je suis fini.",correct:"J'ai fini.",rule:"On dit J'ai fini (calque de I have finished), pas Je suis fini.",options:["J'ai fini.","Je suis fini.","Je fais fini.","Je vais fini."]},
+  {error:"Je suis 60 ans.",correct:"J'ai 60 ans.",rule:"L'age = AVOIR en francais. J'ai 60 ans, jamais Je suis 60 ans.",options:["J'ai 60 ans.","Je suis 60 ans.","Je fais 60 ans.","Je vais 60 ans."]},
+  {error:"Je suis faim.",correct:"J'ai faim.",rule:"La faim, la soif = AVOIR. J'ai faim, J'ai soif, J'ai sommeil.",options:["J'ai faim.","Je suis faim.","Je fais faim.","Je vais faim."]},
+  {error:"C'est du soleil aujourd'hui.",correct:"Il fait du soleil aujourd'hui.",rule:"La meteo = IL FAIT. Il fait du soleil, jamais C'est du soleil.",options:["Il fait du soleil aujourd'hui.","C'est du soleil aujourd'hui.","Il est du soleil.","Ca fait du soleil."]},
+  {error:"J'ai envie de to manger.",correct:"J'ai envie de manger.",rule:"Apres envie de, le verbe est a l'infinitif SANS to. Pas de to en francais !",options:["J'ai envie de manger.","J'ai envie de to manger.","J'ai envie a manger.","J'ai envie pour manger."]},
+  {error:"Je connais que c'est vrai.",correct:"Je sais que c'est vrai.",rule:"SAVOIR = un fait. CONNAITRE = une personne ou un lieu.",options:["Je sais que c'est vrai.","Je connais que c'est vrai.","Je sais ca vrai.","Je connais c'est vrai."]},
+  {error:"Je regarde a la tele.",correct:"Je regarde la tele.",rule:"On regarde LA tele (direct), pas a la tele.",options:["Je regarde la tele.","Je regarde a la tele.","Je regarde sur la tele.","Je regarde dans la tele."]},
+  {error:"Je vais a la maison de mon ami.",correct:"Je vais chez mon ami.",rule:"CHEZ = chez quelqu'un. On ne dit pas a la maison de pour une personne.",options:["Je vais chez mon ami.","Je vais a la maison de mon ami.","Je vais dans mon ami.","Je vais sur mon ami."]},
+  {error:"Je suis excite de vous rencontrer.",correct:"Je suis ravi de vous rencontrer.",rule:"Excite en francais a un sens sexuel. Pour excited, dites ravi ou enthousiaste.",options:["Je suis ravi de vous rencontrer.","Je suis excite de vous rencontrer.","Je suis chaud de vous rencontrer.","Je suis brule de vous rencontrer."]},
+  {error:"S'il vous plait, je voudrais un cafe.",correct:"S'il vous plait, je voudrais un cafe.",rule:"Plait = verbe plaire avec accent circonflexe sur le i. Les deux formes sont acceptees.",options:["S'il vous plait, je voudrais un cafe.","S'il vous plait, je veux un cafe.","S'il te plait, je voudrais un cafe.","Je voudrais un cafe."]}
 ];
 
 let currentPlayerData = null;
@@ -491,6 +461,7 @@ function renderNiveaux(){
   const completed=p.completed||[];
   const current=p.currentLevel||1;
   const activeSession=p.activeSession;
+  const LEVEL_NAMES={1:"Décollage 🚀",2:"Routine 📅",3:"En ce moment 👁️",4:"Questions ❓",5:"Retour ⏪",6:"Aventurier ⚔️",7:"Voyant 🔮",8:"Expériences 🏆",9:"Pouvoirs 🪄",10:"Maîtrise 👑"};
   let h="";
   for(let i=1;i<=10;i++){
     const done=completed.includes(i);
@@ -507,6 +478,7 @@ function renderNiveaux(){
   }
   c.innerHTML=h;
 }
+  // Retour quiz vers Dashboard avec joueur conservé 
 
 function launchLevel(lvl) {
   // Passe le joueur actif dans l'URL pour que le quiz le charge directement
