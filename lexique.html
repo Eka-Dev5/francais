@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Francais Master — Lexique</title>
+<title>English Master — Lexique</title>
 <style>
 :root{--primary:#667eea;--secondary:#764ba2;--success:#48bb78;--bg:#f7fafc;--text:#2d3748}
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
@@ -25,7 +25,6 @@ h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
 .word-en{font-size:1.2em;font-weight:bold;color:var(--primary);margin-bottom:4px}
 .word-fr{font-size:.95em;color:var(--text);margin-bottom:7px}
 .word-cat{font-size:.72em;color:#718096;background:#e2e8f0;padding:2px 9px;border-radius:9px;display:inline-block}
-.word-phon{font-size:.85em;color:var(--secondary);font-weight:600;margin-top:4px;font-style:italic}
 .word-lv{position:absolute;top:9px;right:9px;font-size:.68em;color:white;background:var(--secondary);padding:2px 7px;border-radius:7px}
 .empty-msg{text-align:center;color:#999;padding:40px;grid-column:1/-1}
 /* Modal */
@@ -44,14 +43,14 @@ h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
 </head>
 <body>
 <div class="container">
-<h1>📖 Lexique Français Master</h1>
-<p class="subtitle">150 mots essentiels — Niveaux 1 à 10</p>
+<h1>📖 Lexique English Master</h1>
+<p class="subtitle">125 mots essentiels — Niveaux 1 à 10</p>
 <div class="nav-links">
 <a href="quiz.html">🎮 Retour au Quiz</a>
 <a href="dashboard.html">📊 Mon Espace</a>
 
 </div>
-<div class="stat-bar" id="statBar">150 mots disponibles</div>
+<div class="stat-bar" id="statBar">125 mots disponibles</div>
 <input type="text" class="search-box" id="searchBox" placeholder="🔍 Chercher un mot en français ou en anglais…" oninput="filterWords()">
 <div class="level-tabs">
   <button class="level-tab active" onclick="filterByLevel(0,this)">Tous</button>
@@ -82,250 +81,121 @@ h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
 // ═══════ BASE DE DONNÉES DU LEXIQUE ═══════
 // Pour mettre à jour : ajouter des objets ici avec le même format
 // {en:"mot",fr:"traduction",def:"définition",ex:"exemple",level:N,cat:"catégorie"}
-// ═══════ BASE DE DONNÉES DU LEXIQUE ═══════
-// Français Master — 150 mots avec phonétique intuitive pour anglophones 45+
-// {fr:"mot", en:"traduction", phon:"phonétique", def:"définition", ex:"exemple", level:N, cat:"catégorie"}
-
 const LEXIQUE = [
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 1 — Salutations & Présentations
-  // ═══════════════════════════════════════════════════════
-  {fr:"bonjour", en:"good morning / hello", phon:"*bon-ZHOOR*", def:"Formule de salutation utilisée le matin et la journée.", ex:"Bonjour, Madame Dupont.", level:1, cat:"salutation"},
-  {fr:"bonsoir", en:"good evening", phon:"*bon-SWAHR*", def:"Salutation utilisée l'après-midi et le soir.", ex:"Bonsoir, comment allez-vous ?", level:1, cat:"salutation"},
-  {fr:"au revoir", en:"goodbye", phon:"*oh ruh-VWAHR*", def:"Formule de départ standard.", ex:"Au revoir et à bientôt !", level:1, cat:"salutation"},
-  {fr:"salut", en:"hi / bye (informel)", phon:"*sa-LUE*", def:"Salutation informelle entre amis.", ex:"Salut, ça va ?", level:1, cat:"salutation"},
-  {fr:"bonne nuit", en:"good night", phon:"*bon NUEE*", def:"Souhait avant de dormir.", ex:"Bonne nuit, dormez bien.", level:1, cat:"salutation"},
-  {fr:"enchanté", en:"nice to meet you (homme)", phon:"*on-shon-TAY*", def:"Dit par un homme lors d'une présentation.", ex:"Je m'appelle Pierre, enchanté.", level:1, cat:"présentation"},
-  {fr:"enchantée", en:"nice to meet you (femme)", phon:"*on-shon-TAY*", def:"Dite par une femme lors d'une présentation.", ex:"Je m'appelle Marie, enchantée.", level:1, cat:"présentation"},
-  {fr:"je m'appelle", en:"my name is", phon:"*zhuh ma-PEL*", def:"Se présenter en donnant son nom.", ex:"Je m'appelle John Smith.", level:1, cat:"présentation"},
-  {fr:"je viens de", en:"I come from", phon:"*zhuh VYAN duh*", def:"Indiquer son pays ou ville d'origine.", ex:"Je viens d'Irlande.", level:1, cat:"présentation"},
-  {fr:"j'habite à", en:"I live in", phon:"*zha-BEET ah*", def:"Indiquer où l'on réside.", ex:"J'habite à Craon, dans la Vienne.", level:1, cat:"présentation"},
-  {fr:"je suis", en:"I am", phon:"*zhuh SWEE*", def:"S'identifier ou décrire son état.", ex:"Je suis retraité.", level:1, cat:"présentation"},
-  {fr:"retraité", en:"retired (homme)", phon:"*ruh-treh-TAY*", def:"Personne qui a cessé de travailler.", ex:"Mon mari est retraité.", level:1, cat:"présentation"},
-  {fr:"retraitée", en:"retired (femme)", phon:"*ruh-treh-TAY*", def:"Femme qui a cessé de travailler.", ex:"Ma femme est retraitée.", level:1, cat:"présentation"},
-  {fr:"s'il vous plaît", en:"please (formel)", phon:"*seel voo PLEH*", def:"Formule de politesse pour demander quelque chose.", ex:"Un café, s'il vous plaît.", level:1, cat:"politesse"},
-  {fr:"merci beaucoup", en:"thank you very much", phon:"*mair-SEE bo-KOO*", def:"Remerciement chaleureux.", ex:"Merci beaucoup pour votre aide.", level:1, cat:"politesse"},
-  {fr:"je vous en prie", en:"you're welcome (formel)", phon:"*zhuh voo zon PREE*", def:"Réponse à un remerciement, forme polie.", ex:"Je vous en prie, avec plaisir.", level:1, cat:"politesse"},
-  {fr:"excusez-moi", en:"excuse me (formel)", phon:"*ek-skew-zay-MWAH*", def:"S'excuser ou attirer l'attention poliment.", ex:"Excusez-moi, l'heure s'il vous plaît ?", level:1, cat:"politesse"},
-  {fr:"pardon", en:"pardon / sorry", phon:"*par-DON*", def:"Excuse légère, dans la rue ou pour passer.", ex:"Pardon, je peux passer ?", level:1, cat:"politesse"},
-  {fr:"comment allez-vous", en:"how are you (formel)", phon:"*ko-MON ta-lay-VOO*", def:"Demander des nouvelles, forme polie.", ex:"Comment allez-vous aujourd'hui ?", level:1, cat:"salutation"},
-  {fr:"aujourd'hui", en:"today", phon:"*oh-zhoord-DWEE*", def:"Le jour présent.", ex:"Aujourd'hui, il fait beau.", level:1, cat:"temps"},
-  {fr:"demain", en:"tomorrow", phon:"*duh-MAN*", def:"Le jour suivant.", ex:"À demain, Madame.", level:1, cat:"temps"},
-  {fr:"à bientôt", en:"see you soon", phon:"*a byan-TOH*", def:"Prendre connaissance pour un prochain rendez-vous.", ex:"Au revoir, à bientôt !", level:1, cat:"salutation"},
-  {fr:"tutoyer", en:"to use 'tu'", phon:"*tue-twa-YAY*", def:"Utiliser 'tu' avec quelqu'un.", ex:"On peut se tutoyer ?", level:1, cat:"grammaire"},
-  {fr:"vouvoyer", en:"to use 'vous'", phon:"*voo-vwa-YAY*", def:"Utiliser 'vous' avec quelqu'un.", ex:"Je vouvoie mes voisins.", level:1, cat:"grammaire"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 2 — Au marché & Les courses
-  // ═══════════════════════════════════════════════════════
-  {fr:"un kilo", en:"a kilo", phon:"*uh KEE-lo*", def:"Mille grammes, unité de poids.", ex:"Un kilo de pommes.", level:2, cat:"quantité"},
-  {fr:"une livre", en:"500 grams", phon:"*oon LEEVR*", def:"Ancienne mesure valant 500g en France.", ex:"Une livre de cerises.", level:2, cat:"quantité"},
-  {fr:"une douzaine", en:"a dozen", phon:"*oon doo-ZEN*", def:"Douze unités.", ex:"Une douzaine d'œufs.", level:2, cat:"quantité"},
-  {fr:"une tranche", en:"a slice", phon:"*oon TRONSH*", def:"Partie coupée fine.", ex:"Une tranche de jambon.", level:2, cat:"quantité"},
-  {fr:"je voudrais", en:"I would like", phon:"*zhuh voo-DRAY*", def:"Formule polie pour exprimer un souhait.", ex:"Je voudrais un kilo de tomates.", level:2, cat:"expression"},
-  {fr:"ça fait combien", en:"how much is it", phon:"*sa FAY kom-BYAN*", def:"Demander le prix total.", ex:"Ça fait combien en tout ?", level:2, cat:"expression"},
-  {fr:"c'est tout", en:"that's all", phon:"*say TOO*", def:"Indiquer qu'on a fini ses achats.", ex:"C'est tout, merci Madame.", level:2, cat:"expression"},
-  {fr:"c'est trop cher", en:"it's too expensive", phon:"*say troh SHAIR*", def:"Trouver un prix excessif.", ex:"C'est trop cher pour moi.", level:2, cat:"expression"},
-  {fr:"tomate", en:"tomato", phon:"*to-MAT*", def:"Légume rouge rond, fruit comestible.", ex:"Des tomates bien mûres.", level:2, cat:"aliment"},
-  {fr:"courgette", en:"zucchini / courgette", phon:"*koor-ZHET*", def:"Légume vert allongé.", ex:"Des courgettes du jardin.", level:2, cat:"aliment"},
-  {fr:"fromage", en:"cheese", phon:"*fro-MAHZH*", def:"Produit laitier fermenté.", ex:"Du fromage de chèvre.", level:2, cat:"aliment"},
-  {fr:"chèvre", en:"goat", phon:"*SHEH-vruh*", def:"Animal ou fromage au lait de chèvre.", ex:"Le fromage de chèvre est fort.", level:2, cat:"aliment"},
-  {fr:"crème fraîche", en:"fresh cream", phon:"*KREM FRESH*", def:"Crème épaisse non sucrée.", ex:"De la crème fraîche pour la sauce.", level:2, cat:"aliment"},
-  {fr:"melon", en:"melon", phon:"*muh-LON*", def:"Fruit rond et juteux d'été.", ex:"Un melon bien sucré.", level:2, cat:"aliment"},
-  {fr:"cerise", en:"cherry", phon:"*suh-REEZ*", def:"Petit fruit rouge ou noir.", ex:"Des cerises du marché.", level:2, cat:"aliment"},
-  {fr:"baguette", en:"baguette (bread)", phon:"*ba-GET*", def:"Pain long et croustillant, emblème français.", ex:"Une baguette tradition.", level:2, cat:"aliment"},
-  {fr:"croissant", en:"croissant", phon:"*kroa-SAN*", def:"Viennoiserie en forme de croissant.", ex:"Deux croissants au beurre.", level:2, cat:"aliment"},
-  {fr:"jambon", en:"ham", phon:"*zham-BON*", def:"Viande de porc salée et séchée.", ex:"Une tranche de jambon blanc.", level:2, cat:"aliment"},
-  {fr:"œuf", en:"egg", phon:"*ZUH*", def:"Aliment produit par les volailles.", ex:"Une douzaine d'œufs frais.", level:2, cat:"aliment"},
-  {fr:"monnaie", en:"change / coins", phon:"*mon-NAY*", def:"Pièces de monnaie, petite somme.", ex:"Avez-vous de la monnaie ?", level:2, cat:"commerce"},
-  {fr:"boulangerie", en:"bakery", phon:"*boo-lan-zhuh-REE*", def:"Commerce où l'on vend du pain.", ex:"La boulangerie du coin.", level:2, cat:"commerce"},
-  {fr:"épicier", en:"grocer", phon:"*ay-pee-SYAY*", def:"Commerçant vendant des denrées alimentaires.", ex:"L'épicier est très sympa.", level:2, cat:"commerce"},
-  {fr:"sans gluten", en:"gluten-free", phon:"*SON gloo-TEN*", def:"Ne contenant pas de gluten.", ex:"Du pain sans gluten.", level:2, cat:"aliment"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 3 — Au jardin & La nature
-  // ═══════════════════════════════════════════════════════
-  {fr:"fleur", en:"flower", phon:"*FLUHR*", def:"Partie colorée et parfumée d'une plante.", ex:"Une belle fleur rouge.", level:3, cat:"nature"},
-  {fr:"arbre", en:"tree", phon:"*NAR-bruh*", def:"Plante ligneuse de grande taille.", ex:"Un vieil arbre dans le jardin.", level:3, cat:"nature"},
-  {fr:"herbe", en:"grass", phon:"*LAR-buh*", def:"Plantes basses qui couvrent le sol.", ex:"L'herbe est bien verte.", level:3, cat:"nature"},
-  {fr:"feuille", en:"leaf", phon:"*FUH-yuh*", def:"Organe vert des plantes.", ex:"Les feuilles tombent en automne.", level:3, cat:"nature"},
-  {fr:"branche", en:"branch", phon:"*BRONSH*", def:"Partie de l'arbre qui porte les feuilles.", ex:"Une branche cassée par le vent.", level:3, cat:"nature"},
-  {fr:"racine", en:"root", phon:"*ra-SEEN*", def:"Partie de la plante sous terre.", ex:"Les racines de l'arbre.", level:3, cat:"nature"},
-  {fr:"haie", en:"hedge", phon:"*AY*", def:"Rangée de buissons taillés.", ex:"Une haie de thuyas.", level:3, cat:"nature"},
-  {fr:"potager", en:"vegetable garden", phon:"*po-ta-ZHAY*", def:"Jardin où l'on cultive des légumes.", ex:"Mon potager derrière la maison.", level:3, cat:"nature"},
-  {fr:"serre", en:"greenhouse", phon:"*SAIR*", def:"Construction vitrée pour cultiver des plantes.", ex:"Des tomates dans la serre.", level:3, cat:"nature"},
-  {fr:"arrosoir", en:"watering can", phon:"*na-roz-WAHR*", def:"Récipient pour arroser les plantes.", ex:"Remplir l'arrosoir.", level:3, cat:"outil"},
-  {fr:"brouette", en:"wheelbarrow", phon:"*broo-ET*", def:"Chariot à une roue pour transporter.", ex:"Pousser la brouette.", level:3, cat:"outil"},
-  {fr:"planter", en:"to plant", phon:"*plan-TAY*", def:"Mettre une plante en terre.", ex:"Je plante des tomates.", level:3, cat:"verbe"},
-  {fr:"arroser", en:"to water", phon:"*a-roh-ZAY*", def:"Donner de l'eau aux plantes.", ex:"Il faut arroser le soir.", level:3, cat:"verbe"},
-  {fr:"tailler", en:"to prune / trim", phon:"*TIE-yay*", def:"Couper pour former ou nettoyer.", ex:"Tailler la haie.", level:3, cat:"verbe"},
-  {fr:"récolter", en:"to harvest", phon:"*ray-kol-TAY*", def:"Cueillir les fruits de son travail.", ex:"Récolter les légumes.", level:3, cat:"verbe"},
-  {fr:"désherber", en:"to weed", phon:"*day-zair-BAY*", def:"Enlever les mauvaises herbes.", ex:"Désherber le potager.", level:3, cat:"verbe"},
-  {fr:"faucher", en:"to mow", phon:"*foh-SHAY*", def:"Couper l'herbe ou les céréales.", ex:"Faucher la pelouse.", level:3, cat:"verbe"},
-  {fr:"saison", en:"season", phon:"*say-ZON*", def:"Période de l'année.", ex:"Quelle saison préférez-vous ?", level:3, cat:"temps"},
-  {fr:"printemps", en:"spring", phon:"*PRAN-ton*", def:"Saison du renouveau, mars à mai.", ex:"Au printemps, les fleurs éclosent.", level:3, cat:"temps"},
-  {fr:"été", en:"summer", phon:"*ay-TAY*", def:"Saison chaude, juin à août.", ex:"En été, le jardin est beau.", level:3, cat:"temps"},
-  {fr:"automne", en:"autumn / fall", phon:"*no-TON*", def:"Saison des feuilles mortes, septembre à novembre.", ex:"En automne, les feuilles tombent.", level:3, cat:"temps"},
-  {fr:"hiver", en:"winter", phon:"*ee-VAIR*", def:"Saison froide, décembre à février.", ex:"En hiver, le jardin dort.", level:3, cat:"temps"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 4 — Les voisins & La vie de quartier
-  // ═══════════════════════════════════════════════════════
-  {fr:"voisin", en:"neighbor (male)", phon:"*vwa-ZAN*", def:"Personne qui habite à proximité.", ex:"Mon voisin est très gentil.", level:4, cat:"social"},
-  {fr:"voisine", en:"neighbor (female)", phon:"*vwa-ZEEN*", def:"Femme qui habite à proximité.", ex:"Ma voisine m'aide souvent.", level:4, cat:"social"},
-  {fr:"porte d'à côté", en:"next door", phon:"*PORT da-ko-TAY*", def:"La maison voisine immédiate.", ex:"Les Dupont habitent à la porte d'à côté.", level:4, cat:"lieu"},
-  {fr:"quartier", en:"neighborhood", phon:"*kar-TYAY*", def:"Partie d'une ville, zone résidentielle.", ex:"Un quartier très calme.", level:4, cat:"lieu"},
-  {fr:"rue", en:"street", phon:"*ROO*", def:"Voie publique dans une ville.", ex:"La rue principale du village.", level:4, cat:"lieu"},
-  {fr:"impasse", en:"dead end / cul-de-sac", phon:"*om-PASS*", def:"Rue sans issue.", ex:"J'habite dans une impasse.", level:4, cat:"lieu"},
-  {fr:"place", en:"square / town square", phon:"*PLAS*", def:"Espace public ouvert.", ex:"La place de l'église.", level:4, cat:"lieu"},
-  {fr:"bruit", en:"noise", phon:"*BREE*", def:"Son désagréable ou fort.", ex:"Il y a trop de bruit.", level:4, cat:"sensation"},
-  {fr:"calme", en:"quiet / calm", phon:"*KALM*", def:"Absence de bruit, tranquillité.", ex:"Le calme du quartier.", level:4, cat:"sensation"},
-  {fr:"tranquillité", en:"tranquility", phon:"*tron-kee-lee-tee-TAY*", def:"État de paix et de silence.", ex:"J'apprécie la tranquillité ici.", level:4, cat:"sensation"},
-  {fr:"service", en:"favor / service", phon:"*SAIR-vees*", def:"Acte d'aide rendu à quelqu'un.", ex:"Je peux vous demander un service ?", level:4, cat:"social"},
-  {fr:"emprunter", en:"to borrow", phon:"*om-PRON-tay*", def:"Preter temporairement quelque chose.", ex:"Je peux vous empruter une échelle ?", level:4, cat:"verbe"},
-  {fr:"prêter", en:"to lend", phon:"*PRAY-tay*", def:"Donner temporairement quelque chose.", ex:"Je vous prête mon livre.", level:4, cat:"verbe"},
-  {fr:"remercier", en:"to thank", phon:"*ruh-mair-SEE*", def:"Exprimer sa gratitude.", ex:"Je vous remercie beaucoup.", level:4, cat:"verbe"},
-  {fr:"déranger", en:"to bother / disturb", phon:"*day-ron-ZHAY*", def:"Gêner quelqu'un dans son activité.", ex:"Je suis désolé de vous déranger.", level:4, cat:"verbe"},
-  {fr:"désolé", en:"sorry (male)", phon:"*day-zo-LAY*", def:"Exprimer des excuses.", ex:"Je suis désolé du dérangement.", level:4, cat:"politesse"},
-  {fr:"désolée", en:"sorry (female)", phon:"*day-zo-LAY*", def:"Exprimer des excuses (femme).", ex:"Je suis désolée, je ne savais pas.", level:4, cat:"politesse"},
-  {fr:"maire", en:"mayor", phon:"*MAIR*", def:"Chef de la municipalité.", ex:"Le maire du village.", level:4, cat:"administration"},
-  {fr:"mairie", en:"town hall", phon:"*may-REE*", def:"Bâtiment administratif de la commune.", ex:"Rendez-vous à la mairie.", level:4, cat:"administration"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 5 — Goûts & envies
-  // ═══════════════════════════════════════════════════════
-  {fr:"adorer", en:"to love / adore", phon:"*a-do-RAY*", def:"Aimer intensément.", ex:"J'adore le fromage français.", level:5, cat:"sentiment"},
-  {fr:"aimer", en:"to like / love", phon:"*a-MAY*", def:"Éprouver de l'affection.", ex:"J'aime beaucoup cette région.", level:5, cat:"sentiment"},
-  {fr:"détester", en:"to hate", phon:"*day-TEST*", def:"Ne pas aimer du tout.", ex:"Je déteste le bruit.", level:5, cat:"sentiment"},
-  {fr:"préférer", en:"to prefer", phon:"*pray-fay-RAY*", def:"Choisir par goût.", ex:"Je préfère le thé au café.", level:5, cat:"sentiment"},
-  {fr:"envie", en:"desire / craving", phon:"*on-VEE*", def:"Fort désir de quelque chose.", ex:"J'ai envie de dormir.", level:5, cat:"sentiment"},
-  {fr:"goût", en:"taste / liking", phon:"*GOO*", def:"Sensation ou préférence.", ex:"Ce n'est pas mon goût.", level:5, cat:"sentiment"},
-  {fr:"plaisir", en:"pleasure", phon:"*pleh-ZEER*", def:"Satisfaction agréable.", ex:"C'est un plaisir de vous aider.", level:5, cat:"sentiment"},
-  {fr:"rêver", en:"to dream", phon:"*ray-VAY*", def:"Avoir des rêves ou des aspirations.", ex:"Je rêve de visiter Paris.", level:5, cat:"sentiment"},
-  {fr:"tenter", en:"to tempt", phon:"*TON-tay*", def:"Attirer, donner envie.", ex:"Ça me tente beaucoup.", level:5, cat:"sentiment"},
-  {fr:"ça va", en:"it's okay / so-so", phon:"*sa VA*", def:"Indiquer un état moyen.", ex:"Ça va, merci.", level:5, cat:"expression"},
-  {fr:"camembert", en:"camembert (cheese)", phon:"*kam-om-BAIR*", def:"Fromage normand très populaire.", ex:"Un bon camembert au lait cru.", level:5, cat:"aliment"},
-  {fr:"vin", en:"wine", phon:"*VAN*", def:"Boisson alcoolisée issue du raisin.", ex:"Un verre de vin rouge.", level:5, cat:"aliment"},
-  {fr:"thé", en:"tea", phon:"*TAY*", def:"Boisson chaude aux feuilles de théier.", ex:"Je préfère le thé au café.", level:5, cat:"aliment"},
-  {fr:"café", en:"coffee", phon:"*ka-FAY*", def:"Boisson chaude aux grains de café.", ex:"Un café noir, s'il vous plaît.", level:5, cat:"aliment"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 6 — Chez le commerçant
-  // ═══════════════════════════════════════════════════════
-  {fr:"pâtisserie", en:"pastry shop", phon:"*pa-tee-suh-REE*", def:"Commerce de gâteaux et pâtisseries.", ex:"Une tarte à la pâtisserie.", level:6, cat:"commerce"},
-  {fr:"boucherie", en:"butcher shop", phon:"*boo-shuh-REE*", def:"Commerce de viande.", ex:"De la viande à la boucherie.", level:6, cat:"commerce"},
-  {fr:"charcuterie", en:"delicatessen / cured meats", phon:"*shar-koo-tuh-REE*", def:"Commerce de salaison et charcuterie.", ex:"Du saucisson à la charcuterie.", level:6, cat:"commerce"},
-  {fr:"pharmacie", en:"pharmacy", phon:"*far-ma-SEE*", def:"Commerce de médicaments.", ex:"À côté de la pharmacie.", level:6, cat:"commerce"},
-  {fr:"poste", en:"post office", phon:"*POST*", def:"Service postal et télécommunications.", ex:"Envoyer un colis à la poste.", level:6, cat:"commerce"},
-  {fr:"banque", en:"bank", phon:"*BONK*", def:"Établissement financier.", ex:"Retirer de l'argent à la banque.", level:6, cat:"commerce"},
-  {fr:"tabac-presse", en:"tobacconist-newsagent", phon:"*ta-BAK PRESS*", def:"Commerce typique français : cigarettes, timbres, journaux.", ex:"Acheter des timbres au tabac-presse.", level:6, cat:"commerce"},
-  {fr:"timbre", en:"stamp (postage)", phon:"*TAN-bruh*", def:"Vignette pour affranchir le courrier.", ex:"Un timbre pour l'étranger.", level:6, cat:"objet"},
-  {fr:"lait cru", en:"raw milk", phon:"*lay KROO*", def:"Lait non pasteurisé.", ex:"Du fromage au lait cru.", level:6, cat:"aliment"},
-  {fr:"éclair", en:"éclair (pastry)", phon:"*nay-KLAIR*", def:"Pâtisserie allongée fourrée.", ex:"Un éclair au chocolat.", level:6, cat:"aliment"},
-  {fr:"tarte", en:"tart", phon:"*TART*", def:"Pâtisserie avec garniture sur fond de pâte.", ex:"Une tarte aux pommes.", level:6, cat:"aliment"},
-  {fr:"saucisson", en:"dry sausage", phon:"*soh-see-SON*", def:"Saucisse sèche, spécialité française.", ex:"Du saucisson sec.", level:6, cat:"aliment"},
-  {fr:"comptoir", en:"counter", phon:"*kon-TWAHR*", def:"Surface où le commerçant sert les clients.", ex:"Attendre au comptoir.", level:6, cat:"commerce"},
-  {fr:"ticket de caisse", en:"receipt", phon:"*tee-KAY duh KESS*", def:"Preuve d'achat délivrée.", ex:"Votre ticket de caisse, Madame.", level:6, cat:"commerce"},
-  {fr:"commander", en:"to order", phon:"*ko-mon-DAY*", def:"Demander un article non en stock.", ex:"Je voudrais commander un gâteau.", level:6, cat:"verbe"},
-  {fr:"goûter", en:"to taste", phon:"*goo-TAY*", def:"Essayer un aliment.", ex:"Puis-je goûter ce fromage ?", level:6, cat:"verbe"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 7 — Les amis & Les sorties
-  // ═══════════════════════════════════════════════════════
-  {fr:"ami", en:"friend (male)", phon:"*a-MEE*", def:"Personne liée par l'affection.", ex:"Mon ami d'enfance.", level:7, cat:"social"},
-  {fr:"amie", en:"friend (female)", phon:"*a-MEE*", def:"Personne liée par l'affection.", ex:"Mon amie de toujours.", level:7, cat:"social"},
-  {fr:"copain", en:"buddy / boyfriend", phon:"*ko-PAN*", def:"Ami proche (ambiguïté possible).", ex:"Un copain de travail.", level:7, cat:"social"},
-  {fr:"copine", en:"buddy / girlfriend", phon:"*ko-PEEN*", def:"Amie proche (ambiguïté possible).", ex:"Ma copine de tennis.", level:7, cat:"social"},
-  {fr:"rendez-vous", en:"appointment / date", phon:"*ron-day-VOO*", def:"Rencontre fixée d'avance.", ex:"Un rendez-vous au café.", level:7, cat:"social"},
-  {fr:"sortir", en:"to go out", phon:"*sor-TEER*", def:"Quitter son domicile pour s'amuser.", ex:"Sortir le soir.", level:7, cat:"verbe"},
-  {fr:"rester", en:"to stay", phon:"*res-TAY*", def:"Rester sur place.", ex:"Je préfère rester chez moi.", level:7, cat:"verbe"},
-  {fr:"inviter", en:"to invite", phon:"*on-vee-TAY*", def:"Demander à quelqu'un de venir.", ex:"Inviter des amis à dîner.", level:7, cat:"verbe"},
-  {fr:"retrouver", en:"to meet up", phon:"*ruh-troo-VAY*", def:"Rendez-vous avec quelqu'un connu.", ex:"On se retrouve demain ?", level:7, cat:"verbe"},
-  {fr:"déjeuner", en:"to have lunch", phon:"*day-zhuh-NAY*", def:"Prendre le repas de midi.", ex:"Déjeuner au restaurant.", level:7, cat:"verbe"},
-  {fr:"dîner", en:"to have dinner", phon:"*dee-NAY*", def:"Prendre le repas du soir.", ex:"Dîner chez des amis.", level:7, cat:"verbe"},
-  {fr:"midi", en:"noon / midday", phon:"*mee-DEE*", def:"Douze heures, heure du déjeuner.", ex:"Rendez-vous à midi.", level:7, cat:"temps"},
-  {fr:"soir", en:"evening", phon:"*SWAHR*", def:"Partie de la journée après le jour.", ex:"Ce soir, je sors.", level:7, cat:"temps"},
-  {fr:"weekend", en:"weekend", phon:"*WEEK-end*", def:"Samedi et dimanche.", ex:"Quoi de prévu ce weekend ?", level:7, cat:"temps"},
-  {fr:"libre", en:"free / available", phon:"*LEEB-ruh*", def:"Disponible, sans occupation.", ex:"Je suis libre samedi.", level:7, cat:"état"},
-  {fr:"occupé", en:"busy (male)", phon:"*ok-kew-PAY*", def:"Ayant une occupation.", ex:"Je suis occupé demain.", level:7, cat:"état"},
-  {fr:"occupée", en:"busy (female)", phon:"*ok-kew-PAY*", def:"Ayant une occupation (femme).", ex:"Elle est occupée ce soir.", level:7, cat:"état"},
-  {fr:"devant", en:"in front of", phon:"*duh-VON*", def:"Position face à quelque chose.", ex:"Devant la mairie.", level:7, cat:"lieu"},
-  {fr:"derrière", en:"behind", phon:"*dair-YAIR*", def:"Position à l'arrière.", ex:"Derrière l'église.", level:7, cat:"lieu"},
-  {fr:"à côté", en:"next to", phon:"*a ko-TAY*", def:"Position adjacente.", ex:"À côté de la boulangerie.", level:7, cat:"lieu"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 8 — Le temps & La météo
-  // ═══════════════════════════════════════════════════════
-  {fr:"il fait beau", en:"it's nice weather", phon:"*eel FAY bo*", def:"Description d'un temps agréable.", ex:"Il fait beau, allons nous promener.", level:8, cat:"météo"},
-  {fr:"il fait mauvais", en:"it's bad weather", phon:"*eel FAY mo-VAY*", def:"Description d'un temps désagréable.", ex:"Il fait mauvais, restons chez nous.", level:8, cat:"météo"},
-  {fr:"il pleut", en:"it's raining", phon:"*eel PLUH*", def:"Chute de gouttes d'eau.", ex:"Il pleut, prenez un parapluie.", level:8, cat:"météo"},
-  {fr:"il neige", en:"it's snowing", phon:"*eel NEHZH*", def:"Chute de neige.", ex:"Il neige dans le nord.", level:8, cat:"météo"},
-  {fr:"il fait du vent", en:"it's windy", phon:"*eel FAY dew VON*", def:"Présence de vent.", ex:"Il fait du vent, fermez la porte.", level:8, cat:"météo"},
-  {fr:"il fait du soleil", en:"it's sunny", phon:"*eel FAY dew so-LAY*", def:"Présence de soleil.", ex:"Il fait du soleil, sortez !", level:8, cat:"météo"},
-  {fr:"il fait chaud", en:"it's hot", phon:"*eel FAY sho*", def:"Température élevée.", ex:"Il fait chaud, buvez de l'eau.", level:8, cat:"météo"},
-  {fr:"il fait frais", en:"it's cool / chilly", phon:"*eel FAY FRAY*", def:"Température fraîche.", ex:"Il fait frais, prenez un pull.", level:8, cat:"météo"},
-  {fr:"il fait froid", en:"it's cold", phon:"*eel FAY FRWAH*", def:"Température basse.", ex:"Il fait froid, allumez le chauffage.", level:8, cat:"météo"},
-  {fr:"nuage", en:"cloud", phon:"*NWA-zhuh*", def:"Masse visible dans le ciel.", ex:"Des nuages gris.", level:8, cat:"météo"},
-  {fr:"parapluie", en:"umbrella", phon:"*pa-ra-PLOO-ee*", def:"Accessoire contre la pluie.", ex:"Oubliez pas votre parapluie !", level:8, cat:"objet"},
-  {fr:"manteau", en:"coat", phon:"*mon-TOH*", def:"Vêtement chaud d'extérieur.", ex:"Prenez votre manteau, il fait froid.", level:8, cat:"vêtement"},
-  {fr:"pull", en:"sweater / jumper", phon:"*POOL*", def:"Vêtement tricoté chaud.", ex:"Un pull en laine.", level:8, cat:"vêtement"},
-  {fr:"écharpe", en:"scarf", phon:"*ay-SHAR-puh*", def:"Accessoire pour le cou.", ex:"Une écharpe rouge.", level:8, cat:"vêtement"},
-  {fr:"chapeau", en:"hat", phon:"*sha-POH*", def:"Couvre-chef.", ex:"Un chapeau pour le soleil.", level:8, cat:"vêtement"},
-  {fr:"gants", en:"gloves", phon:"*GON*", def:"Protection des mains.", ex:"Des gants en cuir.", level:8, cat:"vêtement"},
-  {fr:"après-demain", en:"the day after tomorrow", phon:"*a-PRAY duh-MAN*", def:"Deux jours après aujourd'hui.", ex:"À après-demain !", level:8, cat:"temps"},
-  {fr:"hier", en:"yesterday", phon:"*YAIR*", def:"La veille d'aujourd'hui.", ex:"Il a plu hier.", level:8, cat:"temps"},
-  {fr:"la semaine prochaine", en:"next week", phon:"*la suh-MEN pro-SHEN*", def:"La semaine suivante.", ex:"On se voit la semaine prochaine.", level:8, cat:"temps"},
-  {fr:"le mois prochain", en:"next month", phon:"*luh MWAH pro-SHEN*", def:"Le mois suivant.", ex:"Le mois prochain, je pars.", level:8, cat:"temps"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 9 — Les verbes essentiels
-  // ═══════════════════════════════════════════════════════
-  {fr:"aller", en:"to go", phon:"*a-LAY*", def:"Se déplacer vers un lieu.", ex:"Je vais au marché.", level:9, cat:"verbe"},
-  {fr:"faire", en:"to do / to make", phon:"*FAIR*", def:"Réaliser une action.", ex:"Je fais mes courses.", level:9, cat:"verbe"},
-  {fr:"prendre", en:"to take", phon:"*PRON-druh*", def:"Saisir ou consommer.", ex:"Je prends le bus.", level:9, cat:"verbe"},
-  {fr:"venir", en:"to come", phon:"*vuh-NEER*", def:"Se rendre vers le locuteur.", ex:"Je viens de France.", level:9, cat:"verbe"},
-  {fr:"pouvoir", en:"can / to be able to", phon:"*poo-VWAHR*", def:"Avoir la capacité.", ex:"Je peux vous aider.", level:9, cat:"verbe"},
-  {fr:"vouloir", en:"to want", phon:"*voo-LWAHR*", def:"Avoir le désir.", ex:"Je veux apprendre.", level:9, cat:"verbe"},
-  {fr:"savoir", en:"to know (facts)", phon:"*sa-VWAHR*", def:"Connaître une information.", ex:"Je sais où c'est.", level:9, cat:"verbe"},
-  {fr:"connaître", en:"to know (people/places)", phon:"*ko-NET-ruh*", def:"Avoir une relation avec.", ex:"Je connais Paris.", level:9, cat:"verbe"},
-  {fr:"devoir", en:"must / to have to", phon:"*duh-VWAHR*", def:"Être obligé.", ex:"Je dois partir.", level:9, cat:"verbe"},
-  {fr:"comprendre", en:"to understand", phon:"*kom-PRON-druh*", def:"Saisir le sens.", ex:"Je comprends le français.", level:9, cat:"verbe"},
-  {fr:"apprendre", en:"to learn", phon:"*a-PRON-druh*", def:"Acquérir une connaissance.", ex:"J'apprends le français.", level:9, cat:"verbe"},
-  {fr:"parler", en:"to speak", phon:"*par-LAY*", def:"Communiquer oralement.", ex:"Je parle un peu français.", level:9, cat:"verbe"},
-  {fr:"répéter", en:"to repeat", phon:"*ray-pay-TAY*", def:"Dire de nouveau.", ex:"Pouvez-vous répéter ?", level:9, cat:"verbe"},
-  {fr:"manger", en:"to eat", phon:"*mon-ZHAY*", def:"Consommer des aliments.", ex:"Je mange à midi.", level:9, cat:"verbe"},
-  {fr:"boire", en:"to drink", phon:"*BWAHR*", def:"Avaler un liquide.", ex:"Je bois du café.", level:9, cat:"verbe"},
-  {fr:"dormir", en:"to sleep", phon:"*dor-MEER*", def:"Être endormi.", ex:"Je dors bien ici.", level:9, cat:"verbe"},
-  {fr:"lire", en:"to read", phon:"*LEER*", def:"Déchiffrer l'écrit.", ex:"Je lis le journal.", level:9, cat:"verbe"},
-  {fr:"écrire", en:"to write", phon:"*ay-KREER*", def:"Tracer des caractères.", ex:"J'écris une carte postale.", level:9, cat:"verbe"},
-  {fr:"écouter", en:"to listen", phon:"*ay-koo-TAY*", def:"Prêter l'oreille.", ex:"J'écoute la radio.", level:9, cat:"verbe"},
-  {fr:"regarder", en:"to watch / to look at", phon:"*ruh-gar-DAY*", def:"Diriger son regard.", ex:"Je regarde la télévision.", level:9, cat:"verbe"},
-
-  // ═══════════════════════════════════════════════════════
-  // NIVEAU 10 — Politesse & expressions utiles
-  // ═══════════════════════════════════════════════════════
-  {fr:"je cherche mes mots", en:"I'm looking for my words", phon:"*zhuh SHAIRSH may MOH*", def:"Hésiter en parlant.", ex:"Je cherche mes mots, désolé.", level:10, cat:"expression"},
-  {fr:"comment dit-on", en:"how do you say", phon:"*ko-MON dee-TON*", def:"Demander une traduction.", ex:"Comment dit-on 'hello' en français ?", level:10, cat:"expression"},
-  {fr:"qu'est-ce que ça veut dire", en:"what does that mean", phon:"*kes-kuh sa VUH deer*", def:"Demander le sens d'un mot.", ex:"Qu'est-ce que ça veut dire ?", level:10, cat:"expression"},
-  {fr:"je ne comprends pas", en:"I don't understand", phon:"*zhuh nuh kom-PRON PAH*", def:"Indiquer qu'on n'a pas saisi.", ex:"Je ne comprends pas, pouvez-vous répéter ?", level:10, cat:"expression"},
-  {fr:"parlez plus lentement", en:"speak more slowly", phon:"*par-LAY plew lon-TUH-mon*", def:"Demander de ralentir.", ex:"Parlez plus lentement, s'il vous plaît.", level:10, cat:"expression"},
-  {fr:"je commence à", en:"I'm starting to", phon:"*zhuh ko-MONSS ah*", def:"Indiquer le début d'une action.", ex:"Je commence à comprendre.", level:10, cat:"expression"},
-  {fr:"j'ai besoin de", en:"I need", phon:"*zha-ay buh-ZWAN duh*", def:"Exprimer un besoin.", ex:"J'ai besoin d'aide.", level:10, cat:"expression"},
-  {fr:"de rien", en:"you're welcome (casual)", phon:"*duh RYAN*", def:"Réponse légère à un remerciement.", ex:"De rien, c'était un plaisir.", level:10, cat:"politesse"},
-  {fr:"avec plaisir", en:"with pleasure", phon:"*a-vek pleh-ZEER*", def:"Accepter avec enthousiasme.", ex:"Avec plaisir, je viendrai.", level:10, cat:"politesse"},
-  {fr:"pas de problème", en:"no problem", phon:"*pa duh pro-BLEM*", def:"Rassurer, indiquer que c'est facile.", ex:"Pas de problème, je peux vous aider.", level:10, cat:"expression"},
-  {fr:"je suis perdu", en:"I'm lost (male)", phon:"*zhuh SWEE pair-DEW*", def:"Ne pas savoir où on est.", ex:"Je suis perdu, où est la rue principale ?", level:10, cat:"expression"},
-  {fr:"je suis perdue", en:"I'm lost (female)", phon:"*zhuh SWEE pair-DEW*", def:"Ne pas savoir où on est (femme).", ex:"Je suis perdue, pouvez-vous m'aider ?", level:10, cat:"expression"},
-  {fr:"où sont les toilettes", en:"where are the restrooms", phon:"*OO son lay twa-LET*", def:"Demander les sanitaires.", ex:"Excusez-moi, où sont les toilettes ?", level:10, cat:"expression"},
-  {fr:"l'addition s'il vous plaît", en:"the bill please", phon:"*la-dee-SYON seel voo PLEH*", def:"Demander la note au restaurant.", ex:"L'addition, s'il vous plaît.", level:10, cat:"expression"},
-  {fr:"c'est délicieux", en:"it's delicious", phon:"*say day-lee-SYUH*", def:"Apprécier un plat.", ex:"C'est délicieux, mes compliments au chef.", level:10, cat:"expression"},
-  {fr:"je suis allergique à", en:"I'm allergic to", phon:"*zhuh SWEE za-lair-ZHEEK ah*", def:"Indiquer une allergie.", ex:"Je suis allergique aux arachides.", level:10, cat:"expression"},
-  {fr:"je suis végétarien", en:"I'm vegetarian (male)", phon:"*zhuh SWEE vay-zhay-ta-RYAN*", def:"Ne pas manger de viande.", ex:"Je suis végétarien, avez-vous des options ?", level:10, cat:"expression"},
-  {fr:"je suis végétarienne", en:"I'm vegetarian (female)", phon:"*zhuh SWEE vay-zhay-ta-RYEN*", def:"Ne pas manger de viande (femme).", ex:"Je suis végétarienne.", level:10, cat:"expression"},
-  {fr:"bon appétit", en:"enjoy your meal", phon:"*bon na-pay-TEE*", def:"Souhait avant de manger.", ex:"Bon appétit, Madame !", level:10, cat:"politesse"},
-  {fr:"santé", en:"cheers / to your health", phon:"*son-TAY*", def:"Trinquer, porter un toast.", ex:"Santé ! À votre santé !", level:10, cat:"politesse"}
+  // NIVEAU 1
+  {en:"be",fr:"être",def:"Verbe d'état (identité, état, localisation).",ex:"I am a student.",level:1,cat:"verbe"},
+  {en:"have",fr:"avoir",def:"Verbe de possession ou d'expérience.",ex:"I have a cat.",level:1,cat:"verbe"},
+  {en:"student",fr:"étudiant",def:"Personne qui étudie à l'école.",ex:"She is a student.",level:1,cat:"nom"},
+  {en:"happy",fr:"heureux",def:"Qui ressent de la joie.",ex:"They are happy.",level:1,cat:"adjectif"},
+  {en:"tired",fr:"fatigué",def:"Qui manque d'énergie.",ex:"I am tired today.",level:1,cat:"adjectif"},
+  {en:"doctor",fr:"docteur",def:"Personne qui soigne les malades.",ex:"He is a doctor.",level:1,cat:"nom"},
+  {en:"teacher",fr:"professeur",def:"Personne qui enseigne.",ex:"She is a teacher.",level:1,cat:"nom"},
+  {en:"parents",fr:"parents",def:"Le père et la mère.",ex:"My parents are nice.",level:1,cat:"nom"},
+  {en:"sister",fr:"sœur",def:"Fille ayant les mêmes parents.",ex:"She is my sister.",level:1,cat:"nom"},
+  {en:"brother",fr:"frère",def:"Garçon ayant les mêmes parents.",ex:"He is my brother.",level:1,cat:"nom"},
+  {en:"house",fr:"maison",def:"Bâtiment où vit une famille.",ex:"It is a big house.",level:1,cat:"nom"},
+  {en:"eyes",fr:"yeux",def:"Organes de la vue.",ex:"She has blue eyes.",level:1,cat:"nom"},
+  {en:"family",fr:"famille",def:"Groupe lié par le sang.",ex:"We have a big family.",level:1,cat:"nom"},
+  // NIVEAU 2
+  {en:"watch",fr:"regarder",def:"Diriger son attention vers quelque chose.",ex:"He watches TV every day.",level:2,cat:"verbe"},
+  {en:"play",fr:"jouer",def:"S'amuser ou pratiquer un sport.",ex:"They play football on Sundays.",level:2,cat:"verbe"},
+  {en:"drink",fr:"boire",def:"Avaler un liquide.",ex:"I don't drink coffee.",level:2,cat:"verbe"},
+  {en:"eat",fr:"manger",def:"Consommer de la nourriture.",ex:"We don't eat meat.",level:2,cat:"verbe"},
+  {en:"speak",fr:"parler",def:"Communiquer à l'oral.",ex:"She speaks English very well.",level:2,cat:"verbe"},
+  {en:"work",fr:"travailler",def:"Effectuer une tâche.",ex:"Does he work in Paris?",level:2,cat:"verbe"},
+  {en:"live",fr:"habiter",def:"Résider dans un lieu.",ex:"Where does she live?",level:2,cat:"verbe"},
+  {en:"always",fr:"toujours",def:"À chaque occasion, sans exception.",ex:"I always eat breakfast.",level:2,cat:"adverbe"},
+  {en:"never",fr:"jamais",def:"À aucun moment.",ex:"I never arrive late.",level:2,cat:"adverbe"},
+  {en:"often",fr:"souvent",def:"Fréquemment.",ex:"Does it rain often?",level:2,cat:"adverbe"},
+  {en:"study",fr:"étudier",def:"Apprendre en travaillant sur un sujet.",ex:"She studies English.",level:2,cat:"verbe"},
+  {en:"brush",fr:"brosser",def:"Nettoyer avec une brosse.",ex:"I brush my teeth twice a day.",level:2,cat:"verbe"},
+  // NIVEAU 3
+  {en:"sleep",fr:"dormir",def:"Être dans un état de repos.",ex:"The cat is sleeping on the sofa.",level:3,cat:"verbe"},
+  {en:"listen",fr:"écouter",def:"Prêter attention à un son.",ex:"I am listening to music.",level:3,cat:"verbe"},
+  {en:"cook",fr:"cuisiner",def:"Préparer de la nourriture.",ex:"She is cooking dinner.",level:3,cat:"verbe"},
+  {en:"read",fr:"lire",def:"Décoder et comprendre l'écrit.",ex:"I am reading a book.",level:3,cat:"verbe"},
+  {en:"rain",fr:"pleuvoir",def:"Tomber des gouttes d'eau du ciel.",ex:"It is raining outside.",level:3,cat:"verbe"},
+  {en:"talk",fr:"parler",def:"Tenir une conversation.",ex:"She is talking on the phone.",level:3,cat:"verbe"},
+  {en:"wait",fr:"attendre",def:"Rester en prévision de quelque chose.",ex:"Are you waiting for someone?",level:3,cat:"verbe"},
+  {en:"swim",fr:"nager",def:"Se déplacer dans l'eau.",ex:"They are swimming in the pool.",level:3,cat:"verbe"},
+  {en:"write",fr:"écrire",def:"Tracer des lettres ou des mots.",ex:"He is writing a letter.",level:3,cat:"verbe"},
+  {en:"now",fr:"maintenant",def:"À ce moment précis.",ex:"I am busy now.",level:3,cat:"adverbe"},
+  {en:"right now",fr:"en ce moment",def:"Exactement maintenant.",ex:"She is eating right now.",level:3,cat:"expression"},
+  {en:"at the moment",fr:"pour le moment",def:"Actuellement.",ex:"He is working at the moment.",level:3,cat:"expression"},
+  // NIVEAU 4
+  {en:"question",fr:"question",def:"Phrase interrogative.",ex:"Do you like pizza?",level:4,cat:"nom"},
+  {en:"yesterday",fr:"hier",def:"Le jour précédent.",ex:"Did he go yesterday?",level:4,cat:"adverbe"},
+  {en:"last week",fr:"la semaine dernière",def:"La semaine qui vient de passer.",ex:"Where did you go last week?",level:4,cat:"expression"},
+  {en:"like",fr:"aimer",def:"Éprouver de l'appréciation pour.",ex:"Do you like pizza?",level:4,cat:"verbe"},
+  {en:"want",fr:"vouloir",def:"Désirer quelque chose.",ex:"They don't want to come.",level:4,cat:"verbe"},
+  {en:"know",fr:"savoir / connaître",def:"Avoir une information en mémoire.",ex:"Does he know the answer?",level:4,cat:"verbe"},
+  {en:"think",fr:"penser",def:"Avoir une opinion.",ex:"I don't think so.",level:4,cat:"verbe"},
+  {en:"see",fr:"voir",def:"Percevoir avec les yeux.",ex:"Did you see that film?",level:4,cat:"verbe"},
+  {en:"call",fr:"appeler",def:"Téléphoner à quelqu'un.",ex:"Did she call you?",level:4,cat:"verbe"},
+  // NIVEAU 5
+  {en:"was",fr:"étais / était",def:"Forme passée de BE (I/he/she/it).",ex:"I was happy yesterday.",level:5,cat:"verbe"},
+  {en:"were",fr:"étaient / étiez",def:"Forme passée de BE (you/we/they).",ex:"They were at the cinema.",level:5,cat:"verbe"},
+  {en:"ago",fr:"il y a",def:"Indique un temps passé.",ex:"2 years ago",level:5,cat:"adverbe"},
+  {en:"sick",fr:"malade",def:"Qui souffre d'une maladie.",ex:"She was sick last week.",level:5,cat:"adjectif"},
+  {en:"angry",fr:"en colère",def:"Qui éprouve de la colère.",ex:"Was she angry?",level:5,cat:"adjectif"},
+  {en:"ready",fr:"prêt",def:"Préparé pour une action.",ex:"Were they ready?",level:5,cat:"adjectif"},
+  {en:"late",fr:"en retard",def:"Qui arrive après l'heure.",ex:"He was late for work.",level:5,cat:"adjectif"},
+  {en:"weather",fr:"météo",def:"État de l'atmosphère.",ex:"The weather was beautiful.",level:5,cat:"nom"},
+  // NIVEAU 6
+  {en:"went",fr:"est allé",def:"Passé de GO (aller).",ex:"Yesterday I went to the shop.",level:6,cat:"verbe"},
+  {en:"sang",fr:"a chanté",def:"Passé de SING (chanter).",ex:"She sang a beautiful song.",level:6,cat:"verbe"},
+  {en:"ate",fr:"a mangé",def:"Passé de EAT (manger).",ex:"They ate pizza for dinner.",level:6,cat:"verbe"},
+  {en:"broke",fr:"a cassé",def:"Passé de BREAK (casser).",ex:"He broke his leg.",level:6,cat:"verbe"},
+  {en:"took",fr:"a pris",def:"Passé de TAKE (prendre).",ex:"We took the bus.",level:6,cat:"verbe"},
+  {en:"wrote",fr:"a écrit",def:"Passé de WRITE (écrire).",ex:"I wrote a letter.",level:6,cat:"verbe"},
+  {en:"told",fr:"a dit",def:"Passé de TELL (dire).",ex:"She told me a secret.",level:6,cat:"verbe"},
+  {en:"lost",fr:"a perdu",def:"Passé de LOSE (perdre).",ex:"I lost my keys.",level:6,cat:"verbe"},
+  {en:"bought",fr:"a acheté",def:"Passé de BUY (acheter).",ex:"She bought a new dress.",level:6,cat:"verbe"},
+  {en:"had",fr:"a eu",def:"Passé de HAVE (avoir).",ex:"We had a great time.",level:6,cat:"verbe"},
+  {en:"saw",fr:"a vu",def:"Passé de SEE (voir).",ex:"I saw him yesterday.",level:6,cat:"verbe"},
+  {en:"heard",fr:"a entendu",def:"Passé de HEAR (entendre).",ex:"They heard a noise.",level:6,cat:"verbe"},
+  {en:"came",fr:"est venu",def:"Passé de COME (venir).",ex:"They came home late.",level:6,cat:"verbe"},
+  // NIVEAU 7
+  {en:"will",fr:"va (futur)",def:"Auxiliaire du futur simple.",ex:"I think it will rain.",level:7,cat:"modal"},
+  {en:"going to",fr:"va (intention)",def:"Futur proche / plan / intention.",ex:"It is going to rain.",level:7,cat:"expression"},
+  {en:"tomorrow",fr:"demain",def:"Le jour suivant.",ex:"I will call you tomorrow.",level:7,cat:"adverbe"},
+  {en:"soon",fr:"bientôt",def:"Dans un avenir proche.",ex:"They are going to move soon.",level:7,cat:"adverbe"},
+  {en:"later",fr:"plus tard",def:"À un moment ultérieur.",ex:"I will call you later.",level:7,cat:"adverbe"},
+  {en:"promise",fr:"promesse",def:"Engagement de faire quelque chose.",ex:"I promise I will not be late.",level:7,cat:"nom"},
+  {en:"plan",fr:"plan",def:"Organisation prévue pour le futur.",ex:"We have a plan.",level:7,cat:"nom"},
+  {en:"probably",fr:"probablement",def:"Selon toute vraisemblance.",ex:"It will probably rain.",level:7,cat:"adverbe"},
+  // NIVEAU 8
+  {en:"have been",fr:"ai été / suis allé",def:"Present Perfect avec BE (expérience).",ex:"I have never been to Paris.",level:8,cat:"verbe"},
+  {en:"already",fr:"déjà",def:"Avant le moment présent.",ex:"We have already eaten.",level:8,cat:"adverbe"},
+  {en:"yet",fr:"encore / déjà",def:"Utilisé en fin de phrase (PP).",ex:"Have you finished yet?",level:8,cat:"adverbe"},
+  {en:"just",fr:"juste / à l'instant",def:"Il y a très peu de temps.",ex:"He has just left.",level:8,cat:"adverbe"},
+  {en:"since",fr:"depuis",def:"À partir d'un point dans le temps.",ex:"She has worked here since 2020.",level:8,cat:"préposition"},
+  {en:"for",fr:"depuis (durée)",def:"Indique une durée.",ex:"They have lived here for 10 years.",level:8,cat:"préposition"},
+  {en:"ever",fr:"déjà (question)",def:"Dans les questions sur l'expérience.",ex:"Have you ever been to London?",level:8,cat:"adverbe"},
+  {en:"recently",fr:"récemment",def:"Il y a peu de temps.",ex:"I have recently lost my keys.",level:8,cat:"adverbe"},
+  {en:"twice",fr:"deux fois",def:"À deux reprises.",ex:"I have seen this film twice.",level:8,cat:"adverbe"},
+  // NIVEAU 9
+  {en:"can",fr:"pouvoir / savoir",def:"Capacité ou permission informelle.",ex:"I can swim very well.",level:9,cat:"modal"},
+  {en:"must",fr:"devoir (fort)",def:"Obligation forte ou nécessité.",ex:"You must stop smoking.",level:9,cat:"modal"},
+  {en:"should",fr:"devoir (conseil)",def:"Conseil ou recommandation.",ex:"You should see a doctor.",level:9,cat:"modal"},
+  {en:"might",fr:"pourrait",def:"Possibilité faible ou incertitude.",ex:"He might be at home.",level:9,cat:"modal"},
+  {en:"may",fr:"pouvoir (permission)",def:"Permission formelle.",ex:"May I come in?",level:9,cat:"modal"},
+  {en:"could",fr:"pourrait (passé / poli)",def:"Capacité dans le passé ou demande polie.",ex:"Could you help me?",level:9,cat:"modal"},
+  {en:"permission",fr:"permission",def:"Autorisation de faire quelque chose.",ex:"Can I go out?",level:9,cat:"nom"},
+  {en:"advice",fr:"conseil",def:"Recommandation pour agir.",ex:"You should eat vegetables.",level:9,cat:"nom"},
+  {en:"ability",fr:"capacité",def:"Ce qu'on est capable de faire.",ex:"She can play the piano.",level:9,cat:"nom"},
+  {en:"obligation",fr:"obligation",def:"Ce qu'on est contraint de faire.",ex:"I must finish this today.",level:9,cat:"nom"},
+  // NIVEAU 10
+  {en:"if",fr:"si",def:"Introduit une condition.",ex:"If it rains, I will stay home.",level:10,cat:"conjonction"},
+  {en:"unless",fr:"sauf si / à moins que",def:"Condition négative (if not).",ex:"I won't go unless you come.",level:10,cat:"conjonction"},
+  {en:"although",fr:"bien que / malgré",def:"Introduit une concession.",ex:"Although it is raining, we go out.",level:10,cat:"conjonction"},
+  {en:"because",fr:"parce que",def:"Introduit une cause.",ex:"She is late because of the traffic.",level:10,cat:"conjonction"},
+  {en:"until",fr:"jusqu'à ce que",def:"Indique la limite temporelle.",ex:"We will stay until it stops.",level:10,cat:"conjonction"},
+  {en:"as soon as",fr:"dès que",def:"Immédiatement après.",ex:"I will call you as soon as I arrive.",level:10,cat:"expression"},
+  {en:"would",fr:"conditionnel",def:"Forme conditionnelle de WILL.",ex:"If I were you, I would go.",level:10,cat:"modal"},
+  {en:"condition",fr:"condition",def:"Ce qui doit être réalisé.",ex:"If you heat water, it boils.",level:10,cat:"nom"},
+  {en:"traffic",fr:"trafic",def:"Mouvement des véhicules.",ex:"The traffic was bad.",level:10,cat:"nom"}
 ];
-
 
 let currentLevel=0; let currentSearch="";
 
@@ -342,15 +212,11 @@ function renderWords(){
   grid.innerHTML=filtered.map(w=>`
     <div class="word-card" onclick="openModal(${LEXIQUE.indexOf(w)})">
       <span class="word-lv">Niv.${w.level}</span>
-      <div class="word-en">${w.fr}</div>
-      <div class="word-fr">${w.en}</div>
-      <div class="word-phon">${w.phon}</div>
+      <div class="word-en">${w.en}</div>
+      <div class="word-fr">${w.fr}</div>
       <span class="word-cat">${w.cat}</span>
-
-
     </div>`).join("");
 }
-
 
 function filterByLevel(lvl,btn){
   currentLevel=lvl;
