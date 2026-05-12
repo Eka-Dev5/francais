@@ -28,7 +28,7 @@ h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
 .level-tab{padding:7px 13px;border:2px solid var(--primary);background:white;color:var(--primary);border-radius:16px;cursor:pointer;font-weight:bold;font-size:.8em;transition:all .25s}
 .level-tab:hover,.level-tab.active{background:var(--primary);color:white}
 
-/* ONGLETS THÈME */
+/* ONGLETS THEME */
 .theme-tabs{display:none;gap:7px;margin-bottom:18px;flex-wrap:wrap;justify-content:center}
 .theme-tabs.show{display:flex}
 .theme-tab{padding:7px 13px;border:2px solid var(--secondary);background:white;color:var(--secondary);border-radius:16px;cursor:pointer;font-weight:bold;font-size:.8em;transition:all .25s}
@@ -45,7 +45,7 @@ h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
 .word-lv{position:absolute;top:9px;right:9px;font-size:.68em;color:white;background:var(--secondary);padding:2px 7px;border-radius:7px}
 .empty-msg{text-align:center;color:#999;padding:40px;grid-column:1/-1}
 
-/* SECTION THÈME */
+/* SECTION THEME */
 .theme-section{margin-bottom:25px}
 .theme-title{font-size:1.3em;font-weight:bold;color:var(--primary);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;display:flex;align-items:center;gap:8px}
 .theme-count{font-size:.7em;color:#718096;background:#f0f4ff;padding:2px 8px;border-radius:10px}
@@ -93,7 +93,7 @@ h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
   <div class="lex-grid" id="lexGridLevel"></div>
 </div>
 
-<!-- VUE PAR THÈME -->
+<!-- VUE PAR THEME -->
 <div id="viewTheme" style="display:none">
   <div class="theme-tabs" id="themeTabs"></div>
   <div id="themeContent"></div>
@@ -133,15 +133,9 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
   
-  // Construire les onglets de niveau
   buildLevelTabs();
-  
-  // Construire les onglets de thème
   buildThemeTabs();
-  
-  // Afficher la vue par défaut (niveau)
   renderLevelView();
-  
   updateStatBar();
 });
 
@@ -150,21 +144,12 @@ document.addEventListener("DOMContentLoaded", () => {
 // ═══════════════════════════════════════════════════════════════════
 function switchView(view) {
   currentView = view;
-  
-  // Mettre à jour les boutons
   document.getElementById('btnByLevel').classList.toggle('active', view === 'level');
   document.getElementById('btnByTheme').classList.toggle('active', view === 'theme');
-  
-  // Afficher/masquer les conteneurs
   document.getElementById('viewLevel').style.display = view === 'level' ? 'block' : 'none';
   document.getElementById('viewTheme').style.display = view === 'theme' ? 'block' : 'none';
-  
-  // Rendu
-  if (view === 'level') {
-    renderLevelView();
-  } else {
-    renderThemeView();
-  }
+  if (view === 'level') renderLevelView();
+  else renderThemeView();
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -189,15 +174,10 @@ function renderLevelView() {
   const grid = document.getElementById('lexGridLevel');
   let words = LEXIQUE;
   
-  // Ajouter le titre "Par Niveau"
-  let html = '<h2 style="text-align:center;color:var(--primary);margin-bottom:20px;font-size:1.5em">📚 Par Niveau</h2>';
-
-  // Filtrer par niveau
   if (currentLevel > 0) {
     words = words.filter(w => w.level === currentLevel);
   }
   
-  // Filtrer par recherche
   if (currentSearch.trim()) {
     const q = currentSearch.toLowerCase();
     words = words.filter(w => 
@@ -207,8 +187,9 @@ function renderLevelView() {
     );
   }
   
-  // Trier alphabétiquement par français
   words.sort((a, b) => a.fr.localeCompare(b.fr, 'fr'));
+  
+  let html = '<h2 style="text-align:center;color:var(--primary);margin-bottom:20px;font-size:1.5em">📚 Par Niveau</h2>';
   
   if (words.length === 0) {
     grid.innerHTML = html + '<div class="empty-msg">Aucun mot trouvé.</div>';
@@ -220,7 +201,7 @@ function renderLevelView() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// VUE PAR THÈME
+// VUE PAR THEME
 // ═══════════════════════════════════════════════════════════════════
 function buildThemeTabs() {
   const tabs = document.getElementById('themeTabs');
@@ -246,7 +227,6 @@ function renderThemeView() {
   const container = document.getElementById('themeContent');
   let words = LEXIQUE;
   
-  // Filtrer par recherche
   if (currentSearch.trim()) {
     const q = currentSearch.toLowerCase();
     words = words.filter(w => 
@@ -256,21 +236,22 @@ function renderThemeView() {
     );
   }
   
-    // Grouper par thème (ignorer les mots sans thème)
+  // Grouper par theme (ignorer les mots sans theme)
   const byTheme = {};
   words.forEach(w => {
-    if (!w.theme) return; // Skip les mots sans thème
+    if (!w.theme) return;
     const t = w.theme;
     if (!byTheme[t]) byTheme[t] = [];
     byTheme[t].push(w);
   });
   
-  // Si un thème spécifique est sélectionné, ne montrer que celui-là
   let themesToShow = Object.keys(byTheme).sort();
   if (currentTheme) {
     themesToShow = [currentTheme];
   }
+  
   let html = '<h2 style="text-align:center;color:var(--primary);margin-bottom:20px;font-size:1.5em">🗂️ Par Thème</h2>';
+  
   themesToShow.forEach(theme => {
     const themeWords = byTheme[theme] || [];
     themeWords.sort((a, b) => a.fr.localeCompare(b.fr, 'fr'));
@@ -282,6 +263,7 @@ function renderThemeView() {
       </div>
     </div>`;
   });
+  
   container.innerHTML = html || '<div class="empty-msg">Aucun mot trouvé.</div>';
   updateStatBar(words.length);
 }
@@ -318,11 +300,8 @@ function escapeJS(str) {
 
 function filterWords() {
   currentSearch = document.getElementById('searchBox').value;
-  if (currentView === 'level') {
-    renderLevelView();
-  } else {
-    renderThemeView();
-  }
+  if (currentView === 'level') renderLevelView();
+  else renderThemeView();
 }
 
 function updateStatBar(count) {
