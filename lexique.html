@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Français Master — Lexique</title>
   <style>
-    /* ===== IDENTIQUE AUX AUTRES PAGES ===== */
+    /* ===== CHARTE GRAPHIQUE IDENTIQUE À INDEX.HTML ===== */
     :root {
       --primary: #667eea;
       --secondary: #764ba2;
@@ -28,6 +28,7 @@
       border-radius: 24px;
       padding: 30px 24px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      position: relative;
     }
     h1 {
       font-size: 2.2rem;
@@ -44,6 +45,19 @@
       color: var(--text-muted);
       margin-bottom: 24px;
       font-size: 0.95rem;
+    }
+    /* Indicateur de réglage en haut à droite */
+    .sense-indicator {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: #f0f4ff;
+      border-radius: 40px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     .nav-links {
       display: flex;
@@ -74,12 +88,41 @@
       box-shadow: 0 5px 12px rgba(102,126,234,0.3);
     }
 
-    /* Section recherche */
-    .search-section {
+    /* Drapeaux superposés à gauche de la barre de recherche */
+    .flags-superposed {
       display: flex;
-      gap: 12px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: #f1f5f9;
+      border-radius: 40px;
+      padding: 6px 10px;
+      margin-right: 12px;
+    }
+    .flag-btn {
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: transform 0.1s;
+      opacity: 0.6;
+    }
+    .flag-btn.active {
+      opacity: 1;
+      transform: scale(1.05);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    /* Zone recherche + drapeaux */
+    .search-area {
+      display: flex;
+      align-items: center;
       margin-bottom: 24px;
       flex-wrap: wrap;
+      gap: 12px;
+    }
+    .search-wrapper {
+      flex: 1;
+      display: flex;
+      gap: 8px;
     }
     .search-input {
       flex: 1;
@@ -121,15 +164,15 @@
       box-shadow: 0 4px 12px rgba(102,126,234,0.4);
     }
 
-    /* Panneau de filtres (niveaux ou thèmes) */
-    .filters-panel {
+    /* Nuages de filtres (niveaux et thèmes) */
+    .filters-cloud {
       background: #f9fafb;
       border-radius: 20px;
       padding: 16px;
       margin-bottom: 24px;
       display: none;
     }
-    .filters-panel.visible {
+    .filters-cloud.visible {
       display: block;
     }
     .filter-buttons {
@@ -155,7 +198,13 @@
       border-color: transparent;
     }
 
-    /* Grille des mots */
+    /* Résultats */
+    .result-count {
+      text-align: right;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
     .lexique-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -220,12 +269,6 @@
       font-size: 0.7rem;
       font-weight: 500;
     }
-    .result-count {
-      text-align: right;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 12px;
-    }
     .no-result {
       text-align: center;
       padding: 40px;
@@ -233,18 +276,26 @@
       background: #f9fafb;
       border-radius: 24px;
     }
-
+    .clear-search-btn {
+      display: block;
+      margin: 0 auto 20px auto;
+      text-align: center;
+    }
     @media (max-width: 640px) {
       body { padding: 12px; }
       .card { padding: 20px 16px; }
       h1 { font-size: 1.8rem; }
       .big-btn { font-size: 1rem; max-width: none; }
       .lexique-grid { grid-template-columns: 1fr; }
+      .search-area { flex-direction: column; align-items: stretch; }
+      .flags-superposed { flex-direction: row; justify-content: center; margin-right: 0; }
+      .sense-indicator { top: 12px; right: 16px; font-size: 0.7rem; }
     }
   </style>
 </head>
 <body>
 <div class="card">
+  <div class="sense-indicator" id="senseIndicator">🇫🇷 → 🇬🇧</div>
   <h1>📖 Lexique Français Master 🥖</h1>
   <div class="tagline">Recherche, filtre par niveau ou thème, combine les deux</div>
 
@@ -255,32 +306,38 @@
     <a href="dashboard.html" class="btn">📊 Mon espace</a>
   </div>
 
-  <!-- Barre recherche + bouton -->
-  <div class="search-section">
-    <input type="text" id="searchInput" class="search-input" placeholder="🔍 Entrez un mot (français ou anglais)...">
-    <button id="searchBtn" class="btn btn-primary">Rechercher</button>
+  <!-- Drapeaux superposés + barre de recherche -->
+  <div class="search-area">
+    <div class="flags-superposed" id="flagsContainer">
+      <div class="flag-btn" data-sense="fren">🇫🇷</div>
+      <div class="flag-btn" data-sense="enfr">🇬🇧</div>
+    </div>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Entrez un mot (français ou anglais)...">
+      <button id="searchBtn" class="btn btn-primary">🚀 C'est parti</button>
+    </div>
   </div>
 
-  <!-- Deux gros boutons -->
+  <!-- Deux gros boutons Niveaux / Thèmes -->
   <div class="big-buttons">
     <button id="showLevelsBtn" class="big-btn">📊 Niveaux</button>
     <button id="showThemesBtn" class="big-btn">🏷️ Thèmes</button>
   </div>
 
-  <!-- Panneau des niveaux (caché par défaut) -->
-  <div id="levelsPanel" class="filters-panel">
+  <!-- Nuage des niveaux -->
+  <div id="levelsCloud" class="filters-cloud">
     <div class="filter-title">Sélectionnez un ou plusieurs niveaux :</div>
     <div class="filter-buttons" id="levelButtons"></div>
   </div>
 
-  <!-- Panneau des thèmes (caché par défaut) -->
-  <div id="themesPanel" class="filters-panel">
+  <!-- Nuage des thèmes -->
+  <div id="themesCloud" class="filters-cloud">
     <div class="filter-title">Sélectionnez un ou plusieurs thèmes :</div>
     <div class="filter-buttons" id="themeButtons"></div>
   </div>
 
-  <!-- Bouton "Compris !" apparaît après recherche -->
-  <div id="clearSearchContainer" style="text-align: center; margin-bottom: 20px; display: none;">
+  <!-- Bouton "Compris !" qui apparaît après recherche -->
+  <div id="clearSearchContainer" style="display: none; text-align: center; margin-bottom: 20px;">
     <button id="clearSearchBtn" class="btn">🔍 Compris !</button>
   </div>
 
@@ -294,24 +351,37 @@
   (function() {
     // ---------- DONNÉES ----------
     let allWords = [];
-    let selectedLevels = new Set();   // stocke les niveaux (ex: "2", "5")
-    let selectedThemes = new Set();   // stocke les noms de thèmes (ex: "salutation")
-    let currentSearchTerm = "";       // terme de recherche actif
-    let searchActive = false;          // mode recherche actif ? (cache les filtres)
+    let currentSense = "fren";        // "fren" = français → anglais, "enfr" = anglais → français
+    let selectedLevels = new Set();    // stocke "all" ou des numéros "2","5"
+    let selectedThemes = new Set();    // stocke "all" ou des noms de thèmes
+    let searchActive = false;
+    let currentSearchTerm = "";
 
     // Éléments DOM
-    const levelsPanel = document.getElementById("levelsPanel");
-    const themesPanel = document.getElementById("themesPanel");
-    const showLevelsBtn = document.getElementById("showLevelsBtn");
-    const showThemesBtn = document.getElementById("showThemesBtn");
-    const searchBtn = document.getElementById("searchBtn");
+    const senseIndicator = document.getElementById("senseIndicator");
+    const flags = document.querySelectorAll(".flag-btn");
     const searchInput = document.getElementById("searchInput");
+    const searchBtn = document.getElementById("searchBtn");
     const clearSearchContainer = document.getElementById("clearSearchContainer");
     const clearSearchBtn = document.getElementById("clearSearchBtn");
+    const showLevelsBtn = document.getElementById("showLevelsBtn");
+    const showThemesBtn = document.getElementById("showThemesBtn");
+    const levelsCloud = document.getElementById("levelsCloud");
+    const themesCloud = document.getElementById("themesCloud");
     const levelButtonsDiv = document.getElementById("levelButtons");
     const themeButtonsDiv = document.getElementById("themeButtons");
     const resultCountSpan = document.getElementById("resultCount");
     const gridDiv = document.getElementById("lexiqueGrid");
+
+    // Icônes pour les thèmes
+    const themeIcons = {
+      "salutation": "👋", "présentation": "🙋", "politesse": "🎩", "expression": "💬",
+      "quantité": "⚖️", "commerce": "🏬", "aliment": "🍎", "nature": "🌿",
+      "outil": "🔧", "verbe": "⚡", "social": "👥", "lieu": "🏠",
+      "sensation": "🌡️", "sentiment": "❤️", "objet": "📦", "météo": "🌤️",
+      "temps": "⏰", "saison": "🍂", "état": "🔄", "divers": "📌"
+    };
+    const defaultIcon = "🏷️";
 
     // ---------- CHARGEMENT BDD ----------
     function loadData() {
@@ -319,12 +389,16 @@
         allWords = [...LEXIQUE_BDD];
         return true;
       }
-      console.error("BDDlexique.js non trouvé");
       gridDiv.innerHTML = '<div class="no-result">❌ Base de données lexicale non trouvée. Vérifie BDDlexique.js</div>';
       return false;
     }
 
-    // ---------- CONSTRUCTION DES BOUTONS NIVEAUX ----------
+    // ---------- NORMALISATION (accent + casse) pour recherche ----------
+    function normalize(str) {
+      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+    // ---------- CONSTRUCTION NUAGE NIVEAUX ----------
     function buildLevelButtons() {
       const levels = ["Tous", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
       levelButtonsDiv.innerHTML = "";
@@ -337,7 +411,6 @@
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
           if (lvl === "Tous") {
-            // Tous : on vide ou on sélectionne tout ?
             if (selectedLevels.has("all")) {
               selectedLevels.clear();
             } else {
@@ -345,7 +418,6 @@
               selectedLevels.add("all");
             }
           } else {
-            // Enlever "all" si on sélectionne un niveau spécifique
             if (selectedLevels.has("all")) selectedLevels.delete("all");
             const lvlStr = lvl.toString();
             if (selectedLevels.has(lvlStr)) {
@@ -360,19 +432,18 @@
       });
     }
 
-    // ---------- CONSTRUCTION DES BOUTONS THÈMES ----------
+    // ---------- CONSTRUCTION NUAGE THÈMES ----------
     function buildThemeButtons() {
-      // Extraire les thèmes uniques depuis les mots
       const themesSet = new Set();
       allWords.forEach(w => { if (w.cat) themesSet.add(w.cat); });
-      const themes = Array.from(themesSet).sort((a,b) => a.localeCompare(b));
+      let themes = Array.from(themesSet).sort((a,b) => a.localeCompare(b));
       themeButtonsDiv.innerHTML = "";
       // Bouton "Tous les thèmes"
-      const allThemeBtn = document.createElement("button");
-      allThemeBtn.className = "filter-chip";
-      if (selectedThemes.has("all")) allThemeBtn.classList.add("active");
-      allThemeBtn.textContent = "🏷️ Tous les thèmes";
-      allThemeBtn.addEventListener("click", () => {
+      const allBtn = document.createElement("button");
+      allBtn.className = "filter-chip";
+      if (selectedThemes.has("all")) allBtn.classList.add("active");
+      allBtn.textContent = "🏷️ Tous les thèmes";
+      allBtn.addEventListener("click", () => {
         if (selectedThemes.has("all")) {
           selectedThemes.clear();
         } else {
@@ -381,15 +452,15 @@
         }
         updateUI();
       });
-      themeButtonsDiv.appendChild(allThemeBtn);
+      themeButtonsDiv.appendChild(allBtn);
       // Boutons individuels
       themes.forEach(theme => {
         const btn = document.createElement("button");
         btn.className = "filter-chip";
         if (selectedThemes.has(theme)) btn.classList.add("active");
-        btn.textContent = `📌 ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+        const icon = themeIcons[theme] || defaultIcon;
+        btn.textContent = `${icon} ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
         btn.addEventListener("click", () => {
-          // Si "all" était actif, le désactiver
           if (selectedThemes.has("all")) selectedThemes.delete("all");
           if (selectedThemes.has(theme)) {
             selectedThemes.delete(theme);
@@ -405,23 +476,25 @@
     // ---------- FILTRAGE DES MOTS ----------
     function getFilteredWords() {
       let filtered = [...allWords];
-      // Filtre par niveaux (si "all" n'est pas seul)
+      // Filtre niveaux
       if (!selectedLevels.has("all") && selectedLevels.size > 0) {
         filtered = filtered.filter(w => selectedLevels.has(w.level.toString()));
       }
-      // Filtre par thèmes (si "all" n'est pas seul)
+      // Filtre thèmes
       if (!selectedThemes.has("all") && selectedThemes.size > 0) {
         filtered = filtered.filter(w => selectedThemes.has(w.cat));
       }
-      // Filtre recherche (si mode recherche actif)
+      // Recherche (si active)
       if (searchActive && currentSearchTerm.trim() !== "") {
-        const term = currentSearchTerm.trim().toLowerCase();
-        filtered = filtered.filter(w => w.fr.toLowerCase().includes(term) || w.en.toLowerCase().includes(term));
+        const termNorm = normalize(currentSearchTerm);
+        filtered = filtered.filter(w => 
+          normalize(w.fr).includes(termNorm) || normalize(w.en).includes(termNorm)
+        );
       }
       return filtered;
     }
 
-    // ---------- AFFICHAGE DES CARTES ----------
+    // ---------- AFFICHAGE DES CARTES (selon le sens) ----------
     function escapeHtml(str) {
       if (!str) return "";
       return str.replace(/[&<>]/g, m => m === "&" ? "&amp;" : (m === "<" ? "&lt;" : "&gt;"));
@@ -429,96 +502,119 @@
 
     function renderWords(words) {
       if (!words.length) {
-        gridDiv.innerHTML = '<div class="no-result">✨ Aucun mot ne correspond à ces critères.</div>';
+        gridDiv.innerHTML = '<div class="no-result">✨ Rien pour le moment !</div>';
         resultCountSpan.textContent = "0 mots affichés";
         return;
       }
       resultCountSpan.textContent = `${words.length} mot${words.length > 1 ? "s" : ""} affiché${words.length > 1 ? "s" : ""}`;
-      // Pas de mode d'inversion ici pour rester simple, on affiche français -> anglais
+      const isReverse = (currentSense === "enfr");
       gridDiv.innerHTML = words.map(w => {
         const catName = w.cat ? (w.cat.charAt(0).toUpperCase() + w.cat.slice(1)) : "Général";
+        const icon = themeIcons[w.cat] || defaultIcon;
         const phon = w.phon || "";
         const def = w.def || "";
         const ex = w.ex || "";
-        return `
-          <div class="word-card">
-            <div class="main-word">${escapeHtml(w.fr)} <span class="phonetic">${escapeHtml(phon)}</span></div>
-            <div class="translation">${escapeHtml(w.en)}</div>
-            <div class="definition">${escapeHtml(def)}<br><em>${escapeHtml(ex)}</em></div>
-            <div class="badge-container">
-              <span class="badge-level">Niveau ${w.level}</span>
-              <span class="badge-cat">📌 ${catName}</span>
+        if (isReverse) {
+          // Mode anglais → français
+          return `
+            <div class="word-card">
+              <div class="main-word">${escapeHtml(w.en)}</div>
+              <div class="translation"><span class="phonetic">${escapeHtml(phon)}</span> ${escapeHtml(w.fr)}</div>
+              <div class="definition">${escapeHtml(def)}<br><em>${escapeHtml(ex)}</em></div>
+              <div class="badge-container">
+                <span class="badge-level">Niveau ${w.level}</span>
+                <span class="badge-cat">${icon} ${catName}</span>
+              </div>
             </div>
-          </div>
-        `;
+          `;
+        } else {
+          return `
+            <div class="word-card">
+              <div class="main-word">${escapeHtml(w.fr)} <span class="phonetic">${escapeHtml(phon)}</span></div>
+              <div class="translation">${escapeHtml(w.en)}</div>
+              <div class="definition">${escapeHtml(def)}<br><em>${escapeHtml(ex)}</em></div>
+              <div class="badge-container">
+                <span class="badge-level">Niveau ${w.level}</span>
+                <span class="badge-cat">${icon} ${catName}</span>
+              </div>
+            </div>
+          `;
+        }
       }).join("");
     }
 
     // ---------- MISE À JOUR GLOBALE ----------
     function updateUI() {
-      // Mettre à jour l'état actif des boutons (niveaux)
+      // Mettre à jour l'aspect actif des boutons de niveau
       document.querySelectorAll("#levelButtons .filter-chip").forEach(btn => {
         const text = btn.textContent;
         if (text === "📚 Tous les niveaux") {
           if (selectedLevels.has("all")) btn.classList.add("active");
           else btn.classList.remove("active");
         } else {
-          const levelNum = parseInt(text.match(/\d+/)?.[0]);
-          if (levelNum && selectedLevels.has(levelNum.toString())) btn.classList.add("active");
+          const match = text.match(/\d+/);
+          if (match && selectedLevels.has(match[0])) btn.classList.add("active");
           else btn.classList.remove("active");
         }
       });
-      // Mettre à jour l'état actif des boutons thèmes
+      // Mettre à jour l'aspect actif des boutons de thème
       document.querySelectorAll("#themeButtons .filter-chip").forEach(btn => {
         const txt = btn.textContent;
         if (txt === "🏷️ Tous les thèmes") {
           if (selectedThemes.has("all")) btn.classList.add("active");
           else btn.classList.remove("active");
         } else {
-          const themeName = txt.replace(/^📌 /, "");
+          const themeName = txt.replace(/^[🏷️📌👋🙋🎩💬⚖️🏬🍎🌿🔧⚡👥🏠🌡️❤️📦🌤️⏰🍂🔄]+\s*/, "").trim();
           if (selectedThemes.has(themeName)) btn.classList.add("active");
           else btn.classList.remove("active");
         }
       });
-      // Appliquer les filtres et afficher
+      // Mettre à jour l'indicateur de sens
+      senseIndicator.textContent = currentSense === "fren" ? "🇫🇷 → 🇬🇧" : "🇬🇧 → 🇫🇷";
+      // Appliquer les drapeaux actifs
+      document.querySelectorAll(".flag-btn").forEach(flag => {
+        const sense = flag.dataset.sense;
+        if (sense === currentSense) flag.classList.add("active");
+        else flag.classList.remove("active");
+      });
+      // Filtrer et afficher
       const filtered = getFilteredWords();
       renderWords(filtered);
     }
 
-    // ---------- GESTION DES PANNEAUX (afficher niveaux ou thèmes) ----------
-    function showLevelsPanel() {
-      levelsPanel.classList.add("visible");
-      themesPanel.classList.remove("visible");
+    // ---------- GESTION DES NUAGES (niveaux / thèmes) ----------
+    function showLevelsCloud() {
+      levelsCloud.classList.add("visible");
+      themesCloud.classList.remove("visible");
       showLevelsBtn.classList.add("active");
       showThemesBtn.classList.remove("active");
     }
-
-    function showThemesPanel() {
-      levelsPanel.classList.remove("visible");
-      themesPanel.classList.add("visible");
+    function showThemesCloud() {
+      levelsCloud.classList.remove("visible");
+      themesCloud.classList.add("visible");
       showLevelsBtn.classList.remove("active");
       showThemesBtn.classList.add("active");
     }
 
     // ---------- RECHERCHE ----------
     function performSearch() {
-      const term = searchInput.value;
-      if (term.trim() === "") {
-        // Si recherche vide, on désactive le mode recherche
+      const term = searchInput.value.trim();
+      if (term === "") {
         if (searchActive) {
+          // Désactiver recherche
           searchActive = false;
           currentSearchTerm = "";
           clearSearchContainer.style.display = "none";
+          // Ne pas réafficher automatiquement les nuages, l'utilisateur choisira
           updateUI();
         }
         return;
       }
       currentSearchTerm = term;
       searchActive = true;
-      // Cacher les panneaux de filtres (pour ne pas surcharger)
-      levelsPanel.classList.remove("visible");
-      themesPanel.classList.remove("visible");
-      // Désactiver les boutons actifs (visuellement)
+      // Cacher les nuages de filtres pendant la recherche
+      levelsCloud.classList.remove("visible");
+      themesCloud.classList.remove("visible");
       showLevelsBtn.classList.remove("active");
       showThemesBtn.classList.remove("active");
       clearSearchContainer.style.display = "block";
@@ -530,30 +626,41 @@
       currentSearchTerm = "";
       searchInput.value = "";
       clearSearchContainer.style.display = "none";
-      // On ne réaffiche pas automatiquement les panneaux, l'utilisateur choisira
+      // On ne réaffiche pas les nuages automatiquement, l'utilisateur cliquera sur Niveaux/Thèmes s'il veut filtrer
+      updateUI();
+    }
+
+    // ---------- CHANGEMENT DE SENS (drapeaux) ----------
+    function setSense(sense) {
+      if (sense === currentSense) return;
+      currentSense = sense;
       updateUI();
     }
 
     // ---------- INITIALISATION ----------
     function init() {
       if (!loadData()) return;
-      buildLevelButtons();
-      buildThemeButtons();
-      // Par défaut, on affiche tous les niveaux et tous les thèmes (sélection "all")
+      // Valeurs par défaut : tous les niveaux, tous les thèmes
       selectedLevels.add("all");
       selectedThemes.add("all");
-      // Panneau visible par défaut : niveaux
-      showLevelsPanel();
+      buildLevelButtons();
+      buildThemeButtons();
+      // Par défaut, afficher le nuage des niveaux (mais on peut le laisser fermé ? Pour l'expérience, on l'affiche)
+      showLevelsCloud();
       updateUI();
 
       // Écouteurs
-      showLevelsBtn.addEventListener("click", showLevelsPanel);
-      showThemesBtn.addEventListener("click", showThemesPanel);
+      showLevelsBtn.addEventListener("click", showLevelsCloud);
+      showThemesBtn.addEventListener("click", showThemesCloud);
       searchBtn.addEventListener("click", performSearch);
       clearSearchBtn.addEventListener("click", clearSearch);
-      // Si l'utilisateur appuie sur Entrée dans le champ recherche
-      searchInput.addEventListener("keypress", (e) => {
-        if (e.key === "Enter") performSearch();
+      searchInput.addEventListener("keypress", (e) => { if (e.key === "Enter") performSearch(); });
+      // Drapeaux
+      flags.forEach(flag => {
+        flag.addEventListener("click", () => {
+          const sense = flag.dataset.sense;
+          setSense(sense);
+        });
       });
     }
 
