@@ -1,330 +1,134 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Français Master — Lexique</title>
+<title>Français Master — Lexique 🥖</title>
 <style>
-:root{--primary:#667eea;--secondary:#764ba2;--success:#48bb78;--bg:#f7fafc;--text:#2d3748}
+:root{--primary:#667eea;--secondary:#764ba2;--success:#48bb78;--text:#2d3748}
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
 body{background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;padding:15px}
 .container{background:white;width:100%;max-width:920px;margin:0 auto;border-radius:20px;padding:25px;box-shadow:0 15px 40px rgba(0,0,0,.2)}
 h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
 .subtitle{text-align:center;color:#718096;margin-bottom:20px;font-size:.95em}
 .nav-links{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.nav-links a{padding:9px 18px;background:var(--primary);color:white;text-decoration:none;border-radius:20px;font-weight:bold;font-size:.9em;transition:all .25s}
-.nav-links a:hover{background:var(--secondary);transform:translateY(-2px)}
-.search-box{width:100%;padding:13px 18px;border:2px solid #e2e8f0;border-radius:12px;font-size:1em;margin-bottom:16px;outline:none;transition:border-color .2s}
+.nav-links a{padding:9px 18px;background:var(--primary);color:white;text-decoration:none;border-radius:20px;font-weight:bold;font-size:.9em}
+.stat-bar{text-align:center;font-size:.85em;color:#718096;margin-bottom:12px}
+.search-box{width:100%;padding:13px 18px;border:2px solid #e2e8f0;border-radius:12px;font-size:1em;margin-bottom:16px;outline:none}
 .search-box:focus{border-color:var(--primary)}
-
-/* BOUTONS DE VUE */
-.view-tabs{display:flex;gap:10px;margin-bottom:18px;justify-content:center;flex-wrap:wrap}
-.view-btn{padding:10px 20px;border:2px solid var(--primary);background:white;color:var(--primary);border-radius:20px;cursor:pointer;font-weight:bold;font-size:.9em;transition:all .25s}
-.view-btn:hover,.view-btn.active{background:var(--primary);color:white}
-.view-btn.active{box-shadow:0 4px 12px rgba(102,126,234,.3)}
-
-/* ONGLETS NIVEAU */
 .level-tabs{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap;justify-content:center}
 .level-tab{padding:7px 13px;border:2px solid var(--primary);background:white;color:var(--primary);border-radius:16px;cursor:pointer;font-weight:bold;font-size:.8em;transition:all .25s}
 .level-tab:hover,.level-tab.active{background:var(--primary);color:white}
-
-/* ONGLETS THEME */
-.theme-tabs{display:none;gap:7px;margin-bottom:18px;flex-wrap:wrap;justify-content:center}
-.theme-tabs.show{display:flex}
-.theme-tab{padding:7px 13px;border:2px solid var(--secondary);background:white;color:var(--secondary);border-radius:16px;cursor:pointer;font-weight:bold;font-size:.8em;transition:all .25s}
-.theme-tab:hover,.theme-tab.active{background:var(--secondary);color:white}
-
-/* GRILLE */
 .lex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px}
 .word-card{background:#f8fafc;border:2px solid transparent;border-radius:13px;padding:17px;cursor:pointer;transition:all .25s;position:relative}
 .word-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1);border-color:var(--primary)}
-.word-en{font-size:1.2em;font-weight:bold;color:var(--primary);margin-bottom:4px}
-.word-fr{font-size:.95em;color:var(--text);margin-bottom:7px}
-.word-phon{font-size:.85em;color:var(--secondary);font-style:italic}
+.word-fr{font-size:1.15em;font-weight:bold;color:var(--primary);margin-bottom:4px}
+.word-en{font-size:.9em;color:var(--text);margin-bottom:4px}
+.word-phon{font-size:.82em;color:var(--secondary);font-style:italic;margin-bottom:7px}
 .word-cat{font-size:.72em;color:#718096;background:#e2e8f0;padding:2px 9px;border-radius:9px;display:inline-block}
 .word-lv{position:absolute;top:9px;right:9px;font-size:.68em;color:white;background:var(--secondary);padding:2px 7px;border-radius:7px}
 .empty-msg{text-align:center;color:#999;padding:40px;grid-column:1/-1}
-
-/* SECTION THEME */
-.theme-section{margin-bottom:25px}
-.theme-title{font-size:1.3em;font-weight:bold;color:var(--primary);margin-bottom:12px;padding-bottom:8px;border-bottom:2px solid #e2e8f0;display:flex;align-items:center;gap:8px}
-.theme-count{font-size:.7em;color:#718096;background:#f0f4ff;padding:2px 8px;border-radius:10px}
-
-/* Modal */
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:2000;padding:15px}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:2000;padding:15px}
 .modal-overlay.show{display:flex}
 .modal-content{background:white;border-radius:18px;padding:26px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;animation:popIn .25s ease}
 @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-.modal-en{font-size:1.9em;font-weight:bold;color:var(--primary);margin-bottom:4px}
-.modal-fr{font-size:1.2em;color:var(--text);margin-bottom:14px}
-.modal-phon{font-size:1em;color:var(--secondary);font-weight:600;margin-bottom:10px;font-style:italic}
-.modal-sec{margin:12px 0;padding:12px 15px;background:#f7fafc;border-radius:10px}
+.modal-fr{font-size:1.9em;font-weight:bold;color:var(--primary);margin-bottom:2px}
+.modal-phon{font-size:1em;color:var(--secondary);font-style:italic;margin-bottom:4px}
+.modal-en{font-size:1.15em;color:var(--text);margin-bottom:14px}
+.modal-sec{margin:10px 0;padding:12px 15px;background:#f7fafc;border-radius:10px}
 .modal-sec h4{color:var(--secondary);margin-bottom:6px;font-size:.85em;text-transform:uppercase;letter-spacing:.5px}
 .modal-close{background:var(--primary);color:white;border:none;padding:11px 22px;border-radius:20px;cursor:pointer;font-weight:bold;margin-top:13px;width:100%}
-.stat-bar{text-align:center;font-size:.85em;color:#718096;margin-bottom:12px}
-
-@media(max-width:600px){
-.lex-grid{grid-template-columns:1fr 1fr}
-.view-btn{padding:8px 14px;font-size:.85em}
-}
+@media(max-width:600px){.lex-grid{grid-template-columns:1fr 1fr}}
 </style>
+<script src="BDDlexique.js"></script>
 </head>
 <body>
 <div class="container">
-<h1>📖 Lexique Français Master</h1>
-<p class="subtitle" id="statBar">Chargement...</p>
-
+<h1>📖 Lexique Français Master 🥖</h1>
+<p class="subtitle">Les mots essentiels avec prononciation intuitive pour anglophones</p>
 <div class="nav-links">
-<a href="quiz.html">🎮 Retour au Quiz</a>
-<a href="dashboard.html">📊 Mon Espace</a>
+  <a href="index.html">🏠 Accueil</a>
+  <a href="quiz.html">🎮 Quiz</a>
+  <a href="dashboard.html">📊 Dashboard</a>
 </div>
-
-<input type="text" class="search-box" id="searchBox" placeholder="🔍 Chercher un mot en français ou en anglais…" oninput="filterWords()">
-
-<!-- BOUTONS DE VUE -->
-<div class="view-tabs">
-  <button class="view-btn active" id="btnByLevel" onclick="switchView('level')">📚 Par Niveau</button>
-  <button class="view-btn" id="btnByTheme" onclick="switchView('theme')">🗂️ Par Thème</button>
+<div class="stat-bar" id="statBar">Chargement…</div>
+<input type="text" class="search-box" id="searchBox" placeholder="🔍 Chercher en français ou anglais…" oninput="filterWords()">
+<div class="level-tabs">
+  <button class="level-tab active" onclick="filterByLevel(0,this)">Tous</button>
+  <button class="level-tab" onclick="filterByLevel(1,this)">Niv.1 Salutations</button>
+  <button class="level-tab" onclick="filterByLevel(2,this)">Niv.2 Marché</button>
+  <button class="level-tab" onclick="filterByLevel(3,this)">Niv.3 Jardin</button>
+  <button class="level-tab" onclick="filterByLevel(4,this)">Niv.4 Voisins</button>
+  <button class="level-tab" onclick="filterByLevel(5,this)">Niv.5 Goûts</button>
+  <button class="level-tab" onclick="filterByLevel(6,this)">Niv.6 Commerces</button>
+  <button class="level-tab" onclick="filterByLevel(7,this)">Niv.7 Sorties</button>
+  <button class="level-tab" onclick="filterByLevel(8,this)">Niv.8 Météo</button>
+  <button class="level-tab" onclick="filterByLevel(9,this)">Niv.9 Verbes</button>
+  <button class="level-tab" onclick="filterByLevel(10,this)">Niv.10 Politesse</button>
 </div>
-
-<!-- VUE PAR NIVEAU -->
-<div id="viewLevel">
-  <div class="level-tabs" id="levelTabs"></div>
-  <div class="lex-grid" id="lexGridLevel"></div>
+<div class="lex-grid" id="lexGrid"></div>
 </div>
-
-<!-- VUE PAR THEME -->
-<div id="viewTheme" style="display:none">
-  <div class="theme-tabs" id="themeTabs"></div>
-  <div id="themeContent"></div>
-</div>
-
-</div>
-
-<!-- Modal -->
 <div class="modal-overlay" id="modal" onclick="closeModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
-    <div class="modal-en" id="modalEn"></div>
     <div class="modal-fr" id="modalFr"></div>
     <div class="modal-phon" id="modalPhon"></div>
+    <div class="modal-en" id="modalEn"></div>
     <div class="modal-sec"><h4>📖 Définition</h4><p id="modalDef"></p></div>
     <div class="modal-sec"><h4>💬 Exemple</h4><p id="modalEx" style="font-style:italic"></p></div>
     <div class="modal-sec"><h4>📝 Catégorie</h4><p id="modalCat"></p></div>
     <button class="modal-close" onclick="closeModal()">Fermer</button>
   </div>
 </div>
-
-<!-- Chargement BDD + Moteur -->
-<script src="BDDlexique.js"></script>
-<script src="lexique-engine.js"></script>
-
 <script>
-let currentView = 'level';
-let currentLevel = 0;
-let currentTheme = '';
-let currentSearch = '';
+// Utilise BDDlexique.js si chargé, sinon données minimales intégrées
+const LEXIQUE = (typeof LEXIQUE_BDD !== 'undefined') ? LEXIQUE_BDD : [];
+let currentLevel=0, currentSearch="";
 
-// ═══════════════════════════════════════════════════════════════════
-// INITIALISATION
-// ═══════════════════════════════════════════════════════════════════
-document.addEventListener("DOMContentLoaded", () => {
-  if (typeof LEXIQUE === 'undefined') {
-    document.getElementById("statBar").textContent = "Erreur: BDDlexique.js non chargé";
-    return;
-  }
-  
-  buildLevelTabs();
-  buildThemeTabs();
-  renderLevelView();
-  updateStatBar();
+function renderWords(){
+const grid=document.getElementById(“lexGrid”);
+const s=currentSearch.toLowerCase();
+const filtered=LEXIQUE.filter(w=>{
+const ms=!s||w.fr.toLowerCase().includes(s)||w.en.toLowerCase().includes(s)||(w.def||””).toLowerCase().includes(s);
+return ms&&(currentLevel===0||w.level===currentLevel);
 });
-
-// ═══════════════════════════════════════════════════════════════════
-// BOUTONS DE VUE
-// ═══════════════════════════════════════════════════════════════════
-function switchView(view) {
-  currentView = view;
-  document.getElementById('btnByLevel').classList.toggle('active', view === 'level');
-  document.getElementById('btnByTheme').classList.toggle('active', view === 'theme');
-  document.getElementById('viewLevel').style.display = view === 'level' ? 'block' : 'none';
-  document.getElementById('viewTheme').style.display = view === 'theme' ? 'block' : 'none';
-  if (view === 'level') renderLevelView();
-  else renderThemeView();
+document.getElementById(“statBar”).textContent=filtered.length+” mot”+(filtered.length>1?“s”:””)+” affiché”+(filtered.length>1?“s”:””)+” (sur “+LEXIQUE.length+”)”;
+if(!filtered.length){grid.innerHTML=’<div class="empty-msg">Aucun résultat.</div>’;return;}
+grid.innerHTML=filtered.map(w=>{
+const idx=LEXIQUE.indexOf(w);
+return `<div class="word-card" onclick="openModal(${idx})"> <div class="word-lv">Niv.${w.level}</div> <div class="word-fr">${w.fr}</div> <div class="word-en">${w.en}</div> <div class="word-phon">${w.phon||""}</div> <span class="word-cat">${w.cat}</span> </div>`;
+}).join(””);
 }
-
-// ═══════════════════════════════════════════════════════════════════
-// VUE PAR NIVEAU
-// ═══════════════════════════════════════════════════════════════════
-function buildLevelTabs() {
-  const tabs = document.getElementById('levelTabs');
-  const levels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  tabs.innerHTML = levels.map(lvl => 
-    `<button class="level-tab${lvl === 0 ? ' active' : ''}" onclick="selectLevel(${lvl}, this)">${lvl === 0 ? 'Tous' : 'Niv. ' + lvl}</button>`
-  ).join('');
+function filterByLevel(lvl,btn){
+currentLevel=lvl;
+document.querySelectorAll(”.level-tab”).forEach(b=>b.classList.remove(“active”));
+if(btn)btn.classList.add(“active”);
+renderWords();
 }
-
-function selectLevel(lvl, btn) {
-  currentLevel = lvl;
-  document.querySelectorAll('.level-tab').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  renderLevelView();
+function filterWords(){currentSearch=document.getElementById(“searchBox”).value;renderWords();}
+function openModal(idx){
+const w=LEXIQUE[idx];if(!w)return;
+document.getElementById(“modalFr”).textContent=w.fr;
+document.getElementById(“modalPhon”).textContent=w.phon||””;
+document.getElementById(“modalEn”).textContent=w.en;
+document.getElementById(“modalDef”).textContent=w.def||””;
+document.getElementById(“modalEx”).textContent=w.ex||””;
+document.getElementById(“modalCat”).textContent=w.cat+” • Niveau “+w.level;
+document.getElementById(“modal”).classList.add(“show”);
 }
-
-function renderLevelView() {
-  const grid = document.getElementById('lexGridLevel');
-  let words = LEXIQUE;
-  
-  if (currentLevel > 0) {
-    words = words.filter(w => w.level === currentLevel);
-  }
-  
-  if (currentSearch.trim()) {
-    const q = currentSearch.toLowerCase();
-    words = words.filter(w => 
-      (w.fr && w.fr.toLowerCase().includes(q)) ||
-      (w.en && w.en.toLowerCase().includes(q)) ||
-      (w.def && w.def.toLowerCase().includes(q))
-    );
-  }
-  
-  words.sort((a, b) => a.fr.localeCompare(b.fr, 'fr'));
-  
-  let html = '<h2 style="text-align:center;color:var(--primary);margin-bottom:20px;font-size:1.5em">📚 Par Niveau</h2>';
-  
-  if (words.length === 0) {
-    grid.innerHTML = html + '<div class="empty-msg">Aucun mot trouvé.</div>';
-  } else {
-    grid.innerHTML = html + words.map((w, i) => renderWordCardHTML(w, LEXIQUE.indexOf(w))).join('');
-  }
-  
-  updateStatBar(words.length);
+function closeModal(e){if(!e||e.target.id===“modal”)document.getElementById(“modal”).classList.remove(“show”);}
+document.addEventListener(“DOMContentLoaded”,()=>{
+const params=new URLSearchParams(window.location.search);
+const lvlParam=params.get(“level”);
+if(lvlParam){
+currentLevel=parseInt(lvlParam);
+document.querySelectorAll(”.level-tab”).forEach((b,i)=>b.classList.toggle(“active”,i===currentLevel));
 }
-
-// ═══════════════════════════════════════════════════════════════════
-// VUE PAR THEME
-// ═══════════════════════════════════════════════════════════════════
-function buildThemeTabs() {
-  const tabs = document.getElementById('themeTabs');
-  const themes = getUniqueThemes();
-  
-  if (themes.length === 0) {
-    tabs.style.display = 'none';
-    return;
-  }
-  
-  tabs.innerHTML = `<button class="theme-tab active" onclick="selectTheme('', this)">Tous</button>` +
-    themes.map(t => `<button class="theme-tab" onclick="selectTheme('${escapeJS(t)}', this)">${escapeHTML(t)}</button>`).join('');
-}
-
-function selectTheme(theme, btn) {
-  currentTheme = theme;
-  document.querySelectorAll('.theme-tab').forEach(b => b.classList.remove('active'));
-  if (btn) btn.classList.add('active');
-  renderThemeView();
-}
-
-function renderThemeView() {
-  const container = document.getElementById('themeContent');
-  let words = LEXIQUE;
-  
-  if (currentSearch.trim()) {
-    const q = currentSearch.toLowerCase();
-    words = words.filter(w => 
-      (w.fr && w.fr.toLowerCase().includes(q)) ||
-      (w.en && w.en.toLowerCase().includes(q)) ||
-      (w.def && w.def.toLowerCase().includes(q))
-    );
-  }
-  
-  // Grouper par theme (ignorer les mots sans theme)
-  const byTheme = {};
-  words.forEach(w => {
-    if (!w.theme) return;
-    const t = w.theme;
-    if (!byTheme[t]) byTheme[t] = [];
-    byTheme[t].push(w);
-  });
-  
-  let themesToShow = Object.keys(byTheme).sort();
-  if (currentTheme) {
-    themesToShow = [currentTheme];
-  }
-  
-  let html = '<h2 style="text-align:center;color:var(--primary);margin-bottom:20px;font-size:1.5em">🗂️ Par Thème</h2>';
-  
-  themesToShow.forEach(theme => {
-    const themeWords = byTheme[theme] || [];
-    themeWords.sort((a, b) => a.fr.localeCompare(b.fr, 'fr'));
-    
-    html += `<div class="theme-section">
-      <div class="theme-title">${escapeHTML(theme)} <span class="theme-count">${themeWords.length} mot${themeWords.length > 1 ? 's' : ''}</span></div>
-      <div class="lex-grid">
-        ${themeWords.map(w => renderWordCardHTML(w, LEXIQUE.indexOf(w))).join('')}
-      </div>
-    </div>`;
-  });
-  
-  container.innerHTML = html || '<div class="empty-msg">Aucun mot trouvé.</div>';
-  updateStatBar(words.length);
-}
-
-// ═══════════════════════════════════════════════════════════════════
-// UTILITAIRES
-// ═══════════════════════════════════════════════════════════════════
-function getUniqueThemes() {
-  const themes = new Set();
-  LEXIQUE.forEach(w => { if (w.theme) themes.add(w.theme); });
-  return Array.from(themes).sort();
-}
-
-function renderWordCardHTML(w, idx) {
-  return `
-    <div class="word-card" onclick="openModal(${idx})">
-      <span class="word-lv">Niv.${w.level}</span>
-      <div class="word-en">${escapeHTML(w.en)}</div>
-      <div class="word-fr">${escapeHTML(w.fr)}</div>
-      <div class="word-phon">${w.phon ? escapeHTML(w.phon) : ''}</div>
-      <span class="word-cat">${escapeHTML(w.cat)}${w.theme ? ' • ' + escapeHTML(w.theme) : ''}</span>
-    </div>`;
-}
-
-function escapeHTML(str) {
-  if (!str) return '';
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-}
-
-function escapeJS(str) {
-  if (!str) return '';
-  return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-}
-
-function filterWords() {
-  currentSearch = document.getElementById('searchBox').value;
-  if (currentView === 'level') renderLevelView();
-  else renderThemeView();
-}
-
-function updateStatBar(count) {
-  const total = typeof LEXIQUE !== 'undefined' ? LEXIQUE.length : 0;
-  const c = count !== undefined ? count : total;
-  document.getElementById('statBar').textContent = c + ' mot' + (c > 1 ? 's' : '') + ' affiché' + (c > 1 ? 's' : '') + ' sur ' + total + ' total';
-}
-
-function openModal(idx) {
-  if (typeof LEXIQUE === 'undefined' || !LEXIQUE[idx]) return;
-  const w = LEXIQUE[idx];
-  document.getElementById('modalEn').textContent = w.en;
-  document.getElementById('modalFr').textContent = w.fr;
-  document.getElementById('modalPhon').textContent = w.phon || '';
-  document.getElementById('modalDef').textContent = w.def;
-  document.getElementById('modalEx').textContent = w.ex;
-  document.getElementById('modalCat').textContent = w.cat + ' • Niveau ' + w.level + (w.theme ? ' • ' + w.theme : '');
-  document.getElementById('modal').classList.add('show');
-}
-
-function closeModal(e) {
-  if (!e || e.target.id === 'modal') document.getElementById('modal').classList.remove('show');
-}
+const hash=window.location.hash.replace(”#”,””);
+if(hash){currentSearch=decodeURIComponent(hash);document.getElementById(“searchBox”).value=currentSearch;}
+renderWords();
+});
 </script>
+
 </body>
 </html>
