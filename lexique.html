@@ -22,24 +22,24 @@ h1{text-align:center;font-size:1.8em;color:var(--text);margin-bottom:4px}
 .search-box:focus{border-color:var(--primary)}
 
 /* Toggle thème/niveau */
-.filter-toggle{display:flex;justify-content:center;gap:0;margin-bottom:12px;border:2px solid var(–primary);border-radius:20px;overflow:hidden;max-width:300px;margin-left:auto;margin-right:auto}
-.toggle-btn{flex:1;padding:9px 14px;border:none;background:white;color:var(–primary);font-weight:700;font-size:.88em;cursor:pointer;transition:all .2s}
-.toggle-btn.active{background:var(–primary);color:white}
+.filter-toggle{display:flex;justify-content:center;gap:0;margin-bottom:12px;border:2px solid var(--primary);border-radius:20px;overflow:hidden;max-width:300px;margin-left:auto;margin-right:auto}
+.toggle-btn{flex:1;padding:9px 14px;border:none;background:white;color:var(--primary);font-weight:700;font-size:.88em;cursor:pointer;transition:all .2s}
+.toggle-btn.active{background:var(--primary);color:white}
 
 /* Onglets */
 .tabs-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
-.tab{padding:6px 12px;border:2px solid var(–primary);background:white;color:var(–primary);border-radius:14px;cursor:pointer;font-weight:600;font-size:.78em;transition:all .2s;white-space:nowrap}
-.tab:hover,.tab.active{background:var(–primary);color:white}
+.tab{padding:6px 12px;border:2px solid var(--primary);background:white;color:var(--primary);border-radius:14px;cursor:pointer;font-weight:600;font-size:.78em;transition:all .2s;white-space:nowrap}
+.tab:hover,.tab.active{background:var(--primary);color:white}
 
 /* Grille cartes */
 .lex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:11px}
 .word-card{background:#f8fafc;border:2px solid transparent;border-radius:12px;padding:13px;cursor:pointer;transition:all .2s}
-.word-card:hover{border-color:var(–primary);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.word-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.1)}
 .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px}
-.word-fr{font-size:1.05em;font-weight:700;color:var(–primary);flex:1;padding-right:6px}
-.badge-lv{font-size:.66em;color:white;background:var(–secondary);padding:2px 7px;border-radius:7px;flex-shrink:0}
-.word-en{font-size:.86em;color:var(–text);margin-bottom:3px}
-.word-phon{font-size:.78em;color:var(–secondary);font-style:italic;margin-bottom:6px}
+.word-fr{font-size:1.05em;font-weight:700;color:var(--primary);flex:1;padding-right:6px}
+.badge-lv{font-size:.66em;color:white;background:var(--secondary);padding:2px 7px;border-radius:7px;flex-shrink:0}
+.word-en{font-size:.86em;color:var(--text);margin-bottom:3px}
+.word-phon{font-size:.78em;color:var(--secondary);font-style:italic;margin-bottom:6px}
 .badge-cat{font-size:.68em;color:#718096;background:#e2e8f0;padding:2px 8px;border-radius:8px}
 .empty-msg{text-align:center;color:#999;padding:40px;grid-column:1/-1;font-size:.95em}
 
@@ -48,16 +48,16 @@ h1{text-align:center;font-size:1.8em;color:var(--text);margin-bottom:4px}
 .modal-overlay.show{display:flex}
 .modal-box{background:white;border-radius:18px;padding:24px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;animation:popIn .22s}
 @keyframes popIn{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:scale(1)}}
-.modal-fr{font-size:1.8em;font-weight:700;color:var(–primary)}
-.modal-phon{color:var(–secondary);font-style:italic;margin-bottom:4px}
-.modal-en{font-size:1.1em;color:var(–text);margin-bottom:12px}
+.modal-fr{font-size:1.8em;font-weight:700;color:var(--primary)}
+.modal-phon{color:var(--secondary);font-style:italic;margin-bottom:4px}
+.modal-en{font-size:1.1em;color:var(--text);margin-bottom:12px}
 .modal-row{background:#f7fafc;border-radius:9px;padding:11px 13px;margin-bottom:8px}
-.modal-row h4{color:var(–secondary);font-size:.78em;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.modal-row h4{color:var(--secondary);font-size:.78em;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
 .modal-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
 .modal-badge{font-size:.75em;padding:3px 10px;border-radius:10px;font-weight:600}
-.badge-theme{background:#e8ecff;color:var(–primary)}
+.badge-theme{background:#e8ecff;color:var(--primary)}
 .badge-niveau{background:#e0f2fe;color:#0369a1}
-.modal-close{background:var(–primary);color:white;border:none;padding:10px 22px;border-radius:18px;cursor:pointer;font-weight:700;margin-top:10px;width:100%}
+.modal-close{background:var(--primary);color:white;border:none;padding:10px 22px;border-radius:18px;cursor:pointer;font-weight:700;margin-top:10px;width:100%}
 @media(max-width:600px){.lex-grid{grid-template-columns:1fr 1fr}}
 </style>
 
