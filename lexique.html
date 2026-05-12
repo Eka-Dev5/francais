@@ -144,7 +144,6 @@
       cursor: pointer;
       transition: all 0.2s;
       border: 1px solid transparent;
-      color: var(--text-dark);
     }
     .filter-chip.active {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -287,8 +286,8 @@
   <div id="lexiqueGrid" class="lexique-grid"></div>
 </div>
 
+<!-- ORDRE : D'ABORD BDDlexique.js, PUIS LE SCRIPT PRINCIPAL -->
 <script src="BDDlexique.js"></script>
-<script>
 <script>
   alert("BDD chargée : " + (typeof LEXIQUE_BDD !== "undefined" ? LEXIQUE_BDD.length : "non"));
 </script>
@@ -310,13 +309,13 @@
   };
   const defaultIcon = "🏷️";
 
-  // Charger les données
+  // Charger les données depuis LEXIQUE_BDD (global)
   function loadData() {
     if (typeof LEXIQUE_BDD !== "undefined" && Array.isArray(LEXIQUE_BDD) && LEXIQUE_BDD.length) {
       words = [...LEXIQUE_BDD];
       return true;
     }
-    console.warn("BDDlexique.js introuvable ou vide");
+    console.warn("BDDlexique.js non trouvé ou vide");
     return false;
   }
 
@@ -403,9 +402,9 @@
     grid.innerHTML = filtered.map(w => {
       const catName = w.cat ? (w.cat.charAt(0).toUpperCase() + w.cat.slice(1)) : "Général";
       const icon = themeIcons[w.cat] || defaultIcon;
-      const phon = w.phon ? w.phon : "";
-      const def = w.def ? w.def : "";
-      const ex = w.ex ? w.ex : "";
+      const phon = w.phon || "";
+      const def = w.def || "";
+      const ex = w.ex || "";
       if (isReverse) {
         return `
           <div class="word-card reverse">
@@ -434,7 +433,7 @@
     }).join("");
   }
 
-  // Mise à jour complète (filtres + rendu)
+  // Mise à jour complète
   function updateAll() {
     // Mettre à jour les classes actives des boutons niveau
     document.querySelectorAll("#levelButtons .filter-chip").forEach(btn => {
