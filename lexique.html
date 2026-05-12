@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Français Master — Lexique</title>
   <style>
-    /* ========== VARIABLES & RESET (identique à index/dashboard) ========== */
+    /* ========== VARIABLES & RESET (identique a index/dashboard) ========== */
     :root {
       --primary: #667eea;
       --secondary: #764ba2;
@@ -28,7 +28,6 @@
       padding: 20px;
       font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
     }
-    /* Carte principale – identique à index.html */
     .card {
       max-width: 1400px;
       margin: 0 auto;
@@ -53,7 +52,6 @@
       margin-bottom: 24px;
       font-size: 0.95rem;
     }
-    /* Navigation – mêmes boutons que dashboard */
     .nav-links {
       display: flex;
       justify-content: center;
@@ -82,7 +80,6 @@
       transform: translateY(-2px);
       box-shadow: 0 5px 12px rgba(102, 126, 234, 0.3);
     }
-    /* Toggle d'inversion (ronds allongés) */
     .toggle-wrapper {
       text-align: center;
       margin-bottom: 28px;
@@ -110,7 +107,6 @@
       color: white;
       box-shadow: 0 2px 8px rgba(102,126,234,0.4);
     }
-    /* Barre de recherche */
     .search-bar {
       max-width: 500px;
       margin: 0 auto 28px auto;
@@ -129,7 +125,6 @@
       border-color: var(--primary);
       box-shadow: 0 0 0 3px rgba(102,126,234,0.2);
     }
-    /* Filtres : niveaux et thèmes (nuage de chips) */
     .filter-section {
       margin-bottom: 28px;
     }
@@ -168,14 +163,18 @@
       transform: translateY(-1px);
       background: #e2e8f0;
     }
-    /* Grille des cartes mots */
+    /* Desactiver l'interaction si jamais un bouton est disabled (optionnel) */
+    .filter-chip.disabled, .filter-chip:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
     .lexique-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
       margin-top: 20px;
     }
-    /* Carte mot – exactement le même style que dashboard */
     .word-card {
       background: var(--bg-light);
       border-left: 4px solid var(--primary);
@@ -235,7 +234,6 @@
       font-size: 0.7rem;
       font-weight: 500;
     }
-    /* Mode inversé : l'anglais devient le mot principal */
     .word-card.reverse .main-word {
       color: #2c5282;
     }
@@ -256,7 +254,6 @@
       background: #f9fafb;
       border-radius: 24px;
     }
-    /* RESPONSIVE (mobile, tablette) */
     @media (max-width: 640px) {
       body { padding: 12px; }
       .card { padding: 20px 16px; }
@@ -269,88 +266,73 @@
 </head>
 <body>
 <div class="card">
-  <h1>📖 Lexique Français Master</h1>
-  <div class="tagline">243 mots – cherche, filtre par niveau ou thème, inverse le sens</div>
+  <h1>📖 Lexique Francais Master</h1>
+  <div class="tagline">243 mots - cherche, filtre par niveau ou theme, inverse le sens</div>
 
-  <!-- Navigation cohérente avec le reste de l'application -->
   <div class="nav-links">
     <a href="index.html" class="btn">🏠 Accueil</a>
     <a href="quiz.html" class="btn btn-primary">🎮 Quiz</a>
     <a href="dashboard.html" class="btn">📊 Mon espace</a>
   </div>
 
-  <!-- Bouton d'inversion Français ↔ English -->
   <div class="toggle-wrapper">
     <div class="sense-toggle">
-      <button id="senseFrEn" class="sense-btn active" data-sense="fren">🇫🇷 → English</button>
-      <button id="senseEnFr" class="sense-btn" data-sense="enfr">🇬🇧 English → 🇫🇷</button>
+      <button id="senseFrEn" class="sense-btn active">🇫🇷 -> English</button>
+      <button id="senseEnFr" class="sense-btn">🇬🇧 English -> 🇫🇷</button>
     </div>
   </div>
 
-  <!-- Recherche (français ou anglais) -->
   <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="🔍 Chercher un mot (français ou anglais)…" autocomplete="off">
+    <input type="text" id="searchInput" placeholder="🔍 Chercher un mot (francais ou anglais)..." autocomplete="off">
   </div>
 
-  <!-- Filtre par niveaux (boutons 1-10 + Tous) -->
   <div class="filter-section">
     <div class="filter-title">📊 Niveaux</div>
     <div class="filter-buttons" id="levelButtonsContainer"></div>
   </div>
 
-  <!-- Filtre par thèmes (nuage de tags avec icônes) -->
   <div class="filter-section">
-    <div class="filter-title">🏷️ Thèmes</div>
+    <div class="filter-title">🏷️ Themes</div>
     <div class="filter-buttons" id="themeButtonsContainer"></div>
   </div>
 
-  <!-- Compteur de résultats -->
-  <div class="result-count" id="resultCount">0 mots affichés</div>
-
-  <!-- Grille des cartes lexique -->
+  <div class="result-count" id="resultCount">0 mots affiches</div>
   <div id="lexiqueGrid" class="lexique-grid"></div>
 </div>
 
 <script src="BDDlexique.js"></script>
 <script>
-  // ========== ÉTAT GLOBAL ==========
   let allWords = [];
-  let currentSense = "fren";       // "fren" = français→anglais, "enfr" = anglais→français
-  let activeLevel = "all";         // "all" ou un numéro (1..10)
-  let activeTheme = "all";         // "all" ou nom de la catégorie (ex: "salutation")
+  let currentSense = "fren";
+  let activeLevel = "all";
+  let activeTheme = "all";
   let searchTerm = "";
 
-  // Ordre d'affichage des thèmes (pédagogique, basé sur les niveaux du quiz)
   const THEME_ORDER = [
-    "salutation", "présentation", "politesse", "expression",
-    "quantité", "commerce", "aliment", "nature", "outil",
+    "salutation", "presentation", "politesse", "expression",
+    "quantite", "commerce", "aliment", "nature", "outil",
     "verbe", "social", "lieu", "sensation", "sentiment",
-    "objet", "météo", "temps", "saison", "état", "divers"
+    "objet", "meteo", "temps", "saison", "etat", "divers"
   ];
 
-  // Icônes associées à chaque thème
   const THEME_ICON = {
-    salutation: "👋", présentation: "🙋", politesse: "🎩", expression: "💬",
-    quantité: "⚖️", commerce: "🏬", aliment: "🍎", nature: "🌿",
+    salutation: "👋", presentation: "🙋", politesse: "🎩", expression: "💬",
+    quantite: "⚖️", commerce: "🏬", aliment: "🍎", nature: "🌿",
     outil: "🔧", verbe: "⚡", social: "👥", lieu: "🏠",
-    sensation: "🌡️", sentiment: "❤️", objet: "📦", météo: "🌤️",
-    temps: "⏰", saison: "🍂", état: "🔄", divers: "📌"
+    sensation: "🌡️", sentiment: "❤️", objet: "📦", meteo: "🌤️",
+    temps: "⏰", saison: "🍂", etat: "🔄", divers: "📌"
   };
 
-  // ========== CHARGEMENT DES DONNÉES ==========
   function loadWords() {
     if (typeof LEXIQUE_BDD === "undefined") {
-      console.error("BDDlexique.js non chargé");
-      document.getElementById("lexiqueGrid").innerHTML = '<div class="no-result">❌ La base de données n’a pas été chargée. Vérifie le fichier BDDlexique.js</div>';
+      document.getElementById("lexiqueGrid").innerHTML = '<div class="no-result">❌ Base de donnees non chargee.</div>';
       return false;
     }
     allWords = [...LEXIQUE_BDD];
-    // Tri alphabétique par défaut (français)
     allWords.sort((a, b) => a.fr.localeCompare(b.fr));
     return true;
   }
 
-  // ========== GÉNÉRATION DES BOUTONS DE NIVEAU ==========
   function buildLevelButtons() {
     const container = document.getElementById("levelButtonsContainer");
     const levels = ["all", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -369,14 +351,11 @@
     });
   }
 
-  // ========== GÉNÉRATION DES BOUTONS DE THÈMES (NUAGE) ==========
   function buildThemeButtons() {
     const container = document.getElementById("themeButtonsContainer");
-    // Extraire toutes les catégories présentes dans la BDD
     const themesSet = new Set();
     allWords.forEach(w => { if (w.cat) themesSet.add(w.cat); });
     let themes = Array.from(themesSet);
-    // Tri selon l'ordre pédagogique défini (les inconnues à la fin)
     themes.sort((a, b) => {
       const idxA = THEME_ORDER.indexOf(a);
       const idxB = THEME_ORDER.indexOf(b);
@@ -386,17 +365,15 @@
       return idxA - idxB;
     });
     container.innerHTML = "";
-    // Bouton "Tous les thèmes"
     const allBtn = document.createElement("button");
     allBtn.className = "filter-chip";
     if (activeTheme === "all") allBtn.classList.add("active");
-    allBtn.textContent = "🏷️ Tous les thèmes";
+    allBtn.textContent = "🏷️ Tous les themes";
     allBtn.addEventListener("click", () => {
       activeTheme = "all";
       updateFiltersAndRender();
     });
     container.appendChild(allBtn);
-    // Boutons individuels par thème (avec icône)
     themes.forEach(theme => {
       const btn = document.createElement("button");
       btn.className = "filter-chip";
@@ -412,45 +389,41 @@
     });
   }
 
-  // ========== FILTRAGE (niveau + thème + recherche) ==========
   function filterWords() {
     let filtered = [...allWords];
-    // Filtre niveau
-    if (activeLevel !== "all") {
-      filtered = filtered.filter(w => w.level == activeLevel);
-    }
-    // Filtre thème
-    if (activeTheme !== "all") {
-      filtered = filtered.filter(w => w.cat === activeTheme);
-    }
-    // Recherche (insensible à la casse, français ou anglais)
+    if (activeLevel !== "all") filtered = filtered.filter(w => w.level == activeLevel);
+    if (activeTheme !== "all") filtered = filtered.filter(w => w.cat === activeTheme);
     if (searchTerm.trim() !== "") {
       const term = searchTerm.trim().toLowerCase();
-      filtered = filtered.filter(w =>
-        w.fr.toLowerCase().includes(term) ||
-        w.en.toLowerCase().includes(term)
-      );
+      filtered = filtered.filter(w => w.fr.toLowerCase().includes(term) || w.en.toLowerCase().includes(term));
     }
     return filtered;
   }
 
-  // ========== RENDU DES CARTES (avec inversion possible) ==========
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
   function renderWords(words) {
     const grid = document.getElementById("lexiqueGrid");
     const countSpan = document.getElementById("resultCount");
     if (!words.length) {
-      grid.innerHTML = '<div class="no-result">✨ Aucun mot ne correspond à ces critères.</div>';
-      countSpan.textContent = "0 mots affichés";
+      grid.innerHTML = '<div class="no-result">✨ Aucun mot ne correspond a ces criteres.</div>';
+      countSpan.textContent = "0 mots affiches";
       return;
     }
-    countSpan.textContent = `${words.length} mot${words.length > 1 ? "s" : ""} affiché${words.length > 1 ? "s" : ""}`;
-    
+    countSpan.textContent = `${words.length} mot${words.length > 1 ? "s" : ""} affiche${words.length > 1 ? "s" : ""}`;
     const isReverse = (currentSense === "enfr");
     grid.innerHTML = words.map(w => {
-      const catName = w.cat ? (w.cat.charAt(0).toUpperCase() + w.cat.slice(1)) : "Général";
+      const catName = w.cat ? (w.cat.charAt(0).toUpperCase() + w.cat.slice(1)) : "General";
       const catIcon = THEME_ICON[w.cat] || "📌";
       if (isReverse) {
-        // Mode anglais → français
         return `
           <div class="word-card reverse">
             <div class="main-word">${escapeHtml(w.en)}</div>
@@ -463,7 +436,6 @@
           </div>
         `;
       } else {
-        // Mode français → anglais (normal)
         return `
           <div class="word-card">
             <div class="main-word">${escapeHtml(w.fr)} <span class="phonetic">${escapeHtml(w.phon || '')}</span></div>
@@ -479,64 +451,38 @@
     }).join('');
   }
 
-  // Échappement HTML (sécurité)
-  function escapeHtml(str) {
-    if (!str) return '';
-    return str.replace(/[&<>]/g, function(m) {
-      if (m === '&') return '&amp;';
-      if (m === '<') return '&lt;';
-      if (m === '>') return '&gt;';
-      return m;
-    });
-  }
-
-  // ========== RAFRAÎCHISSEMENT GLOBAL ==========
   function updateFiltersAndRender() {
-    // Mise à jour visuelle des boutons de niveau
     document.querySelectorAll("#levelButtonsContainer .filter-chip").forEach(btn => {
       const lvlVal = btn.dataset.level;
-      if ((lvlVal === "all" && activeLevel === "all") || (lvlVal == activeLevel)) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
+      if ((lvlVal === "all" && activeLevel === "all") || (lvlVal == activeLevel)) btn.classList.add("active");
+      else btn.classList.remove("active");
     });
-    // Mise à jour visuelle des boutons de thème
     document.querySelectorAll("#themeButtonsContainer .filter-chip").forEach(btn => {
       const themeVal = btn.dataset.theme;
-      if ((!themeVal && activeTheme === "all") || (themeVal && themeVal === activeTheme)) {
-        btn.classList.add("active");
-      } else {
-        btn.classList.remove("active");
-      }
+      if ((!themeVal && activeTheme === "all") || (themeVal && themeVal === activeTheme)) btn.classList.add("active");
+      else btn.classList.remove("active");
     });
     const filtered = filterWords();
     renderWords(filtered);
   }
 
-  // ========== CHANGEMENT DE SENS (affichage inversé) ==========
   function setSense(sense) {
     currentSense = sense;
     document.getElementById("senseFrEn").classList.toggle("active", sense === "fren");
     document.getElementById("senseEnFr").classList.toggle("active", sense === "enfr");
-    updateFiltersAndRender();   // simple re-render avec le nouveau sens
+    updateFiltersAndRender();
   }
 
-  // ========== INITIALISATION ET ÉCOUTEURS ==========
   document.addEventListener("DOMContentLoaded", () => {
     if (!loadWords()) return;
     buildLevelButtons();
     buildThemeButtons();
     updateFiltersAndRender();
 
-    // Recherche en temps réel
-    const searchInput = document.getElementById("searchInput");
-    searchInput.addEventListener("input", (e) => {
+    document.getElementById("searchInput").addEventListener("input", (e) => {
       searchTerm = e.target.value;
       updateFiltersAndRender();
     });
-
-    // Boutons d'inversion
     document.getElementById("senseFrEn").addEventListener("click", () => setSense("fren"));
     document.getElementById("senseEnFr").addEventListener("click", () => setSense("enfr"));
   });
