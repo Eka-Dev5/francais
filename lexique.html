@@ -46,15 +46,15 @@
       margin-bottom: 24px;
       font-size: 0.95rem;
     }
-    /* Indicateur de réglage en haut à droite */
-    .sense-indicator {
+    /* Voyant en haut à droite */
+    .sense-badge {
       position: absolute;
       top: 20px;
       right: 24px;
       background: #f0f4ff;
       border-radius: 40px;
       padding: 6px 12px;
-      font-size: 0.8rem;
+      font-size: 0.85rem;
       font-weight: bold;
       color: var(--primary);
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -88,45 +88,57 @@
       box-shadow: 0 5px 12px rgba(102,126,234,0.3);
     }
 
-    /* Drapeaux superposés à gauche de la barre de recherche */
+    /* Zone drapeaux + barre recherche */
+    .search-section {
+      margin-bottom: 20px;
+    }
+    .flags-and-search {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    /* Drapeaux superposés à gauche */
     .flags-superposed {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 4px;
       background: #f1f5f9;
       border-radius: 40px;
       padding: 6px 10px;
-      margin-right: 12px;
+      gap: 4px;
     }
     .flag-btn {
       font-size: 1.6rem;
       cursor: pointer;
-      transition: transform 0.1s;
-      opacity: 0.6;
+      transition: transform 0.1s, opacity 0.2s;
+      opacity: 0.5;
+      border-radius: 50%;
+      padding: 2px;
     }
     .flag-btn.active {
       opacity: 1;
+      background: rgba(102,126,234,0.2);
+      box-shadow: 0 0 0 2px var(--primary);
       transform: scale(1.05);
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
     }
-    /* Zone recherche + drapeaux */
-    .search-area {
-      display: flex;
-      align-items: center;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
-      gap: 12px;
+    .flag-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 4px;
     }
+    /* Champ de recherche + bouton */
     .search-wrapper {
       flex: 1;
       display: flex;
       gap: 8px;
+      align-items: center;
     }
     .search-input {
       flex: 1;
-      padding: 14px 20px;
+      padding: 12px 16px;
       border: 2px solid var(--border-light);
       border-radius: 60px;
       font-size: 1rem;
@@ -136,80 +148,91 @@
       outline: none;
       border-color: var(--primary);
     }
+    .search-btn {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .search-btn:hover {
+      transform: translateY(-1px);
+    }
 
-    /* Deux gros boutons Niveaux / Thèmes */
-    .big-buttons {
+    /* Deux gros boutons Niveaux / Thèmes (au-dessus de la barre) */
+    .filter-triggers {
       display: flex;
       gap: 20px;
-      margin-bottom: 24px;
       justify-content: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
-    .big-btn {
-      flex: 1;
-      max-width: 200px;
+    .filter-trigger {
       background: #f0f4ff;
       color: var(--primary);
-      padding: 12px 20px;
+      padding: 8px 24px;
       border-radius: 60px;
       font-weight: 800;
-      font-size: 1.1rem;
-      text-align: center;
+      font-size: 1rem;
       cursor: pointer;
       transition: all 0.2s;
       border: none;
     }
-    .big-btn.active {
+    .filter-trigger.active {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      box-shadow: 0 4px 12px rgba(102,126,234,0.4);
+      box-shadow: 0 2px 8px rgba(102,126,234,0.4);
     }
 
-    /* Nuages de filtres (niveaux et thèmes) */
-    .filters-cloud {
+    /* Menus toggles (niveaux / thèmes) */
+    .toggle-menu {
       background: #f9fafb;
       border-radius: 20px;
       padding: 16px;
-      margin-bottom: 24px;
+      margin: 16px 0 20px 0;
       display: none;
     }
-    .filters-cloud.visible {
+    .toggle-menu.visible {
       display: block;
     }
-    .filter-buttons {
+    .toggle-buttons {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       margin-top: 10px;
     }
-    .filter-chip {
+    .toggle-chip {
       background: white;
       border: 1px solid var(--border-light);
       border-radius: 40px;
-      padding: 8px 18px;
+      padding: 8px 16px;
       font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
       color: var(--text-dark);
     }
-    .filter-chip.active {
+    .toggle-chip.active {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       border-color: transparent;
     }
 
-    /* Résultats */
+    /* Zone des résultats */
     .result-count {
       text-align: right;
       font-size: 0.8rem;
       color: var(--text-muted);
-      margin-bottom: 12px;
+      margin: 12px 0 8px;
     }
     .lexique-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
-      margin-top: 20px;
     }
     .word-card {
       background: var(--bg-light);
@@ -276,28 +299,24 @@
       background: #f9fafb;
       border-radius: 24px;
     }
-    .clear-search-btn {
-      display: block;
-      margin: 0 auto 20px auto;
-      text-align: center;
-    }
     @media (max-width: 640px) {
       body { padding: 12px; }
       .card { padding: 20px 16px; }
       h1 { font-size: 1.8rem; }
-      .big-btn { font-size: 1rem; max-width: none; }
-      .lexique-grid { grid-template-columns: 1fr; }
-      .search-area { flex-direction: column; align-items: stretch; }
-      .flags-superposed { flex-direction: row; justify-content: center; margin-right: 0; }
-      .sense-indicator { top: 12px; right: 16px; font-size: 0.7rem; }
+      .flags-and-search { flex-direction: column; align-items: stretch; }
+      .flags-superposed { flex-direction: row; justify-content: center; gap: 12px; }
+      .search-wrapper { flex-direction: column; }
+      .search-btn { width: 100%; }
+      .filter-triggers { gap: 12px; }
+      .toggle-chip { padding: 6px 12px; font-size: 0.75rem; }
     }
   </style>
 </head>
 <body>
 <div class="card">
-  <div class="sense-indicator" id="senseIndicator">🇫🇷 → 🇬🇧</div>
+  <div class="sense-badge" id="senseBadge">🇫🇷 → 🇬🇧</div>
   <h1>📖 Lexique Français Master 🥖</h1>
-  <div class="tagline">Recherche, filtre par niveau ou thème, combine les deux</div>
+  <div class="tagline">Recherche un mot, filtre par niveau ou thème</div>
 
   <!-- Navigation -->
   <div class="nav-links">
@@ -306,42 +325,38 @@
     <a href="dashboard.html" class="btn">📊 Mon espace</a>
   </div>
 
-  <!-- Drapeaux superposés + barre de recherche -->
-  <div class="search-area">
-    <div class="flags-superposed" id="flagsContainer">
-      <div class="flag-btn" data-sense="fren">🇫🇷</div>
-      <div class="flag-btn" data-sense="enfr">🇬🇧</div>
-    </div>
-    <div class="search-wrapper">
-      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Entrez un mot (français ou anglais)...">
-      <button id="searchBtn" class="btn btn-primary">🚀 C'est parti</button>
+  <!-- Deux gros boutons Niveaux / Thèmes (au-dessus de la barre) -->
+  <div class="filter-triggers">
+    <button id="showLevelsTrigger" class="filter-trigger">📊 Niveaux</button>
+    <button id="showThemesTrigger" class="filter-trigger">🏷️ Thèmes</button>
+  </div>
+
+  <!-- Zone de recherche avec drapeaux -->
+  <div class="search-section">
+    <div class="flags-and-search">
+      <div class="flags-superposed" id="flagsContainer">
+        <div class="flag-btn" data-sense="fren" title="Français → English">🇫🇷</div>
+        <div class="flag-btn" data-sense="enfr" title="English → Français">🇬🇧</div>
+        <div class="flag-label" id="flagLabel">French → English</div>
+      </div>
+      <div class="search-wrapper">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Entrez un mot (français ou anglais)...">
+        <button id="searchActionBtn" class="search-btn">🔎 Définition</button>
+      </div>
     </div>
   </div>
 
-  <!-- Deux gros boutons Niveaux / Thèmes -->
-  <div class="big-buttons">
-    <button id="showLevelsBtn" class="big-btn">📊 Niveaux</button>
-    <button id="showThemesBtn" class="big-btn">🏷️ Thèmes</button>
-  </div>
-
-  <!-- Nuage des niveaux -->
-  <div id="levelsCloud" class="filters-cloud">
+  <!-- Menus toggles (apparaissent sous la barre) -->
+  <div id="levelsMenu" class="toggle-menu">
     <div class="filter-title">Sélectionnez un ou plusieurs niveaux :</div>
-    <div class="filter-buttons" id="levelButtons"></div>
+    <div class="toggle-buttons" id="levelToggleContainer"></div>
   </div>
-
-  <!-- Nuage des thèmes -->
-  <div id="themesCloud" class="filters-cloud">
+  <div id="themesMenu" class="toggle-menu">
     <div class="filter-title">Sélectionnez un ou plusieurs thèmes :</div>
-    <div class="filter-buttons" id="themeButtons"></div>
+    <div class="toggle-buttons" id="themeToggleContainer"></div>
   </div>
 
-  <!-- Bouton "Compris !" qui apparaît après recherche -->
-  <div id="clearSearchContainer" style="display: none; text-align: center; margin-bottom: 20px;">
-    <button id="clearSearchBtn" class="btn">🔍 Compris !</button>
-  </div>
-
-  <!-- Résultats -->
+  <!-- Compteur et grille des résultats -->
   <div class="result-count" id="resultCount">0 mots affichés</div>
   <div id="lexiqueGrid" class="lexique-grid"></div>
 </div>
@@ -351,25 +366,26 @@
   (function() {
     // ---------- DONNÉES ----------
     let allWords = [];
-    let currentSense = "fren";        // "fren" = français → anglais, "enfr" = anglais → français
-    let selectedLevels = new Set();    // stocke "all" ou des numéros "2","5"
-    let selectedThemes = new Set();    // stocke "all" ou des noms de thèmes
-    let searchActive = false;
+    let currentSense = "fren";        // "fren" = français→anglais, "enfr" = anglais→français
+    let selectedLevels = new Set();    // stocke les niveaux sous forme de chaînes "1","2",... ou "all"
+    let selectedThemes = new Set();    // stocke les noms de thèmes (ou "all")
+    let searchActive = false;           // mode recherche actif ?
     let currentSearchTerm = "";
+    let originalLevels = new Set();     // sauvegarde des filtres avant recherche
+    let originalThemes = new Set();
 
     // Éléments DOM
-    const senseIndicator = document.getElementById("senseIndicator");
-    const flags = document.querySelectorAll(".flag-btn");
+    const senseBadge = document.getElementById("senseBadge");
+    const flagBtns = document.querySelectorAll(".flag-btn");
+    const flagLabel = document.getElementById("flagLabel");
     const searchInput = document.getElementById("searchInput");
-    const searchBtn = document.getElementById("searchBtn");
-    const clearSearchContainer = document.getElementById("clearSearchContainer");
-    const clearSearchBtn = document.getElementById("clearSearchBtn");
-    const showLevelsBtn = document.getElementById("showLevelsBtn");
-    const showThemesBtn = document.getElementById("showThemesBtn");
-    const levelsCloud = document.getElementById("levelsCloud");
-    const themesCloud = document.getElementById("themesCloud");
-    const levelButtonsDiv = document.getElementById("levelButtons");
-    const themeButtonsDiv = document.getElementById("themeButtons");
+    const searchActionBtn = document.getElementById("searchActionBtn");
+    const showLevelsTrigger = document.getElementById("showLevelsTrigger");
+    const showThemesTrigger = document.getElementById("showThemesTrigger");
+    const levelsMenu = document.getElementById("levelsMenu");
+    const themesMenu = document.getElementById("themesMenu");
+    const levelToggleContainer = document.getElementById("levelToggleContainer");
+    const themeToggleContainer = document.getElementById("themeToggleContainer");
     const resultCountSpan = document.getElementById("resultCount");
     const gridDiv = document.getElementById("lexiqueGrid");
 
@@ -393,24 +409,24 @@
       return false;
     }
 
-    // ---------- NORMALISATION (accent + casse) pour recherche ----------
+    // Normalisation pour recherche (insensible accents, casse)
     function normalize(str) {
       return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
     }
 
-    // ---------- CONSTRUCTION NUAGE NIVEAUX ----------
-    function buildLevelButtons() {
-      const levels = ["Tous", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      levelButtonsDiv.innerHTML = "";
+    // ---------- CONSTRUCTION DES TOGGLES ----------
+    function buildLevelToggles() {
+      const levels = ["all", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+      levelToggleContainer.innerHTML = "";
       levels.forEach(lvl => {
+        const key = lvl === "all" ? "all" : lvl.toString();
         const btn = document.createElement("button");
-        btn.className = "filter-chip";
-        const key = lvl === "Tous" ? "all" : lvl.toString();
-        if (selectedLevels.has(key)) btn.classList.add("active");
-        btn.textContent = lvl === "Tous" ? "📚 Tous les niveaux" : `Niveau ${lvl}`;
+        btn.className = "toggle-chip";
+        if ((key === "all" && selectedLevels.has("all")) || selectedLevels.has(key)) btn.classList.add("active");
+        btn.textContent = lvl === "all" ? "📚 Tous les niveaux" : `Niveau ${lvl}`;
         btn.addEventListener("click", (e) => {
           e.stopPropagation();
-          if (lvl === "Tous") {
+          if (lvl === "all") {
             if (selectedLevels.has("all")) {
               selectedLevels.clear();
             } else {
@@ -420,56 +436,49 @@
           } else {
             if (selectedLevels.has("all")) selectedLevels.delete("all");
             const lvlStr = lvl.toString();
-            if (selectedLevels.has(lvlStr)) {
-              selectedLevels.delete(lvlStr);
-            } else {
-              selectedLevels.add(lvlStr);
-            }
+            if (selectedLevels.has(lvlStr)) selectedLevels.delete(lvlStr);
+            else selectedLevels.add(lvlStr);
           }
-          updateUI();
+          updateUIFiltersOnly();
         });
-        levelButtonsDiv.appendChild(btn);
+        levelToggleContainer.appendChild(btn);
       });
     }
 
-    // ---------- CONSTRUCTION NUAGE THÈMES ----------
-    function buildThemeButtons() {
+    function buildThemeToggles() {
       const themesSet = new Set();
       allWords.forEach(w => { if (w.cat) themesSet.add(w.cat); });
       let themes = Array.from(themesSet).sort((a,b) => a.localeCompare(b));
-      themeButtonsDiv.innerHTML = "";
+      themeToggleContainer.innerHTML = "";
       // Bouton "Tous les thèmes"
-      const allBtn = document.createElement("button");
-      allBtn.className = "filter-chip";
-      if (selectedThemes.has("all")) allBtn.classList.add("active");
-      allBtn.textContent = "🏷️ Tous les thèmes";
-      allBtn.addEventListener("click", () => {
+      const allThemeBtn = document.createElement("button");
+      allThemeBtn.className = "toggle-chip";
+      if (selectedThemes.has("all")) allThemeBtn.classList.add("active");
+      allThemeBtn.textContent = "🏷️ Tous les thèmes";
+      allThemeBtn.addEventListener("click", () => {
         if (selectedThemes.has("all")) {
           selectedThemes.clear();
         } else {
           selectedThemes.clear();
           selectedThemes.add("all");
         }
-        updateUI();
+        updateUIFiltersOnly();
       });
-      themeButtonsDiv.appendChild(allBtn);
+      themeToggleContainer.appendChild(allThemeBtn);
       // Boutons individuels
       themes.forEach(theme => {
         const btn = document.createElement("button");
-        btn.className = "filter-chip";
+        btn.className = "toggle-chip";
         if (selectedThemes.has(theme)) btn.classList.add("active");
         const icon = themeIcons[theme] || defaultIcon;
         btn.textContent = `${icon} ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
         btn.addEventListener("click", () => {
           if (selectedThemes.has("all")) selectedThemes.delete("all");
-          if (selectedThemes.has(theme)) {
-            selectedThemes.delete(theme);
-          } else {
-            selectedThemes.add(theme);
-          }
-          updateUI();
+          if (selectedThemes.has(theme)) selectedThemes.delete(theme);
+          else selectedThemes.add(theme);
+          updateUIFiltersOnly();
         });
-        themeButtonsDiv.appendChild(btn);
+        themeToggleContainer.appendChild(btn);
       });
     }
 
@@ -494,7 +503,7 @@
       return filtered;
     }
 
-    // ---------- AFFICHAGE DES CARTES (selon le sens) ----------
+    // Affichage des cartes selon le sens
     function escapeHtml(str) {
       if (!str) return "";
       return str.replace(/[&<>]/g, m => m === "&" ? "&amp;" : (m === "<" ? "&lt;" : "&gt;"));
@@ -502,7 +511,7 @@
 
     function renderWords(words) {
       if (!words.length) {
-        gridDiv.innerHTML = '<div class="no-result">✨ Rien pour le moment !</div>';
+        gridDiv.innerHTML = '<div class="no-result">✨ Aucun mot ne correspond à ces critères.</div>';
         resultCountSpan.textContent = "0 mots affichés";
         return;
       }
@@ -515,7 +524,6 @@
         const def = w.def || "";
         const ex = w.ex || "";
         if (isReverse) {
-          // Mode anglais → français
           return `
             <div class="word-card">
               <div class="main-word">${escapeHtml(w.en)}</div>
@@ -543,10 +551,10 @@
       }).join("");
     }
 
-    // ---------- MISE À JOUR GLOBALE ----------
-    function updateUI() {
-      // Mettre à jour l'aspect actif des boutons de niveau
-      document.querySelectorAll("#levelButtons .filter-chip").forEach(btn => {
+    // Mise à jour de l'interface sans toucher aux menus ouverts (juste filtres + affichage)
+    function updateUIFiltersOnly() {
+      // Mettre à jour les classes actives des toggles
+      document.querySelectorAll("#levelToggleContainer .toggle-chip").forEach(btn => {
         const text = btn.textContent;
         if (text === "📚 Tous les niveaux") {
           if (selectedLevels.has("all")) btn.classList.add("active");
@@ -557,8 +565,7 @@
           else btn.classList.remove("active");
         }
       });
-      // Mettre à jour l'aspect actif des boutons de thème
-      document.querySelectorAll("#themeButtons .filter-chip").forEach(btn => {
+      document.querySelectorAll("#themeToggleContainer .toggle-chip").forEach(btn => {
         const txt = btn.textContent;
         if (txt === "🏷️ Tous les thèmes") {
           if (selectedThemes.has("all")) btn.classList.add("active");
@@ -569,31 +576,37 @@
           else btn.classList.remove("active");
         }
       });
-      // Mettre à jour l'indicateur de sens
-      senseIndicator.textContent = currentSense === "fren" ? "🇫🇷 → 🇬🇧" : "🇬🇧 → 🇫🇷";
-      // Appliquer les drapeaux actifs
-      document.querySelectorAll(".flag-btn").forEach(flag => {
-        const sense = flag.dataset.sense;
-        if (sense === currentSense) flag.classList.add("active");
-        else flag.classList.remove("active");
-      });
-      // Filtrer et afficher
       const filtered = getFilteredWords();
       renderWords(filtered);
     }
 
-    // ---------- GESTION DES NUAGES (niveaux / thèmes) ----------
-    function showLevelsCloud() {
-      levelsCloud.classList.add("visible");
-      themesCloud.classList.remove("visible");
-      showLevelsBtn.classList.add("active");
-      showThemesBtn.classList.remove("active");
+    // Mise à jour complète (drapeaux, labels, tout)
+    function updateFullUI() {
+      // Mettre à jour l'indicateur de sens
+      senseBadge.textContent = currentSense === "fren" ? "🇫🇷 → 🇬🇧" : "🇬🇧 → 🇫🇷";
+      flagLabel.textContent = currentSense === "fren" ? "French → English" : "English → Français";
+      // Surbrillance des drapeaux
+      flagBtns.forEach(btn => {
+        const sense = btn.dataset.sense;
+        if (sense === currentSense) btn.classList.add("active");
+        else btn.classList.remove("active");
+      });
+      // Mise à jour des toggles et affichage
+      updateUIFiltersOnly();
     }
-    function showThemesCloud() {
-      levelsCloud.classList.remove("visible");
-      themesCloud.classList.add("visible");
-      showLevelsBtn.classList.remove("active");
-      showThemesBtn.classList.add("active");
+
+    // ---------- GESTION DES MENUS (niveaux / thèmes) ----------
+    function showLevelsMenu() {
+      levelsMenu.classList.add("visible");
+      themesMenu.classList.remove("visible");
+      showLevelsTrigger.classList.add("active");
+      showThemesTrigger.classList.remove("active");
+    }
+    function showThemesMenu() {
+      levelsMenu.classList.remove("visible");
+      themesMenu.classList.add("visible");
+      showLevelsTrigger.classList.remove("active");
+      showThemesTrigger.classList.add("active");
     }
 
     // ---------- RECHERCHE ----------
@@ -601,40 +614,64 @@
       const term = searchInput.value.trim();
       if (term === "") {
         if (searchActive) {
-          // Désactiver recherche
+          // Désactiver la recherche et restaurer les filtres sauvegardés
           searchActive = false;
           currentSearchTerm = "";
-          clearSearchContainer.style.display = "none";
-          // Ne pas réafficher automatiquement les nuages, l'utilisateur choisira
-          updateUI();
+          selectedLevels = new Set(originalLevels);
+          selectedThemes = new Set(originalThemes);
+          searchActionBtn.textContent = "🔎 Définition";
+          // Réafficher les menus toggles (mais pas forcément ouverts)
+          levelsMenu.style.display = "";
+          themesMenu.style.display = "";
+          updateFullUI();
         }
         return;
       }
-      currentSearchTerm = term;
+      // Sauvegarder l'état des filtres actuels
+      originalLevels = new Set(selectedLevels);
+      originalThemes = new Set(selectedThemes);
+      // Activer la recherche
       searchActive = true;
-      // Cacher les nuages de filtres pendant la recherche
-      levelsCloud.classList.remove("visible");
-      themesCloud.classList.remove("visible");
-      showLevelsBtn.classList.remove("active");
-      showThemesBtn.classList.remove("active");
-      clearSearchContainer.style.display = "block";
-      updateUI();
+      currentSearchTerm = term;
+      // Désactiver les filtres (on ne garde que la recherche)
+      selectedLevels.clear();
+      selectedThemes.clear();
+      // Masquer les menus toggles
+      levelsMenu.classList.remove("visible");
+      themesMenu.classList.remove("visible");
+      showLevelsTrigger.classList.remove("active");
+      showThemesTrigger.classList.remove("active");
+      // Changer le texte du bouton
+      searchActionBtn.textContent = "Compris !";
+      updateFullUI();
     }
 
-    function clearSearch() {
+    function resetSearch() {
+      if (!searchActive) return;
       searchActive = false;
       currentSearchTerm = "";
       searchInput.value = "";
-      clearSearchContainer.style.display = "none";
-      // On ne réaffiche pas les nuages automatiquement, l'utilisateur cliquera sur Niveaux/Thèmes s'il veut filtrer
-      updateUI();
+      searchActionBtn.textContent = "🔎 Définition";
+      // Restaurer les filtres sauvegardés
+      selectedLevels = new Set(originalLevels);
+      selectedThemes = new Set(originalThemes);
+      // Réafficher les menus (si un déclencheur était actif, on le restaure ? On laisse l'utilisateur choisir)
+      levelsMenu.classList.remove("visible");
+      themesMenu.classList.remove("visible");
+      showLevelsTrigger.classList.remove("active");
+      showThemesTrigger.classList.remove("active");
+      updateFullUI();
+      // Reconstruire les toggles pour refléter les sélections (nécessaire car les Sets ont changé)
+      buildLevelToggles();
+      buildThemeToggles();
+      updateFullUI();
     }
 
-    // ---------- CHANGEMENT DE SENS (drapeaux) ----------
+    // ---------- CHANGEMENT DE SENS ----------
     function setSense(sense) {
       if (sense === currentSense) return;
       currentSense = sense;
-      updateUI();
+      updateFullUI();
     }
 
     // ---------- INITIALISATION ----------
@@ -643,22 +680,28 @@
       // Valeurs par défaut : tous les niveaux, tous les thèmes
       selectedLevels.add("all");
       selectedThemes.add("all");
-      buildLevelButtons();
-      buildThemeButtons();
-      // Par défaut, afficher le nuage des niveaux (mais on peut le laisser fermé ? Pour l'expérience, on l'affiche)
-      showLevelsCloud();
-      updateUI();
+      buildLevelToggles();
+      buildThemeToggles();
+      // Par défaut, afficher le menu des niveaux (mais pas ouvert ? on ouvre niveaux par défaut)
+      showLevelsMenu(); // les deux menus sont fermés initialement, on ouvre niveaux
+      updateFullUI();
 
       // Écouteurs
-      showLevelsBtn.addEventListener("click", showLevelsCloud);
-      showThemesBtn.addEventListener("click", showThemesCloud);
-      searchBtn.addEventListener("click", performSearch);
-      clearSearchBtn.addEventListener("click", clearSearch);
-      searchInput.addEventListener("keypress", (e) => { if (e.key === "Enter") performSearch(); });
-      // Drapeaux
-      flags.forEach(flag => {
-        flag.addEventListener("click", () => {
-          const sense = flag.dataset.sense;
+      showLevelsTrigger.addEventListener("click", showLevelsMenu);
+      showThemesTrigger.addEventListener("click", showThemesMenu);
+      searchActionBtn.addEventListener("click", () => {
+        if (searchActive) resetSearch();
+        else performSearch();
+      });
+      searchInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          if (searchActive) resetSearch();
+          else performSearch();
+        }
+      });
+      flagBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          const sense = btn.dataset.sense;
           setSense(sense);
         });
       });
