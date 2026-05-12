@@ -6,127 +6,252 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Français Master — Lexique 🥖</title>
 <style>
-:root{--primary:#667eea;--secondary:#764ba2;--success:#48bb78;--text:#2d3748}
+:root{--primary:#667eea;--secondary:#764ba2;--text:#2d3748}
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
 body{background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;padding:15px}
-.container{background:white;width:100%;max-width:920px;margin:0 auto;border-radius:20px;padding:25px;box-shadow:0 15px 40px rgba(0,0,0,.2)}
-h1{text-align:center;color:var(--text);margin-bottom:5px;font-size:1.9em}
-.subtitle{text-align:center;color:#718096;margin-bottom:20px;font-size:.95em}
-.nav-links{display:flex;justify-content:center;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-.nav-links a{padding:9px 18px;background:var(--primary);color:white;text-decoration:none;border-radius:20px;font-weight:bold;font-size:.9em}
-.stat-bar{text-align:center;font-size:.85em;color:#718096;margin-bottom:12px}
-.search-box{width:100%;padding:13px 18px;border:2px solid #e2e8f0;border-radius:12px;font-size:1em;margin-bottom:16px;outline:none}
+.container{background:white;max-width:920px;margin:0 auto;border-radius:20px;padding:22px;box-shadow:0 15px 40px rgba(0,0,0,.2)}
+h1{text-align:center;font-size:1.8em;color:var(--text);margin-bottom:4px}
+.subtitle{text-align:center;color:#718096;font-size:.9em;margin-bottom:14px}
+.nav-links{display:flex;justify-content:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.nav-links a{padding:8px 15px;background:var(--primary);color:white;text-decoration:none;border-radius:18px;font-weight:bold;font-size:.85em}
+.db-status{text-align:center;font-size:.8em;margin-bottom:10px;padding:6px 12px;border-radius:20px;display:inline-block}
+.db-ok{background:#c6f6d5;color:#276749}
+.db-err{background:#fed7d7;color:#c53030}
+.stat-bar-wrap{text-align:center;margin-bottom:10px}
+.search-box{width:100%;padding:12px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:1em;margin-bottom:12px;outline:none}
 .search-box:focus{border-color:var(--primary)}
-.level-tabs{display:flex;gap:7px;margin-bottom:18px;flex-wrap:wrap;justify-content:center}
-.level-tab{padding:7px 13px;border:2px solid var(--primary);background:white;color:var(--primary);border-radius:16px;cursor:pointer;font-weight:bold;font-size:.8em;transition:all .25s}
-.level-tab:hover,.level-tab.active{background:var(--primary);color:white}
-.lex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:13px}
-.word-card{background:#f8fafc;border:2px solid transparent;border-radius:13px;padding:17px;cursor:pointer;transition:all .25s;position:relative}
-.word-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,.1);border-color:var(--primary)}
-.word-fr{font-size:1.15em;font-weight:bold;color:var(--primary);margin-bottom:4px}
-.word-en{font-size:.9em;color:var(--text);margin-bottom:4px}
-.word-phon{font-size:.82em;color:var(--secondary);font-style:italic;margin-bottom:7px}
-.word-cat{font-size:.72em;color:#718096;background:#e2e8f0;padding:2px 9px;border-radius:9px;display:inline-block}
-.word-lv{position:absolute;top:9px;right:9px;font-size:.68em;color:white;background:var(--secondary);padding:2px 7px;border-radius:7px}
-.empty-msg{text-align:center;color:#999;padding:40px;grid-column:1/-1}
+
+/* Toggle thème/niveau */
+.filter-toggle{display:flex;justify-content:center;gap:0;margin-bottom:12px;border:2px solid var(–primary);border-radius:20px;overflow:hidden;max-width:300px;margin-left:auto;margin-right:auto}
+.toggle-btn{flex:1;padding:9px 14px;border:none;background:white;color:var(–primary);font-weight:700;font-size:.88em;cursor:pointer;transition:all .2s}
+.toggle-btn.active{background:var(–primary);color:white}
+
+/* Onglets */
+.tabs-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{padding:6px 12px;border:2px solid var(–primary);background:white;color:var(–primary);border-radius:14px;cursor:pointer;font-weight:600;font-size:.78em;transition:all .2s;white-space:nowrap}
+.tab:hover,.tab.active{background:var(–primary);color:white}
+
+/* Grille cartes */
+.lex-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(175px,1fr));gap:11px}
+.word-card{background:#f8fafc;border:2px solid transparent;border-radius:12px;padding:13px;cursor:pointer;transition:all .2s}
+.word-card:hover{border-color:var(–primary);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.1)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px}
+.word-fr{font-size:1.05em;font-weight:700;color:var(–primary);flex:1;padding-right:6px}
+.badge-lv{font-size:.66em;color:white;background:var(–secondary);padding:2px 7px;border-radius:7px;flex-shrink:0}
+.word-en{font-size:.86em;color:var(–text);margin-bottom:3px}
+.word-phon{font-size:.78em;color:var(–secondary);font-style:italic;margin-bottom:6px}
+.badge-cat{font-size:.68em;color:#718096;background:#e2e8f0;padding:2px 8px;border-radius:8px}
+.empty-msg{text-align:center;color:#999;padding:40px;grid-column:1/-1;font-size:.95em}
+
+/* Modale */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:2000;padding:15px}
 .modal-overlay.show{display:flex}
-.modal-content{background:white;border-radius:18px;padding:26px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;animation:popIn .25s ease}
-@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-.modal-fr{font-size:1.9em;font-weight:bold;color:var(--primary);margin-bottom:2px}
-.modal-phon{font-size:1em;color:var(--secondary);font-style:italic;margin-bottom:4px}
-.modal-en{font-size:1.15em;color:var(--text);margin-bottom:14px}
-.modal-sec{margin:10px 0;padding:12px 15px;background:#f7fafc;border-radius:10px}
-.modal-sec h4{color:var(--secondary);margin-bottom:6px;font-size:.85em;text-transform:uppercase;letter-spacing:.5px}
-.modal-close{background:var(--primary);color:white;border:none;padding:11px 22px;border-radius:20px;cursor:pointer;font-weight:bold;margin-top:13px;width:100%}
+.modal-box{background:white;border-radius:18px;padding:24px;max-width:460px;width:100%;max-height:85vh;overflow-y:auto;animation:popIn .22s}
+@keyframes popIn{from{opacity:0;transform:scale(.93)}to{opacity:1;transform:scale(1)}}
+.modal-fr{font-size:1.8em;font-weight:700;color:var(–primary)}
+.modal-phon{color:var(–secondary);font-style:italic;margin-bottom:4px}
+.modal-en{font-size:1.1em;color:var(–text);margin-bottom:12px}
+.modal-row{background:#f7fafc;border-radius:9px;padding:11px 13px;margin-bottom:8px}
+.modal-row h4{color:var(–secondary);font-size:.78em;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.modal-badges{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.modal-badge{font-size:.75em;padding:3px 10px;border-radius:10px;font-weight:600}
+.badge-theme{background:#e8ecff;color:var(–primary)}
+.badge-niveau{background:#e0f2fe;color:#0369a1}
+.modal-close{background:var(–primary);color:white;border:none;padding:10px 22px;border-radius:18px;cursor:pointer;font-weight:700;margin-top:10px;width:100%}
 @media(max-width:600px){.lex-grid{grid-template-columns:1fr 1fr}}
 </style>
+
 <script src="BDDlexique.js"></script>
+
 </head>
 <body>
 <div class="container">
-<h1>📖 Lexique Français Master 🥖</h1>
-<p class="subtitle">Les mots essentiels avec prononciation intuitive pour anglophones</p>
-<div class="nav-links">
-  <a href="index.html">🏠 Accueil</a>
-  <a href="quiz.html">🎮 Quiz</a>
-  <a href="dashboard.html">📊 Dashboard</a>
+  <h1>📖 Lexique Français 🥖</h1>
+  <p class="subtitle">Filtrez par thème ou par niveau — cliquez un mot pour les détails</p>
+  <div class="nav-links">
+    <a href="index.html">🏠 Accueil</a>
+    <a href="quiz.html">🎮 Quiz</a>
+    <a href="dashboard.html">📊 Dashboard</a>
+  </div>
+  <div class="stat-bar-wrap">
+    <span class="db-status" id="dbStatus">⏳ Chargement…</span>
+  </div>
+  <input type="text" class="search-box" id="searchBox" placeholder="🔍 Chercher en français ou anglais…" oninput="render()">
+
+  <!-- Toggle thème / niveau -->
+
+  <div class="filter-toggle">
+    <button class="toggle-btn active" id="btnTheme" onclick="setMode('theme')">📂 Par thème</button>
+    <button class="toggle-btn" id="btnNiveau" onclick="setMode('niveau')">🎯 Par niveau</button>
+  </div>
+
+  <!-- Onglets dynamiques -->
+
+  <div class="tabs-row" id="tabsRow"></div>
+
+  <!-- Grille mots -->
+
+  <div class="lex-grid" id="lexGrid"></div>
 </div>
-<div class="stat-bar" id="statBar">Chargement…</div>
-<input type="text" class="search-box" id="searchBox" placeholder="🔍 Chercher en français ou anglais…" oninput="filterWords()">
-<div class="level-tabs">
-  <button class="level-tab active" onclick="filterByLevel(0,this)">Tous</button>
-  <button class="level-tab" onclick="filterByLevel(1,this)">Niv.1 Salutations</button>
-  <button class="level-tab" onclick="filterByLevel(2,this)">Niv.2 Marché</button>
-  <button class="level-tab" onclick="filterByLevel(3,this)">Niv.3 Jardin</button>
-  <button class="level-tab" onclick="filterByLevel(4,this)">Niv.4 Voisins</button>
-  <button class="level-tab" onclick="filterByLevel(5,this)">Niv.5 Goûts</button>
-  <button class="level-tab" onclick="filterByLevel(6,this)">Niv.6 Commerces</button>
-  <button class="level-tab" onclick="filterByLevel(7,this)">Niv.7 Sorties</button>
-  <button class="level-tab" onclick="filterByLevel(8,this)">Niv.8 Météo</button>
-  <button class="level-tab" onclick="filterByLevel(9,this)">Niv.9 Verbes</button>
-  <button class="level-tab" onclick="filterByLevel(10,this)">Niv.10 Politesse</button>
-</div>
-<div class="lex-grid" id="lexGrid"></div>
-</div>
-<div class="modal-overlay" id="modal" onclick="closeModal(event)">
-  <div class="modal-content" onclick="event.stopPropagation()">
-    <div class="modal-fr" id="modalFr"></div>
-    <div class="modal-phon" id="modalPhon"></div>
-    <div class="modal-en" id="modalEn"></div>
-    <div class="modal-sec"><h4>📖 Définition</h4><p id="modalDef"></p></div>
-    <div class="modal-sec"><h4>💬 Exemple</h4><p id="modalEx" style="font-style:italic"></p></div>
-    <div class="modal-sec"><h4>📝 Catégorie</h4><p id="modalCat"></p></div>
+
+<!-- Modale -->
+
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-fr" id="mFr"></div>
+    <div class="modal-phon" id="mPhon"></div>
+    <div class="modal-en" id="mEn"></div>
+    <div class="modal-row"><h4>📖 Définition</h4><p id="mDef"></p></div>
+    <div class="modal-row"><h4>💬 Exemple</h4><p id="mEx" style="font-style:italic"></p></div>
+    <div class="modal-badges">
+      <span class="modal-badge badge-theme" id="mCat"></span>
+      <span class="modal-badge badge-niveau" id="mLv"></span>
+    </div>
     <button class="modal-close" onclick="closeModal()">Fermer</button>
   </div>
 </div>
-<script>
-// Utilise BDDlexique.js si chargé, sinon données minimales intégrées
-const LEXIQUE = (typeof LEXIQUE_BDD !== 'undefined') ? LEXIQUE_BDD : [];
-let currentLevel=0, currentSearch="";
 
-function renderWords(){
-const grid=document.getElementById(“lexGrid”);
-const s=currentSearch.toLowerCase();
-const filtered=LEXIQUE.filter(w=>{
-const ms=!s||w.fr.toLowerCase().includes(s)||w.en.toLowerCase().includes(s)||(w.def||””).toLowerCase().includes(s);
-return ms&&(currentLevel===0||w.level===currentLevel);
-});
-document.getElementById(“statBar”).textContent=filtered.length+” mot”+(filtered.length>1?“s”:””)+” affiché”+(filtered.length>1?“s”:””)+” (sur “+LEXIQUE.length+”)”;
-if(!filtered.length){grid.innerHTML=’<div class="empty-msg">Aucun résultat.</div>’;return;}
-grid.innerHTML=filtered.map(w=>{
-const idx=LEXIQUE.indexOf(w);
-return `<div class="word-card" onclick="openModal(${idx})"> <div class="word-lv">Niv.${w.level}</div> <div class="word-fr">${w.fr}</div> <div class="word-en">${w.en}</div> <div class="word-phon">${w.phon||""}</div> <span class="word-cat">${w.cat}</span> </div>`;
-}).join(””);
+<script>
+// ── Source de données ──
+// BDDlexique.js expose LEXIQUE_BDD si chargé
+// Sinon : données de secours intégrées ci-dessous
+const FALLBACK = [
+  {fr:"bonjour",en:"good morning",phon:"*bon-ZHOOR*",def:"Salutation de la journée.",ex:"Bonjour Madame.",level:1,cat:"salutation"},
+  {fr:"bonsoir",en:"good evening",phon:"*bon-SWAHR*",def:"Salutation du soir.",ex:"Bonsoir !",level:1,cat:"salutation"},
+  {fr:"au revoir",en:"goodbye",phon:"*oh ruh-VWAHR*",def:"Formule de départ.",ex:"Au revoir !",level:1,cat:"salutation"},
+  {fr:"enchanté",en:"nice to meet you",phon:"*on-shon-TAY*",def:"Formule de présentation.",ex:"Enchanté de vous rencontrer.",level:1,cat:"présentation"},
+  {fr:"je m'appelle",en:"my name is",phon:"*zhuh ma-PEL*",def:"Se présenter.",ex:"Je m'appelle John.",level:1,cat:"présentation"},
+  {fr:"s'il vous plaît",en:"please (formal)",phon:"*seel voo PLEH*",def:"Formule de politesse.",ex:"Un café, s'il vous plaît.",level:1,cat:"politesse"},
+  {fr:"merci beaucoup",en:"thank you very much",phon:"*mair-SEE bo-KOO*",def:"Remerciement fort.",ex:"Merci beaucoup !",level:1,cat:"politesse"},
+  {fr:"je voudrais",en:"I would like",phon:"*zhuh voo-DRAY*",def:"Demande polie.",ex:"Je voudrais un kilo.",level:2,cat:"expression"},
+  {fr:"ça fait combien",en:"how much is it",phon:"*sa FAY kom-BYAN*",def:"Demander le prix.",ex:"Ça fait combien ?",level:2,cat:"expression"},
+  {fr:"une fleur",en:"a flower",phon:"*oon FLUHR*",def:"Plante à corolle.",ex:"Une belle fleur.",level:3,cat:"nature"},
+  {fr:"un potager",en:"vegetable garden",phon:"*po-ta-ZHAY*",def:"Jardin de légumes.",ex:"Mon potager.",level:3,cat:"nature"},
+  {fr:"arroser",en:"to water",phon:"*a-roh-ZAY*",def:"Donner de l'eau.",ex:"Arroser les fleurs.",level:3,cat:"verbe"},
+  {fr:"un voisin",en:"neighbor",phon:"*vwa-ZAN*",def:"Personne proche.",ex:"Mon voisin.",level:4,cat:"social"},
+  {fr:"j'adore",en:"I love",phon:"*zha-DOR*",def:"Aimer fort.",ex:"J'adore le fromage.",level:5,cat:"sentiment"},
+  {fr:"je préfère",en:"I prefer",phon:"*pray-FAIR*",def:"Choisir par goût.",ex:"Je préfère le thé.",level:5,cat:"sentiment"},
+  {fr:"la boulangerie",en:"bakery",phon:"*boo-lan-zhuh-REE*",def:"Commerce de pain.",ex:"À la boulangerie.",level:6,cat:"commerce"},
+  {fr:"un rendez-vous",en:"an appointment",phon:"*ron-day-VOO*",def:"Rencontre fixée.",ex:"Un rendez-vous.",level:7,cat:"social"},
+  {fr:"il fait beau",en:"nice weather",phon:"*eel FAY bo*",def:"Beau temps.",ex:"Il fait beau.",level:8,cat:"météo"},
+  {fr:"il pleut",en:"it's raining",phon:"*eel PLUH*",def:"Pluie.",ex:"Il pleut.",level:8,cat:"météo"},
+  {fr:"aller",en:"to go",phon:"*a-LAY*",def:"Se déplacer.",ex:"Je vais au marché.",level:9,cat:"verbe"},
+  {fr:"je ne comprends pas",en:"I don't understand",phon:"*zhuh nuh kom-PRON PAH*",def:"Ne pas saisir.",ex:"Je ne comprends pas.",level:10,cat:"expression"},
+  {fr:"parlez plus lentement",en:"speak more slowly",phon:"*par-LAY plew lon-TUH-mon*",def:"Demander de ralentir.",ex:"Parlez plus lentement.",level:10,cat:"expression"}
+];
+
+const LEXIQUE = (typeof LEXIQUE_BDD !== 'undefined' && LEXIQUE_BDD.length > 0) ? LEXIQUE_BDD : FALLBACK;
+
+// ── État ──
+let mode = 'theme';  // 'theme' ou 'niveau'
+let activeFilter = 'tous';
+let searchVal = '';
+
+// ── Listes uniques ──
+const THEMES  = ['tous', ...new Set(LEXIQUE.map(w => w.cat).sort())];
+const NIVEAUX = ['tous', ...new Set(LEXIQUE.map(w => w.level).sort((a,b)=>a-b))];
+
+const THEME_LABELS = {
+  salutation:'👋 Salutations', présentation:'🙋 Présentations', politesse:'🎩 Politesse',
+  expression:'💬 Expressions', quantité:'⚖️ Quantités', commerce:'🏬 Commerces',
+  aliment:'🥖 Aliments', nature:'🌿 Nature', outil:'🔧 Outils', verbe:'⚡ Verbes',
+  social:'👫 Social', lieu:'📍 Lieux', sensation:'🌡️ Sensations', sentiment:'❤️ Sentiments',
+  état:'😐 États', météo:'☀️ Météo', saison:'🍂 Saisons', temps:'📅 Temps', objet:'📦 Objets'
+};
+
+function setMode(m) {
+  mode = m;
+  activeFilter = 'tous';
+  document.getElementById('btnTheme').classList.toggle('active', m === 'theme');
+  document.getElementById('btnNiveau').classList.toggle('active', m === 'niveau');
+  renderTabs();
+  render();
 }
-function filterByLevel(lvl,btn){
-currentLevel=lvl;
-document.querySelectorAll(”.level-tab”).forEach(b=>b.classList.remove(“active”));
-if(btn)btn.classList.add(“active”);
-renderWords();
+
+function renderTabs() {
+  const list = mode === 'theme' ? THEMES : NIVEAUX;
+  document.getElementById('tabsRow').innerHTML = list.map(v => {
+    const label = v === 'tous'
+      ? '🔠 Tous'
+      : mode === 'theme'
+        ? (THEME_LABELS[v] || v)
+        : 'Niveau ' + v;
+    return `<button class="tab ${activeFilter == v ? 'active' : ''}" onclick="setFilter('${v}')">${label}</button>`;
+  }).join('');
 }
-function filterWords(){currentSearch=document.getElementById(“searchBox”).value;renderWords();}
-function openModal(idx){
-const w=LEXIQUE[idx];if(!w)return;
-document.getElementById(“modalFr”).textContent=w.fr;
-document.getElementById(“modalPhon”).textContent=w.phon||””;
-document.getElementById(“modalEn”).textContent=w.en;
-document.getElementById(“modalDef”).textContent=w.def||””;
-document.getElementById(“modalEx”).textContent=w.ex||””;
-document.getElementById(“modalCat”).textContent=w.cat+” • Niveau “+w.level;
-document.getElementById(“modal”).classList.add(“show”);
+
+function setFilter(val) {
+  activeFilter = isNaN(val) ? val : Number(val);
+  renderTabs();
+  render();
 }
-function closeModal(e){if(!e||e.target.id===“modal”)document.getElementById(“modal”).classList.remove(“show”);}
-document.addEventListener(“DOMContentLoaded”,()=>{
-const params=new URLSearchParams(window.location.search);
-const lvlParam=params.get(“level”);
-if(lvlParam){
-currentLevel=parseInt(lvlParam);
-document.querySelectorAll(”.level-tab”).forEach((b,i)=>b.classList.toggle(“active”,i===currentLevel));
+
+function render() {
+  searchVal = document.getElementById('searchBox').value.toLowerCase();
+  const grid = document.getElementById('lexGrid');
+
+  const filtered = LEXIQUE.filter(w => {
+    const matchSearch = !searchVal
+      || w.fr.toLowerCase().includes(searchVal)
+      || w.en.toLowerCase().includes(searchVal);
+    const matchFilter = activeFilter === 'tous'
+      || (mode === 'theme'  && w.cat   === activeFilter)
+      || (mode === 'niveau' && w.level === activeFilter);
+    return matchSearch && matchFilter;
+  });
+
+  document.getElementById('dbStatus').textContent =
+    filtered.length + ' / ' + LEXIQUE.length + ' mots';
+  document.getElementById('dbStatus').className =
+    'db-status ' + (LEXIQUE.length > 20 ? 'db-ok' : 'db-err');
+
+  if (!filtered.length) {
+    grid.innerHTML = '<div class="empty-msg">Aucun résultat 🔍</div>';
+    return;
+  }
+
+  grid.innerHTML = filtered.map((w, i) => `
+    <div class="word-card" onclick="openModal(${LEXIQUE.indexOf(w)})">
+      <div class="card-top">
+        <div class="word-fr">${w.fr}</div>
+        <span class="badge-lv">N${w.level}</span>
+      </div>
+      <div class="word-en">${w.en}</div>
+      <div class="word-phon">${w.phon || ''}</div>
+      <span class="badge-cat">${THEME_LABELS[w.cat] ? THEME_LABELS[w.cat].split(' ')[0]+' '+w.cat : w.cat}</span>
+    </div>`).join('');
 }
-const hash=window.location.hash.replace(”#”,””);
-if(hash){currentSearch=decodeURIComponent(hash);document.getElementById(“searchBox”).value=currentSearch;}
-renderWords();
+
+function openModal(idx) {
+  const w = LEXIQUE[idx]; if(!w) return;
+  document.getElementById('mFr').textContent   = w.fr;
+  document.getElementById('mPhon').textContent = w.phon || '';
+  document.getElementById('mEn').textContent   = w.en;
+  document.getElementById('mDef').textContent  = w.def || '';
+  document.getElementById('mEx').textContent   = w.ex  || '';
+  document.getElementById('mCat').textContent  = '📂 ' + w.cat;
+  document.getElementById('mLv').textContent   = '🎯 Niveau ' + w.level;
+  document.getElementById('modal').classList.add('show');
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Indicateur chargement BDD
+  const bddOk = typeof LEXIQUE_BDD !== 'undefined' && LEXIQUE_BDD.length > 0;
+  document.getElementById('dbStatus').textContent = bddOk
+    ? '✅ BDDlexique.js chargé — ' + LEXIQUE.length + ' mots'
+    : '⚠️ BDDlexique.js non trouvé — données de secours (' + LEXIQUE.length + ' mots)';
+  document.getElementById('dbStatus').className = 'db-status ' + (bddOk ? 'db-ok' : 'db-err');
+
+  // Param URL ?level=N
+  const lvlParam = new URLSearchParams(window.location.search).get('level');
+  if (lvlParam) { mode = 'niveau'; setMode('niveau'); setFilter(parseInt(lvlParam)); return; }
+
+  renderTabs();
+  render();
 });
 </script>
 
