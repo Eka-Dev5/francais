@@ -7,63 +7,150 @@
     <style>
         *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
         body{background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;padding:20px}
-        .container{max-width:1200px;margin:0 auto;background:white;border-radius:20px;padding:25px;box-shadow:0 20px 60px rgba(0,0,0,0.3)}
-        h1{color:#667eea;margin-bottom:10px;display:flex;align-items:center;gap:10px}
-        .filters{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
-        .filters input,.filters select{padding:10px 15px;border:2px solid #e2e8f0;border-radius:12px;font-size:1em;flex:1;min-width:150px}
-        .lexique-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:15px}
-        .card{background:#f8fafc;border-radius:12px;padding:15px;border-left:5px solid #667eea;transition:all .2s}
-        .card:hover{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,0.1)}
-        .fr{font-size:1.4em;font-weight:bold;color:#2d3748}
-        .phon{color:#764ba2;font-style:italic;font-size:.9em;margin-left:8px}
-        .en{color:#4a5568;margin:5px 0;font-size:.95em}
-        .def{color:#718096;font-size:.85em;margin-top:8px;border-top:1px solid #e2e8f0;padding-top:6px}
-        .level-badge{display:inline-block;background:#667eea;color:white;border-radius:20px;padding:2px 10px;font-size:.7em;margin-top:8px}
-        .no-results{text-align:center;color:#718096;padding:40px}
+        .container{background:white;border-radius:24px;padding:30px;max-width:1300px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,0.25)}
+        h1{font-size:2.2em;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px}
+        .sub{color:#718096;margin-bottom:25px;border-bottom:1px solid #e2e8f0;padding-bottom:12px}
+        .filters{display:flex;gap:12px;margin-bottom:25px;flex-wrap:wrap}
+        .filters input,.filters select{padding:12px 16px;border:2px solid #e2e8f0;border-radius:16px;font-size:.95em;flex:1;min-width:150px;background:#f8fafc;transition:all .2s}
+        .filters input:focus,.filters select:focus{outline:none;border-color:#667eea}
+        .mode-buttons{display:flex;gap:12px;margin-bottom:25px}
+        .mode-btn{flex:1;padding:12px;border:none;border-radius:40px;cursor:pointer;font-weight:bold;transition:all .2s;background:#f0f4ff;color:#667eea}
+        .mode-btn.active{background:linear-gradient(135deg,#667eea,#764ba2);color:white;box-shadow:0 4px 12px rgba(102,126,234,.4)}
+        .lexique-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+        .card{background:#ffffff;border:1px solid #e2e8f0;border-radius:20px;padding:18px;transition:all .25s;box-shadow:0 2px 6px rgba(0,0,0,0.05)}
+        .card:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(0,0,0,0.1);border-color:#cbd5e0}
+        .fr-word{font-size:1.5em;font-weight:800;color:#2d3748;margin-bottom:4px}
+        .en-word{font-size:1.1em;color:#4a5568;margin-bottom:8px}
+        .phon{color:#764ba2;font-style:italic;font-size:.85em;margin-left:8px}
+        .def{color:#718096;font-size:.85em;margin-top:10px;padding-top:8px;border-top:1px solid #edf2f7;line-height:1.4}
+        .badge{display:inline-block;background:#edf2f7;border-radius:30px;padding:4px 12px;font-size:.7em;margin-top:10px;margin-right:6px}
+        .badge-level{background:#667eea;color:white}
+        .badge-cat{background:#fbbf24;color:#1a202c}
+        .no-results{text-align:center;color:#a0aec0;padding:50px;font-size:1.1em}
+        @media(max-width:640px){.lexique-grid{grid-template-columns:1fr}}
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>📖 Lexique Français Master <span style="font-size:0.8rem;">(243 mots)</span></h1>
+    <h1>📖 Lexique Français Master</h1>
+    <div class="sub">243 mots essentiels – cherche, filtre, révise dans les deux sens</div>
+
+    <div class="mode-buttons">
+        <button class="mode-btn active" id="btnFrEn" onclick="setMode('fren')">🇫🇷 Français → English</button>
+        <button class="mode-btn" id="btnEnFr" onclick="setMode('enfr')">🇬🇧 English → Français</button>
+    </div>
+
     <div class="filters">
-        <input type="text" id="searchInput" placeholder="🔍 Chercher un mot..." oninput="filterLexique()">
-        <select id="levelFilter" onchange="filterLexique()">
-            <option value="all">Tous les niveaux</option>
+        <input type="text" id="searchInput" placeholder="🔍 Chercher un mot (ex: bonjour, hello, marché…)" oninput="refresh()">
+        <select id="levelFilter" onchange="refresh()">
+            <option value="all">📊 Tous niveaux</option>
             <option value="1">Niveau 1</option><option value="2">Niveau 2</option><option value="3">Niveau 3</option>
             <option value="4">Niveau 4</option><option value="5">Niveau 5</option><option value="6">Niveau 6</option>
             <option value="7">Niveau 7</option><option value="8">Niveau 8</option><option value="9">Niveau 9</option>
             <option value="10">Niveau 10</option>
         </select>
+        <select id="catFilter" onchange="refresh()">
+            <option value="all">🏷️ Tous thèmes</option>
+        </select>
     </div>
+
     <div id="lexiqueGrid" class="lexique-grid"></div>
 </div>
+
 <script src="BDDlexique.js"></script>
 <script>
-    function renderLexique(mots) {
-        const grid = document.getElementById('lexiqueGrid');
-        if (!mots.length) { grid.innerHTML = '<div class="no-results">Aucun mot trouvé.</div>'; return; }
-        grid.innerHTML = mots.map(w => `
-            <div class="card">
-                <div><span class="fr">${w.fr}</span> <span class="phon">${w.phon || ''}</span></div>
-                <div class="en">${w.en}</div>
-                <div class="def">${w.def}<br><em>${w.ex}</em></div>
-                <span class="level-badge">Niveau ${w.level}</span> <span style="font-size:0.75em;color:#a0aec0">${w.cat}</span>
-            </div>
-        `).join('');
-    }
-    function filterLexique() {
+    let currentMode = "fren"; // fren ou enfr
+
+    function populateCatFilter() {
         if (typeof LEXIQUE_BDD === 'undefined') return;
-        const search = document.getElementById('searchInput').value.toLowerCase();
-        const level = document.getElementById('levelFilter').value;
-        let filtered = LEXIQUE_BDD.filter(w => 
-            w.fr.toLowerCase().includes(search) || w.en.toLowerCase().includes(search)
-        );
-        if (level !== 'all') filtered = filtered.filter(w => w.level == level);
-        renderLexique(filtered);
+        const cats = new Set();
+        LEXIQUE_BDD.forEach(w => { if(w.cat) cats.add(w.cat); });
+        const select = document.getElementById('catFilter');
+        select.innerHTML = '<option value="all">🏷️ Tous thèmes</option>';
+        Array.from(cats).sort().forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c;
+            opt.textContent = c.charAt(0).toUpperCase() + c.slice(1);
+            select.appendChild(opt);
+        });
     }
+
+    function setMode(mode) {
+        currentMode = mode;
+        document.getElementById('btnFrEn').classList.toggle('active', mode === 'fren');
+        document.getElementById('btnEnFr').classList.toggle('active', mode === 'enfr');
+        refresh();
+    }
+
+    function refresh() {
+        if (typeof LEXIQUE_BDD === 'undefined') return;
+        const search = document.getElementById('searchInput').value.trim().toLowerCase();
+        const level = document.getElementById('levelFilter').value;
+        const cat = document.getElementById('catFilter').value;
+
+        let filtered = LEXIQUE_BDD.filter(w => {
+            const matchSearch = search === '' || w.fr.toLowerCase().includes(search) || w.en.toLowerCase().includes(search);
+            const matchLevel = level === 'all' || w.level == level;
+            const matchCat = cat === 'all' || w.cat === cat;
+            return matchSearch && matchLevel && matchCat;
+        });
+
+        // Tri alphabétique selon mode
+        if (currentMode === 'enfr') {
+            filtered.sort((a,b) => a.en.localeCompare(b.en));
+        } else {
+            filtered.sort((a,b) => a.fr.localeCompare(b.fr));
+        }
+
+        const grid = document.getElementById('lexiqueGrid');
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div class="no-results">✨ Aucun mot ne correspond à ces critères.</div>';
+            return;
+        }
+
+        grid.innerHTML = filtered.map(w => {
+            const badgeCat = w.cat ? `<span class="badge badge-cat">${w.cat}</span>` : '';
+            if (currentMode === 'enfr') {
+                // Mode English → Français
+                return `
+                    <div class="card">
+                        <div class="fr-word">${escapeHtml(w.en)}</div>
+                        <div class="en-word">${escapeHtml(w.fr)} <span class="phon">${escapeHtml(w.phon || '')}</span></div>
+                        <div class="def">${escapeHtml(w.def)}<br><em>${escapeHtml(w.ex)}</em></div>
+                        <div><span class="badge badge-level">Niveau ${w.level}</span> ${badgeCat}</div>
+                    </div>
+                `;
+            } else {
+                // Mode Français → English
+                return `
+                    <div class="card">
+                        <div class="fr-word">${escapeHtml(w.fr)} <span class="phon">${escapeHtml(w.phon || '')}</span></div>
+                        <div class="en-word">${escapeHtml(w.en)}</div>
+                        <div class="def">${escapeHtml(w.def)}<br><em>${escapeHtml(w.ex)}</em></div>
+                        <div><span class="badge badge-level">Niveau ${w.level}</span> ${badgeCat}</div>
+                    </div>
+                `;
+            }
+        }).join('');
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
-        if (typeof LEXIQUE_BDD !== 'undefined') renderLexique(LEXIQUE_BDD);
-        else document.getElementById('lexiqueGrid').innerHTML = '<div class="no-results">❌ Base de données non chargée.</div>';
+        if (typeof LEXIQUE_BDD !== 'undefined') {
+            populateCatFilter();
+            refresh();
+        } else {
+            document.getElementById('lexiqueGrid').innerHTML = '<div class="no-results">❌ Base de données non chargée. Vérifie BDDlexique.js</div>';
+        }
     });
 </script>
 </body>
