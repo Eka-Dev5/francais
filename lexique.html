@@ -22,7 +22,7 @@
       font-family: "Segoe UI", system-ui, sans-serif;
     }
     .card {
-      max-width: 1400px;
+      max-width: 1000px;
       margin: 0 auto;
       background: white;
       border-radius: 24px;
@@ -31,7 +31,7 @@
       position: relative;
     }
     h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 800;
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       -webkit-background-clip: text;
@@ -44,20 +44,7 @@
       text-align: center;
       color: var(--text-muted);
       margin-bottom: 24px;
-      font-size: 0.95rem;
-    }
-    /* Voyant en haut à droite */
-    .sense-badge {
-      position: absolute;
-      top: 20px;
-      right: 24px;
-      background: #f0f4ff;
-      border-radius: 40px;
-      padding: 6px 12px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      color: var(--primary);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-size: 0.9rem;
     }
     .nav-links {
       display: flex;
@@ -70,7 +57,7 @@
       display: inline-block;
       background: #f0f4ff;
       color: var(--primary);
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 40px;
       font-weight: 600;
       text-decoration: none;
@@ -78,6 +65,7 @@
       font-size: 0.9rem;
       border: none;
       cursor: pointer;
+      white-space: nowrap;
     }
     .btn-primary {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -85,168 +73,138 @@
     }
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 12px rgba(102,126,234,0.3);
+      box-shadow: 0 4px 10px rgba(102,126,234,0.3);
     }
 
-    /* Zone drapeaux + barre recherche */
-    .search-section {
-      margin-bottom: 20px;
-    }
-    .flags-and-search {
+    /* Drapeaux superposés à gauche de la barre */
+    .search-area {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 12px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
     }
-    /* Drapeaux superposés à gauche */
-    .flags-superposed {
+    .flags {
       display: flex;
       flex-direction: column;
-      align-items: center;
       background: #f1f5f9;
       border-radius: 40px;
-      padding: 6px 10px;
-      gap: 4px;
+      padding: 4px 8px;
     }
-    .flag-btn {
-      font-size: 1.6rem;
+    .flag {
+      font-size: 1.5rem;
       cursor: pointer;
-      transition: transform 0.1s, opacity 0.2s;
+      transition: all 0.1s;
       opacity: 0.5;
       border-radius: 50%;
       padding: 2px;
     }
-    .flag-btn.active {
+    .flag.active {
       opacity: 1;
       background: rgba(102,126,234,0.2);
       box-shadow: 0 0 0 2px var(--primary);
       transform: scale(1.05);
     }
-    .flag-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-align: center;
-      margin-top: 4px;
-    }
-    /* Champ de recherche + bouton */
     .search-wrapper {
       flex: 1;
       display: flex;
       gap: 8px;
-      align-items: center;
     }
     .search-input {
       flex: 1;
-      padding: 12px 16px;
+      padding: 8px 16px;
       border: 2px solid var(--border-light);
-      border-radius: 60px;
-      font-size: 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
       background: white;
     }
     .search-input:focus {
       outline: none;
       border-color: var(--primary);
     }
-    .search-btn {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 60px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .search-btn:hover {
-      transform: translateY(-1px);
-    }
 
-    /* Deux gros boutons Niveaux / Thèmes (au-dessus de la barre) */
+    /* Boutons Niveaux / Thèmes (identiques en taille) */
     .filter-triggers {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       justify-content: center;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
+      margin-bottom: 20px;
     }
     .filter-trigger {
       background: #f0f4ff;
       color: var(--primary);
-      padding: 8px 24px;
-      border-radius: 60px;
-      font-weight: 800;
-      font-size: 1rem;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-size: 0.9rem;
       cursor: pointer;
-      transition: all 0.2s;
       border: none;
+      transition: all 0.2s;
     }
     .filter-trigger.active {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
-      box-shadow: 0 2px 8px rgba(102,126,234,0.4);
     }
 
-    /* Menus toggles (niveaux / thèmes) */
-    .toggle-menu {
+    /* Zone de filtres (niveaux / thèmes) - apparaît en dessous */
+    .filters-panel {
       background: #f9fafb;
       border-radius: 20px;
-      padding: 16px;
-      margin: 16px 0 20px 0;
+      padding: 12px;
+      margin-bottom: 20px;
       display: none;
     }
-    .toggle-menu.visible {
+    .filters-panel.visible {
       display: block;
     }
-    .toggle-buttons {
+    .chips {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
+      gap: 8px;
+      margin-top: 8px;
     }
-    .toggle-chip {
+    .chip {
       background: white;
       border: 1px solid var(--border-light);
       border-radius: 40px;
-      padding: 8px 16px;
+      padding: 6px 14px;
       font-size: 0.85rem;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.2s;
       color: var(--text-dark);
     }
-    .toggle-chip.active {
+    .chip.active {
       background: linear-gradient(135deg, var(--primary), var(--secondary));
       color: white;
       border-color: transparent;
     }
 
-    /* Zone des résultats */
+    /* Résultats */
     .result-count {
       text-align: right;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--text-muted);
-      margin: 12px 0 8px;
+      margin-bottom: 8px;
     }
     .lexique-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
     }
     .word-card {
       background: var(--bg-light);
       border-left: 4px solid var(--primary);
       border-radius: 16px;
-      padding: 18px;
-      transition: all 0.25s;
+      padding: 14px;
+      transition: all 0.2s;
     }
     .word-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 20px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
     }
     .main-word {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: var(--text-dark);
       margin-bottom: 4px;
@@ -254,47 +212,47 @@
     .phonetic {
       font-style: italic;
       color: var(--secondary);
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       margin-left: 6px;
     }
     .translation {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: #4a5568;
-      margin: 6px 0 10px 0;
+      margin: 4px 0 8px 0;
     }
     .definition {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--text-muted);
       line-height: 1.4;
       border-top: 1px solid var(--border-light);
-      padding-top: 8px;
-      margin-top: 8px;
+      padding-top: 6px;
+      margin-top: 6px;
     }
     .badge-container {
-      margin-top: 12px;
+      margin-top: 10px;
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
     }
     .badge-level {
       background: var(--primary);
       color: white;
       border-radius: 30px;
-      padding: 3px 10px;
-      font-size: 0.7rem;
+      padding: 2px 8px;
+      font-size: 0.65rem;
       font-weight: 600;
     }
     .badge-cat {
       background: #e9d8fd;
       color: #553c9a;
       border-radius: 30px;
-      padding: 3px 10px;
-      font-size: 0.7rem;
+      padding: 2px 8px;
+      font-size: 0.65rem;
       font-weight: 500;
     }
     .no-result {
       text-align: center;
-      padding: 40px;
+      padding: 30px;
       color: var(--text-muted);
       background: #f9fafb;
       border-radius: 24px;
@@ -302,19 +260,17 @@
     @media (max-width: 640px) {
       body { padding: 12px; }
       .card { padding: 20px 16px; }
-      h1 { font-size: 1.8rem; }
-      .flags-and-search { flex-direction: column; align-items: stretch; }
-      .flags-superposed { flex-direction: row; justify-content: center; gap: 12px; }
-      .search-wrapper { flex-direction: column; }
-      .search-btn { width: 100%; }
+      h1 { font-size: 1.6rem; }
+      .search-area { flex-direction: column; align-items: stretch; }
+      .flags { flex-direction: row; justify-content: center; gap: 12px; }
+      .search-wrapper { width: 100%; }
       .filter-triggers { gap: 12px; }
-      .toggle-chip { padding: 6px 12px; font-size: 0.75rem; }
+      .lexique-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 <div class="card">
-  <div class="sense-badge" id="senseBadge">🇫🇷 → 🇬🇧</div>
   <h1>📖 Lexique Français Master 🥖</h1>
   <div class="tagline">Recherche un mot, filtre par niveau ou thème</div>
 
@@ -325,38 +281,35 @@
     <a href="dashboard.html" class="btn">📊 Mon espace</a>
   </div>
 
-  <!-- Deux gros boutons Niveaux / Thèmes (au-dessus de la barre) -->
-  <div class="filter-triggers">
-    <button id="showLevelsTrigger" class="filter-trigger">📊 Niveaux</button>
-    <button id="showThemesTrigger" class="filter-trigger">🏷️ Thèmes</button>
-  </div>
-
-  <!-- Zone de recherche avec drapeaux -->
-  <div class="search-section">
-    <div class="flags-and-search">
-      <div class="flags-superposed" id="flagsContainer">
-        <div class="flag-btn" data-sense="fren" title="Français → English">🇫🇷</div>
-        <div class="flag-btn" data-sense="enfr" title="English → Français">🇬🇧</div>
-        <div class="flag-label" id="flagLabel">French → English</div>
-      </div>
-      <div class="search-wrapper">
-        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Entrez un mot (français ou anglais)...">
-        <button id="searchActionBtn" class="search-btn">🔎 Définition</button>
-      </div>
+  <!-- Drapeaux à gauche, barre recherche à droite -->
+  <div class="search-area">
+    <div class="flags" id="flagsContainer">
+      <div class="flag" data-sense="fren" title="Français → English">🇫🇷</div>
+      <div class="flag" data-sense="enfr" title="English → Français">🇬🇧</div>
+    </div>
+    <div class="search-wrapper">
+      <input type="text" id="searchInput" class="search-input" placeholder="🔍 Entrez un mot...">
+      <button id="searchBtn" class="btn btn-primary">🔎 Définition</button>
     </div>
   </div>
 
-  <!-- Menus toggles (apparaissent sous la barre) -->
-  <div id="levelsMenu" class="toggle-menu">
-    <div class="filter-title">Sélectionnez un ou plusieurs niveaux :</div>
-    <div class="toggle-buttons" id="levelToggleContainer"></div>
-  </div>
-  <div id="themesMenu" class="toggle-menu">
-    <div class="filter-title">Sélectionnez un ou plusieurs thèmes :</div>
-    <div class="toggle-buttons" id="themeToggleContainer"></div>
+  <!-- Boutons Niveaux / Thèmes (tailles uniformes) -->
+  <div class="filter-triggers">
+    <button id="showLevelsBtn" class="filter-trigger">📊 Niveaux</button>
+    <button id="showThemesBtn" class="filter-trigger">🏷️ Thèmes</button>
   </div>
 
-  <!-- Compteur et grille des résultats -->
+  <!-- Panneau des niveaux (caché initialement) -->
+  <div id="levelsPanel" class="filters-panel">
+    <div class="chips" id="levelChips"></div>
+  </div>
+
+  <!-- Panneau des thèmes (caché initialement) -->
+  <div id="themesPanel" class="filters-panel">
+    <div class="chips" id="themeChips"></div>
+  </div>
+
+  <!-- Résultats -->
   <div class="result-count" id="resultCount">0 mots affichés</div>
   <div id="lexiqueGrid" class="lexique-grid"></div>
 </div>
@@ -367,25 +320,23 @@
     // ---------- DONNÉES ----------
     let allWords = [];
     let currentSense = "fren";        // "fren" = français→anglais, "enfr" = anglais→français
-    let selectedLevels = new Set();    // stocke les niveaux sous forme de chaînes "1","2",... ou "all"
-    let selectedThemes = new Set();    // stocke les noms de thèmes (ou "all")
-    let searchActive = false;           // mode recherche actif ?
+    let selectedLevel = null;          // null = tous, ou "1","2",..., "all" (Tous)
+    let selectedTheme = null;          // null = tous, ou nom du thème
+    let searchActive = false;
     let currentSearchTerm = "";
-    let originalLevels = new Set();     // sauvegarde des filtres avant recherche
-    let originalThemes = new Set();
+    let savedLevel = null;              // pour restauration après recherche
+    let savedTheme = null;
 
     // Éléments DOM
-    const senseBadge = document.getElementById("senseBadge");
-    const flagBtns = document.querySelectorAll(".flag-btn");
-    const flagLabel = document.getElementById("flagLabel");
+    const flags = document.querySelectorAll(".flag");
     const searchInput = document.getElementById("searchInput");
-    const searchActionBtn = document.getElementById("searchActionBtn");
-    const showLevelsTrigger = document.getElementById("showLevelsTrigger");
-    const showThemesTrigger = document.getElementById("showThemesTrigger");
-    const levelsMenu = document.getElementById("levelsMenu");
-    const themesMenu = document.getElementById("themesMenu");
-    const levelToggleContainer = document.getElementById("levelToggleContainer");
-    const themeToggleContainer = document.getElementById("themeToggleContainer");
+    const searchBtn = document.getElementById("searchBtn");
+    const showLevelsBtn = document.getElementById("showLevelsBtn");
+    const showThemesBtn = document.getElementById("showThemesBtn");
+    const levelsPanel = document.getElementById("levelsPanel");
+    const themesPanel = document.getElementById("themesPanel");
+    const levelChipsDiv = document.getElementById("levelChips");
+    const themeChipsDiv = document.getElementById("themeChips");
     const resultCountSpan = document.getElementById("resultCount");
     const gridDiv = document.getElementById("lexiqueGrid");
 
@@ -399,7 +350,7 @@
     };
     const defaultIcon = "🏷️";
 
-    // ---------- CHARGEMENT BDD ----------
+    // ---------- CHARGEMENT ----------
     function loadData() {
       if (typeof LEXIQUE_BDD !== "undefined" && Array.isArray(LEXIQUE_BDD) && LEXIQUE_BDD.length) {
         allWords = [...LEXIQUE_BDD];
@@ -409,91 +360,23 @@
       return false;
     }
 
-    // Normalisation pour recherche (insensible accents, casse)
+    // Normalisation pour recherche
     function normalize(str) {
       return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-    }
-
-    // ---------- CONSTRUCTION DES TOGGLES ----------
-    function buildLevelToggles() {
-      const levels = ["all", 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-      levelToggleContainer.innerHTML = "";
-      levels.forEach(lvl => {
-        const key = lvl === "all" ? "all" : lvl.toString();
-        const btn = document.createElement("button");
-        btn.className = "toggle-chip";
-        if ((key === "all" && selectedLevels.has("all")) || selectedLevels.has(key)) btn.classList.add("active");
-        btn.textContent = lvl === "all" ? "📚 Tous les niveaux" : `Niveau ${lvl}`;
-        btn.addEventListener("click", (e) => {
-          e.stopPropagation();
-          if (lvl === "all") {
-            if (selectedLevels.has("all")) {
-              selectedLevels.clear();
-            } else {
-              selectedLevels.clear();
-              selectedLevels.add("all");
-            }
-          } else {
-            if (selectedLevels.has("all")) selectedLevels.delete("all");
-            const lvlStr = lvl.toString();
-            if (selectedLevels.has(lvlStr)) selectedLevels.delete(lvlStr);
-            else selectedLevels.add(lvlStr);
-          }
-          updateUIFiltersOnly();
-        });
-        levelToggleContainer.appendChild(btn);
-      });
-    }
-
-    function buildThemeToggles() {
-      const themesSet = new Set();
-      allWords.forEach(w => { if (w.cat) themesSet.add(w.cat); });
-      let themes = Array.from(themesSet).sort((a,b) => a.localeCompare(b));
-      themeToggleContainer.innerHTML = "";
-      // Bouton "Tous les thèmes"
-      const allThemeBtn = document.createElement("button");
-      allThemeBtn.className = "toggle-chip";
-      if (selectedThemes.has("all")) allThemeBtn.classList.add("active");
-      allThemeBtn.textContent = "🏷️ Tous les thèmes";
-      allThemeBtn.addEventListener("click", () => {
-        if (selectedThemes.has("all")) {
-          selectedThemes.clear();
-        } else {
-          selectedThemes.clear();
-          selectedThemes.add("all");
-        }
-        updateUIFiltersOnly();
-      });
-      themeToggleContainer.appendChild(allThemeBtn);
-      // Boutons individuels
-      themes.forEach(theme => {
-        const btn = document.createElement("button");
-        btn.className = "toggle-chip";
-        if (selectedThemes.has(theme)) btn.classList.add("active");
-        const icon = themeIcons[theme] || defaultIcon;
-        btn.textContent = `${icon} ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
-        btn.addEventListener("click", () => {
-          if (selectedThemes.has("all")) selectedThemes.delete("all");
-          if (selectedThemes.has(theme)) selectedThemes.delete(theme);
-          else selectedThemes.add(theme);
-          updateUIFiltersOnly();
-        });
-        themeToggleContainer.appendChild(btn);
-      });
     }
 
     // ---------- FILTRAGE DES MOTS ----------
     function getFilteredWords() {
       let filtered = [...allWords];
-      // Filtre niveaux
-      if (!selectedLevels.has("all") && selectedLevels.size > 0) {
-        filtered = filtered.filter(w => selectedLevels.has(w.level.toString()));
+      // Filtre niveau
+      if (selectedLevel && selectedLevel !== "all") {
+        filtered = filtered.filter(w => w.level.toString() === selectedLevel);
       }
-      // Filtre thèmes
-      if (!selectedThemes.has("all") && selectedThemes.size > 0) {
-        filtered = filtered.filter(w => selectedThemes.has(w.cat));
+      // Filtre thème
+      if (selectedTheme && selectedTheme !== "all") {
+        filtered = filtered.filter(w => w.cat === selectedTheme);
       }
-      // Recherche (si active)
+      // Recherche
       if (searchActive && currentSearchTerm.trim() !== "") {
         const termNorm = normalize(currentSearchTerm);
         filtered = filtered.filter(w => 
@@ -503,7 +386,7 @@
       return filtered;
     }
 
-    // Affichage des cartes selon le sens
+    // ---------- AFFICHAGE DES CARTES ----------
     function escapeHtml(str) {
       if (!str) return "";
       return str.replace(/[&<>]/g, m => m === "&" ? "&amp;" : (m === "<" ? "&lt;" : "&gt;"));
@@ -551,62 +434,113 @@
       }).join("");
     }
 
-    // Mise à jour de l'interface sans toucher aux menus ouverts (juste filtres + affichage)
-    function updateUIFiltersOnly() {
-      // Mettre à jour les classes actives des toggles
-      document.querySelectorAll("#levelToggleContainer .toggle-chip").forEach(btn => {
-        const text = btn.textContent;
-        if (text === "📚 Tous les niveaux") {
-          if (selectedLevels.has("all")) btn.classList.add("active");
-          else btn.classList.remove("active");
+    // Mise à jour complète (filtres + affichage)
+    function updateUI() {
+      // Mettre à jour l'active des chips (niveaux)
+      document.querySelectorAll("#levelChips .chip").forEach(chip => {
+        const level = chip.dataset.level;
+        if ((level === "all" && selectedLevel === "all") || (level === selectedLevel)) {
+          chip.classList.add("active");
         } else {
-          const match = text.match(/\d+/);
-          if (match && selectedLevels.has(match[0])) btn.classList.add("active");
-          else btn.classList.remove("active");
+          chip.classList.remove("active");
         }
       });
-      document.querySelectorAll("#themeToggleContainer .toggle-chip").forEach(btn => {
-        const txt = btn.textContent;
-        if (txt === "🏷️ Tous les thèmes") {
-          if (selectedThemes.has("all")) btn.classList.add("active");
-          else btn.classList.remove("active");
+      // Mettre à jour l'active des chips (thèmes)
+      document.querySelectorAll("#themeChips .chip").forEach(chip => {
+        const theme = chip.dataset.theme;
+        if ((theme === "all" && selectedTheme === "all") || (theme === selectedTheme)) {
+          chip.classList.add("active");
         } else {
-          const themeName = txt.replace(/^[🏷️📌👋🙋🎩💬⚖️🏬🍎🌿🔧⚡👥🏠🌡️❤️📦🌤️⏰🍂🔄]+\s*/, "").trim();
-          if (selectedThemes.has(themeName)) btn.classList.add("active");
-          else btn.classList.remove("active");
+          chip.classList.remove("active");
         }
       });
+      // Mettre à jour la surbrillance des drapeaux
+      flags.forEach(flag => {
+        const sense = flag.dataset.sense;
+        if (sense === currentSense) flag.classList.add("active");
+        else flag.classList.remove("active");
+      });
+      // Filtrer et afficher
       const filtered = getFilteredWords();
       renderWords(filtered);
     }
 
-    // Mise à jour complète (drapeaux, labels, tout)
-    function updateFullUI() {
-      // Mettre à jour l'indicateur de sens
-      senseBadge.textContent = currentSense === "fren" ? "🇫🇷 → 🇬🇧" : "🇬🇧 → 🇫🇷";
-      flagLabel.textContent = currentSense === "fren" ? "French → English" : "English → Français";
-      // Surbrillance des drapeaux
-      flagBtns.forEach(btn => {
-        const sense = btn.dataset.sense;
-        if (sense === currentSense) btn.classList.add("active");
-        else btn.classList.remove("active");
+    // ---------- CONSTRUCTION DES CHIPS (niveaux) ----------
+    function buildLevelChips() {
+      const levels = ["all", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+      levelChipsDiv.innerHTML = "";
+      levels.forEach(lvl => {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.dataset.level = lvl;
+        chip.textContent = lvl === "all" ? "📚 Tous les niveaux" : `Niveau ${lvl}`;
+        chip.addEventListener("click", () => {
+          if (searchActive) return; // désactiver pendant recherche
+          if (selectedLevel === lvl) {
+            // désélectionner
+            selectedLevel = null;
+          } else {
+            selectedLevel = lvl;
+          }
+          updateUI();
+        });
+        levelChipsDiv.appendChild(chip);
       });
-      // Mise à jour des toggles et affichage
-      updateUIFiltersOnly();
     }
 
-    // ---------- GESTION DES MENUS (niveaux / thèmes) ----------
-    function showLevelsMenu() {
-      levelsMenu.classList.add("visible");
-      themesMenu.classList.remove("visible");
-      showLevelsTrigger.classList.add("active");
-      showThemesTrigger.classList.remove("active");
+    // ---------- CONSTRUCTION DES CHIPS (thèmes) ----------
+    function buildThemeChips() {
+      const themesSet = new Set();
+      allWords.forEach(w => { if (w.cat) themesSet.add(w.cat); });
+      let themes = Array.from(themesSet).sort((a,b) => a.localeCompare(b));
+      themeChipsDiv.innerHTML = "";
+      // Bouton "Tous les thèmes"
+      const allChip = document.createElement("div");
+      allChip.className = "chip";
+      allChip.dataset.theme = "all";
+      allChip.textContent = "🏷️ Tous les thèmes";
+      allChip.addEventListener("click", () => {
+        if (searchActive) return;
+        if (selectedTheme === "all") {
+          selectedTheme = null;
+        } else {
+          selectedTheme = "all";
+        }
+        updateUI();
+      });
+      themeChipsDiv.appendChild(allChip);
+      // Chips individuels
+      themes.forEach(theme => {
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.dataset.theme = theme;
+        const icon = themeIcons[theme] || defaultIcon;
+        chip.textContent = `${icon} ${theme.charAt(0).toUpperCase() + theme.slice(1)}`;
+        chip.addEventListener("click", () => {
+          if (searchActive) return;
+          if (selectedTheme === theme) {
+            selectedTheme = null;
+          } else {
+            selectedTheme = theme;
+          }
+          updateUI();
+        });
+        themeChipsDiv.appendChild(chip);
+      });
     }
-    function showThemesMenu() {
-      levelsMenu.classList.remove("visible");
-      themesMenu.classList.add("visible");
-      showLevelsTrigger.classList.remove("active");
-      showThemesTrigger.classList.add("active");
+
+    // ---------- GESTION DES PANNEAUX (afficher niveaux ou thèmes) ----------
+    function showLevelsPanel() {
+      levelsPanel.classList.add("visible");
+      themesPanel.classList.remove("visible");
+      showLevelsBtn.classList.add("active");
+      showThemesBtn.classList.remove("active");
+    }
+    function showThemesPanel() {
+      levelsPanel.classList.remove("visible");
+      themesPanel.classList.add("visible");
+      showLevelsBtn.classList.remove("active");
+      showThemesBtn.classList.add("active");
     }
 
     // ---------- RECHERCHE ----------
@@ -614,36 +548,32 @@
       const term = searchInput.value.trim();
       if (term === "") {
         if (searchActive) {
-          // Désactiver la recherche et restaurer les filtres sauvegardés
+          // Réinitialiser la recherche
           searchActive = false;
           currentSearchTerm = "";
-          selectedLevels = new Set(originalLevels);
-          selectedThemes = new Set(originalThemes);
-          searchActionBtn.textContent = "🔎 Définition";
-          // Réafficher les menus toggles (mais pas forcément ouverts)
-          levelsMenu.style.display = "";
-          themesMenu.style.display = "";
-          updateFullUI();
+          selectedLevel = savedLevel;
+          selectedTheme = savedTheme;
+          searchBtn.textContent = "🔎 Définition";
+          // Réafficher les panneaux (on laisse l'utilisateur rouvrir s'il veut)
+          updateUI();
         }
         return;
       }
-      // Sauvegarder l'état des filtres actuels
-      originalLevels = new Set(selectedLevels);
-      originalThemes = new Set(selectedThemes);
+      // Sauvegarder les filtres actuels
+      savedLevel = selectedLevel;
+      savedTheme = selectedTheme;
       // Activer la recherche
       searchActive = true;
       currentSearchTerm = term;
-      // Désactiver les filtres (on ne garde que la recherche)
-      selectedLevels.clear();
-      selectedThemes.clear();
-      // Masquer les menus toggles
-      levelsMenu.classList.remove("visible");
-      themesMenu.classList.remove("visible");
-      showLevelsTrigger.classList.remove("active");
-      showThemesTrigger.classList.remove("active");
-      // Changer le texte du bouton
-      searchActionBtn.textContent = "Compris !";
-      updateFullUI();
+      selectedLevel = null;
+      selectedTheme = null;
+      searchBtn.textContent = "Compris !";
+      // Masquer les panneaux de filtres (pas besoin de les afficher)
+      levelsPanel.classList.remove("visible");
+      themesPanel.classList.remove("visible");
+      showLevelsBtn.classList.remove("active");
+      showThemesBtn.classList.remove("active");
+      updateUI();
     }
 
     function resetSearch() {
@@ -651,45 +581,36 @@
       searchActive = false;
       currentSearchTerm = "";
       searchInput.value = "";
-      searchActionBtn.textContent = "🔎 Définition";
-      // Restaurer les filtres sauvegardés
-      selectedLevels = new Set(originalLevels);
-      selectedThemes = new Set(originalThemes);
-      // Réafficher les menus (si un déclencheur était actif, on le restaure ? On laisse l'utilisateur choisir)
-      levelsMenu.classList.remove("visible");
-      themesMenu.classList.remove("visible");
-      showLevelsTrigger.classList.remove("active");
-      showThemesTrigger.classList.remove("active");
-      updateFullUI();
-      // Reconstruire les toggles pour refléter les sélections (nécessaire car les Sets ont changé)
-      buildLevelToggles();
-      buildThemeToggles();
-      updateFullUI();
+      searchBtn.textContent = "🔎 Définition";
+      selectedLevel = savedLevel;
+      selectedTheme = savedTheme;
+      updateUI();
+      // On ne réaffiche pas automatiquement les panneaux, l'utilisateur cliquera sur Niveaux ou Thèmes s'il veut
     }
 
     // ---------- CHANGEMENT DE SENS ----------
     function setSense(sense) {
       if (sense === currentSense) return;
       currentSense = sense;
-      updateFullUI();
+      updateUI();
     }
 
     // ---------- INITIALISATION ----------
     function init() {
       if (!loadData()) return;
-      // Valeurs par défaut : tous les niveaux, tous les thèmes
-      selectedLevels.add("all");
-      selectedThemes.add("all");
-      buildLevelToggles();
-      buildThemeToggles();
-      // Par défaut, afficher le menu des niveaux (mais pas ouvert ? on ouvre niveaux par défaut)
-      showLevelsMenu(); // les deux menus sont fermés initialement, on ouvre niveaux
-      updateFullUI();
+      buildLevelChips();
+      buildThemeChips();
+      // Par défaut, tous les mots (aucun filtre)
+      selectedLevel = null;
+      selectedTheme = null;
+      updateUI();
+      // Afficher par défaut le panneau des niveaux ? Pour l'expérience, on l'affiche.
+      showLevelsPanel();
 
       // Écouteurs
-      showLevelsTrigger.addEventListener("click", showLevelsMenu);
-      showThemesTrigger.addEventListener("click", showThemesMenu);
-      searchActionBtn.addEventListener("click", () => {
+      showLevelsBtn.addEventListener("click", showLevelsPanel);
+      showThemesBtn.addEventListener("click", showThemesPanel);
+      searchBtn.addEventListener("click", () => {
         if (searchActive) resetSearch();
         else performSearch();
       });
@@ -699,9 +620,9 @@
           else performSearch();
         }
       });
-      flagBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-          const sense = btn.dataset.sense;
+      flags.forEach(flag => {
+        flag.addEventListener("click", () => {
+          const sense = flag.dataset.sense;
           setSense(sense);
         });
       });
