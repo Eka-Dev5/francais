@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Français Master 🥖</title>
+<style>
+/* ═══════════════════════════════════════════
+   SUJET CONFIG : changer ici pour adapter à une autre matière
+   Ex: Maths Master, Histoire Master, etc.
+   ═══════════════════════════════════════════ */
+:root {
+  --primary:#667eea; --secondary:#764ba2; --success:#48bb78;
+  --error:#f56565; --warning:#ed8936; --bg:#f7fafc; --text:#2d3748;
+  --shadow:0 10px 30px rgba(0,0,0,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
+body{background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;padding:15px}
+
+.quiz-container{background:white;width:100%;max-width:820px;margin:0 auto;border-radius:20px;padding:25px;box-shadow:var(--shadow)}
+
+/* HEADER */
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #e2e8f0;flex-wrap:wrap;gap:10px}
+.player-info{display:flex;align-items:center;gap:10px}
+.player-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;display:flex;align-items:center;justify-content:center;font-size:1.2em;font-weight:bold}
+.player-name{font-weight:bold;font-size:1.1em;color:var(--text)}
+.player-stats{font-size:0.8em;color:#718096}
+.header-score{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:8px 18px;border-radius:20px;font-weight:bold;font-size:1em}
+.player-selector{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.player-selector select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;font-size:0.95em;flex:1;min-width:120px}
+.player-selector select:focus{outline:none;border-color:var(--primary)}
+.btn{padding:9px 18px;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:0.9em;transition:all .2s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-danger{background:#fed7d7;color:#c53030}
+.btn-danger:hover{background:#feb2b2}
+.btn-success{background:#c6f6d5;color:#276749}
+.btn-success:hover{background:#9ae6b4}
+
+/* SECTIONS */
+.section{display:none}
+.section.active{display:block}
+
+/* ACCUEIL */
+.home-title{text-align:center;font-size:2.2em;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.home-sub{text-align:center;color:#718096;margin-bottom:25px}
+.home-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px;margin:20px 0}
+.home-stat{background:linear-gradient(145deg,#f0f4ff,#e8ecff);padding:18px;border-radius:15px;text-align:center}
+.home-stat-num{font-size:2em;font-weight:bold;color:var(--primary)}
+.home-stat-label{font-size:.8em;color:#718096;text-transform:uppercase;letter-spacing:.5px}
+.home-btns{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
+.home-btns .btn{flex:1;padding:14px;font-size:1em;border-radius:12px}
+
+/* LEÇONS */
+.lessons-list{display:grid;gap:12px}
+.lesson-card{background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:18px;cursor:pointer;transition:all .25s}
+.lesson-card:hover{border-color:var(--primary);background:#f0f4ff}
+.lesson-card.open{border-color:var(--primary);background:#f0f4ff}
+.lesson-header{display:flex;justify-content:space-between;align-items:center}
+.lesson-title{font-weight:bold;font-size:1.05em;color:var(--text)}
+.lesson-tag{background:var(--primary);color:white;padding:3px 10px;border-radius:12px;font-size:.75em}
+.lesson-body{display:none;margin-top:14px;padding-top:14px;border-top:1px solid #e2e8f0}
+.lesson-body.open{display:block}
+.lesson-rule{background:white;border-left:4px solid var(--primary);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:10px}
+.lesson-rule h4{color:var(--secondary);margin-bottom:6px;font-size:.95em;text-transform:uppercase;letter-spacing:.5px}
+.lesson-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.9em}
+.lesson-table td,.lesson-table th{padding:7px 10px;border:1px solid #e2e8f0;text-align:left}
+.lesson-table th{background:var(--primary);color:white;font-weight:600}
+.lesson-table tr:nth-child(even){background:#f8fafc}
+.lesson-warning{background:#fff5d6;border-left:4px solid var(--warning);padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.9em}
+.lesson-example{background:#EEF2FF;border-left:4px solid #667eea;border-radius:0 10px 10px 0;padding:11px 13px;margin:10px 0;font-size:.88em;color:#2d3748}
+
+/* NIVEAUX */
+.levels-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:15px}
+.level-card{border:2px solid #e2e8f0;border-radius:14px;padding:18px;transition:all .25s}
+.level-card:not(.locked){cursor:pointer}
+.level-card:not(.locked):hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow)}
+.level-card.locked{opacity:.55;background:#f8fafc}
+.level-card.completed{border-color:var(--success);background:#f0fff4}
+.level-card.current{border-color:var(--primary);background:#f0f4ff}
+.level-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.level-number{font-size:.8em;font-weight:bold;color:#718096;text-transform:uppercase;letter-spacing:.5px}
+.level-title{font-size:1.1em;font-weight:bold;color:var(--text);margin-bottom:4px}
+.level-obj{font-size:.85em;color:#718096}
+.mode-selector{background:#f8fafc;border-radius:14px;padding:18px;margin-bottom:18px}
+.mode-title{font-weight:bold;margin-bottom:12px;color:var(--text)}
+.mode-btns{display:flex;gap:10px;flex-wrap:wrap}
+.mode-btn{flex:1;padding:11px;border:2px solid #e2e8f0;background:white;border-radius:10px;cursor:pointer;font-weight:bold;transition:all .2s;text-align:center;min-width:100px}
+.mode-btn.selected,.mode-btn:hover{border-color:var(--primary);background:var(--primary);color:white}
+
+/* JEU */
+.question-box{background:#f8fafc;border-radius:14px;padding:22px;margin-bottom:16px}
+.question-num{font-size:.85em;color:#718096;margin-bottom:8px;font-weight:600}
+.question-text{font-size:1.25em;font-weight:bold;color:var(--text);line-height:1.5}
+.options-grid{display:grid;gap:10px;margin-top:16px}
+.option-btn{padding:13px 18px;border:2px solid #e2e8f0;background:white;border-radius:10px;cursor:pointer;text-align:left;font-size:1em;transition:all .2s}
+.option-btn:hover:not(:disabled){border-color:var(--primary);background:#f0f4ff}
+.option-btn.selected{border-color:var(--primary);background:#f0f4ff}
+.option-btn.correct{border-color:var(--success) !important;background:#c6f6d5 !important;color:#276749 !important}
+.option-btn.wrong{border-color:var(--error) !important;background:#fed7d7 !important;color:#c53030 !important}
+.option-btn:disabled{cursor:not-allowed}
+.answer-input{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:1.1em;margin-top:12px;transition:border-color .2s}
+.answer-input:focus{outline:none;border-color:var(--primary)}
+.answer-input.correct{border-color:var(--success);background:#f0fff4}
+.answer-input.wrong{border-color:var(--error);background:#fff5f5}
+.feedback{border-radius:12px;padding:16px 18px;margin-top:14px;display:none}
+.feedback.show{display:block;animation:fadeIn .3s}
+.feedback.correct-fb{background:#c6f6d5;border-left:4px solid var(--success)}
+.feedback.wrong-fb{background:#fed7d7;border-left:4px solid var(--error)}
+.feedback-title{font-weight:bold;font-size:1.1em;margin-bottom:5px}
+.feedback-explanation{font-size:.9em;color:#4a5568;margin-top:5px}
+.progress-wrap{margin-bottom:16px}
+.progress-bar{height:10px;background:#e2e8f0;border-radius:5px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:width .4s;border-radius:5px}
+.game-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.game-actions .btn{flex:1}
+
+/* RÉSULTATS */
+.results-box{text-align:center;padding:20px}
+.result-score-circle{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:var(--shadow)}
+.result-score-num{font-size:2.5em;font-weight:800}
+.result-score-sub{font-size:.8em;opacity:.9}
+.result-msg{font-size:1.1em;color:var(--text);margin-bottom:20px}
+.result-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.result-btns .btn{padding:12px 24px}
+
+/* TOAST */
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%) translateY(20px);background:#2d3748;color:white;padding:12px 22px;border-radius:30px;font-weight:bold;opacity:0;transition:all .3s;z-index:999;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:600px){
+.home-title{font-size:1.7em}
+.player-selector{flex-direction:column;align-items:stretch}
+.player-selector select{width:100%}
+.levels-container{grid-template-columns:1fr}
+.home-btns .btn{font-size:.9em}
+}
+/* Rendu propre de l’intro niveau / Décollage */
+#lessonIntro{
+display:none;
+background:#f0f4ff;
+border-radius:14px;
+padding:24px 22px;
+margin-bottom:18px;
+text-align:left;
+line-height:1.6;
+}
+
+#lessonIntroTitle{
+color:var(--primary);
+margin-bottom:10px;
+font-size:1.35rem;
+font-weight:800;
+}
+
+#lessonIntroObj{
+color:#718096;
+margin-bottom:16px;
+font-size:1rem;
+}
+
+#lessonIntroContent{
+background:white;
+border-radius:12px;
+padding:18px;
+margin-bottom:16px;
+font-size:1rem;
+line-height:1.7;
+max-height:45vh;
+overflow-y:auto;
+color:#2d3748;
+text-align:left;
+white-space:normal;
+word-break:break-word;
+}
+
+#lessonIntroContent p,
+#lessonIntroContent div{
+margin-bottom:10px;
+}
+
+#lessonIntroContent table{
+width:100%;
+display:block;
+overflow-x:auto;
+border-collapse:collapse;
+}
+
+#lessonIntroContent td,
+#lessonIntroContent th{
+padding:8px 10px;
+white-space:normal;
+}
+
+#lessonIntroContent h4{
+margin:10px 0 6px;
+font-size:1rem;
+}
+
+/* 📱 Mobile : réduire padding pour les petits écrans */
+@media(max-width: 600px){
+#lessonIntro{
+padding:16px 12px;
+}
+#lessonIntroContent{
+padding:14px;
+max-height:40vh;
+font-size:0.95rem;
+}
+#lessonIntroContent table{
+font-size:0.8em;
+}
+}
+
+/* 📱 Mobile : réduire padding pour les petits écrans fin de règle  */
+
+/* Correction MINIMALE pour le tableau des articles (mobile uniquement) */
+
+@media (max-width: 600px) {
+/* Première colonne (T/H/E/⌀) : largeur fixe mais texte NORMAL */
+.lesson-table th:first-child,
+.lesson-table td:first-child,
+#lessonIntroContent .lesson-table th:first-child,
+#lessonIntroContent .lesson-table td:first-child {
+width: 50px;
+min-width: 50px;
+max-width: 50px;
+padding: 8px 2px;
+font-size: 1em; /* Taille NORMALE */
+text-align: center;
+word-break: break-word;
+}
+
+/* Tableau complet : défilement horizontal si nécessaire */
+.lesson-table,
+#lessonIntroContent .lesson-table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+}
+
+}
+/* fin de modif des affichages pour écran petits  */
+
+.phon{font-weight:600;color:var(--secondary);cursor:help;transition:all .2s}
+.phon:hover{background:#f0f4ff;padding:2px 8px;border-radius:6px;box-shadow:0 2px 8px rgba(102,126,234,.15)}
+
+/* ═══ SURLIGNEMENT LEXIQUE ═══ */
+.lex-highlight{background:linear-gradient(120deg,#f0f4ff,#e8ecff);border-bottom:2px solid var(--primary);padding:1px 4px;border-radius:4px;cursor:pointer;transition:all .2s;position:relative;display:inline}
+.lex-highlight:hover{background:var(--primary);color:white;border-bottom-color:var(--secondary)}
+.lex-tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:#2d3748;color:white;padding:10px 14px;border-radius:10px;font-size:.82em;white-space:normal;max-width:280px;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 4px 12px rgba(0,0,0,.2);line-height:1.4;text-align:left}
+.lex-tooltip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#2d3748}
+.lex-highlight:hover .lex-tooltip{opacity:1}
+.lex-phon{color:#a3bffa;font-style:italic}
+#lexique-popup-modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:3000;display:none;align-items:center;justify-content:center;padding:15px}
+.lex-modal-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5)}
+.lex-modal-content{position:relative;background:white;border-radius:18px;padding:26px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;animation:popIn .25s ease;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.lex-modal-header{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.lex-modal-fr{font-size:1.8em;font-weight:bold;color:var(--primary)}
+.lex-modal-phon{font-size:1em;color:var(--secondary);font-style:italic}
+.lex-modal-en{font-size:1.1em;color:#718096;margin-bottom:14px}
+.lex-modal-def,.lex-modal-ex,.lex-modal-cat{margin:10px 0;padding:10px 14px;background:#f7fafc;border-radius:8px}
+.lex-modal-def h4,.lex-modal-ex h4,.lex-modal-cat h4{color:var(--secondary);font-size:.8em;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.lex-modal-close{background:var(--primary);color:white;border:none;padding:10px 22px;border-radius:20px;cursor:pointer;font-weight:bold;margin-top:10px;width:100%}
+@keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
+/* Fix largeur colonnes tableaux */
+.lesson-table{table-layout:auto}
+.lesson-table th,.lesson-table td{word-break:normal;min-width:60px}
+.lesson-table th:first-child,.lesson-table td:first-child{width:auto;min-width:auto;max-width:none}
+</style>
+  <script src="BDDlexique.js"></script>
+  <script src="lexique-engine.js"></script>
+</head>
+<body>
+<div class="quiz-container">
+
+<!-- HEADER -->
+
+<div class="header">
+  <div class="player-info">
+    <div class="player-avatar" id="playerAvatar">?</div>
+    <div>
+      <div class="player-name" id="playerNameDisplay">Aucun joueur</div>
+      <div class="player-stats" id="playerStats">Connecte-toi !</div>
+    </div>
+  </div>
+
+  <div class="player-selector">
+    <select id="playerSelect" onchange="switchPlayer(this.value)"><option value="">-- Joueur --</option></select>
+    <button class="btn btn-primary" onclick="showNewPlayerModal()">+ Nouveau</button>
+    <button class="btn btn-danger" onclick="deleteCurrentPlayer()">✕</button>
+  </div>
+  <div id="newPlayerInput" style="display:none;margin-top:8px">
+    <input type="text" id="newPlayerName" placeholder="Prénom du joueur" style="padding:8px 12px;border:2px solid #e2e8f0;border-radius:10px;font-size:.95em;flex:1" onkeyup="if(event.key==='Enter')confirmNewPlayer()">
+    <button class="btn btn-primary" onclick="confirmNewPlayer()" style="margin-left:8px">✓</button>
+    <button class="btn" onclick="hideNewPlayerInput()" style="margin-left:4px;background:#f8fafc">✕</button>
+  </div>
+
+  <div class="header-score" id="headerScore">0 pts</div>
+</div>
+
+<!-- NAV -->
+
+<div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+  <button class="btn btn-primary" onclick="showSection('accueil')">🏠</button>
+  <button class="btn" onclick="showSection('lecons')" style="background:#f0f4ff;color:var(--primary)">📚 Leçons</button>
+  <button class="btn" onclick="showSection('niveaux')" style="background:#f0fff4;color:#276749">🎮 Niveaux</button>
+  
+<!-- Bouton pour se rendre à l'espace  -->
+<button class="btn" 
+  onclick="goToDashboard()" 
+  style="background:#fff5d6;color:#744210
+">📊 Espace</button>
+
+<!-- Bouton Lexique -->
+
+<button class="btn" onclick="window.location.href=SUBJECT_CONFIG.lexiqueFile"
+style="background:#f5e8ff;color:#553c9a">📖 Lexique</button>
+
+<!-- Fin Bouton Lexique -->
+
+</div>
+
+<!-- ACCUEIL -->
+
+<div id="accueil" class="section active">
+<div class="home-title">Français Master 🥖</div>
+  <div class="home-sub">Apprenez le français du quotidien, un niveau à la fois.</div>
+  <div class="home-stats">
+    <div class="home-stat"><div class="home-stat-num" id="homeLevel">1</div><div class="home-stat-label">Niveau</div></div>
+    <div class="home-stat"><div class="home-stat-num" id="homeScore">0</div><div class="home-stat-label">Points</div></div>
+    <div class="home-stat"><div class="home-stat-num" id="homeStreak">0</div><div class="home-stat-label">Série 🔥</div></div>
+    <div class="home-stat"><div class="home-stat-num" id="homeRate">0%</div><div class="home-stat-label">Réussite</div></div>
+  </div>
+  <div class="home-btns">
+    <button class="btn btn-primary" onclick="showSection('lecons')">📚 Voir les leçons</button>
+    <button class="btn btn-success" onclick="showSection('niveaux')">🎮 Jouer maintenant</button>
+  </div>
+  <div style="margin-top:14px;padding-top:14px;border-top:1px solid #e2e8f0">
+    <p style="font-size:.8em;color:#718096;margin-bottom:10px">💾 Sauvegarde — pour retrouver ta progression sur un autre appareil</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" onclick="exportSave()" style="flex:1;background:#f0fff4;color:#276749;font-size:.9em">⬇️ Exporter ma sauvegarde</button>
+      <label class="btn" style="flex:1;background:#f0f4ff;color:var(--primary);font-size:.9em;cursor:pointer;text-align:center">
+        ⬆️ Importer une sauvegarde
+        <input type="file" accept=".json" onchange="importSave(event)" style="display:none">
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- LEÇONS -->
+
+<div id="lecons" class="section">
+<div style="padding:8px 0 4px">
+<button class="btn" onclick="showSection('accueil')" style="background:rgba(0,0,0,.08);color:#718096;border:none;padding:6px 14px;border-radius:20px;font-size:.84em;cursor:pointer">🏠 Accueil</button>
+</div>
+
+  <h2 style="margin-bottom:16px;color:var(--text)">📚 Les Leçons</h2>
+  <p style="color:#718096;margin-bottom:16px">Clique sur une leçon pour la lire. Courte, claire, efficace !</p>
+  <div class="lessons-list" id="lessonsContainer"></div>
+  <button class="btn btn-primary" onclick="showSection('niveaux')" style="margin-top:18px;width:100%;padding:13px">Je suis prêt — jouer ! 🎮</button>
+</div>
+
+<!-- NIVEAUX -->
+
+<div id="niveaux" class="section">
+  <h2 style="margin-bottom:8px;color:var(--text)">🎮 Choisir un niveau</h2>
+  <div class="mode-selector">
+    <div class="mode-title">Mode de jeu :</div>
+    <div class="mode-btns">
+      <button class="mode-btn selected" id="btnMixte" onclick="selectMode('mixte')">🎲 Mixte</button>
+      <button class="mode-btn" id="btnQcm" onclick="selectMode('qcm')">🎯 QCM</button>
+      <button class="mode-btn" id="btnLibre" onclick="selectMode('libre')">✍️ Écrit</button>
+    </div>
+  </div>
+  <div class="levels-container" id="levelsContainer"></div>
+</div>
+
+<!-- JEU -->
+
+<div id="jeu" class="section">
+  <h2 id="gameTitle" style="margin-bottom:14px;color:var(--text)">Niveau 1</h2>
+  <div class="progress-wrap">
+    <div style="display:flex;justify-content:space-between;font-size:.85em;color:#718096;margin-bottom:4px">
+      <span id="questionCounter">Q1/10</span><span id="scoreDisplay">0 pts</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+
+  <!-- ÉCRAN LEÇON AVANT QUIZ -->
+
+  <!-- changement pour affichage aéré -->
+
+<div id="lessonIntro">
+
+  <!-- changement  pour affichage aéré fin -->
+
+<div style="font-size:3em;margin-bottom:10px">📚</div>
+<h3 id="lessonIntroTitle" style="color:var(--primary);margin-bottom:8px"></h3>
+<p id="lessonIntroObj" style="color:#718096;margin-bottom:16px"></p>
+
+<!-- changement  pour affichage aéré 2 -->
+
+<div id="lessonIntroContent"></div>
+
+  <!-- changement  pour affichage aéré fin -->
+
+<a id="lessonIntroLexique" href="#" target="_blank" style="display:inline-block;margin-bottom:12px;color:var(--primary);font-weight:bold;text-decoration:none;border-bottom:1px dashed var(--primary)">📖 Voir le vocabulaire du niveau</a>
+<br>
+<button class="btn btn-primary" onclick="startQuestions()" style="padding:14px 32px;font-size:1.1em;border-radius:14px">🎮 C'est parti !</button>
+
+  </div>
+
+  <div class="question-box">
+    <div class="question-num" id="questionNum"></div>
+    <div class="question-text" id="questionText"></div>
+    <div id="hintBox" style="display:none;background:#fff5d6;border-left:4px solid var(--warning);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:10px;font-size:.9em;color:#744210"></div>
+    <div class="options-grid" id="qcmOptions" style="display:none"></div>
+    <div id="libreInput" style="display:none">
+      <input type="text" class="answer-input" id="answerInput" placeholder="Tape ta réponse..." onkeyup="if(event.key==='Enter')validateAnswer()">
+    </div>
+    <div class="feedback" id="feedback">
+      <div class="feedback-title" id="feedbackTitle"></div>
+      <div id="feedbackCorrect" style="font-size:.95em"></div>
+      <div class="feedback-explanation" id="feedbackExplanation"></div>
+    </div>
+  </div>
+  <div class="game-actions">
+    <button class="btn" onclick="quitGame()" style="background:#f8fafc;color:#718096">⬅ Quitter</button>
+    <button class="btn btn-primary" id="validateBtn" onclick="validateAnswer()">✓ Valider</button>
+    <button class="btn btn-success" id="nextBtn" onclick="nextQuestion()" style="display:none">Suivant →</button>
+  </div>
+</div>
+
+<!-- RÉSULTATS -->
+
+<div id="resultats" class="section">
+  <div class="results-box">
+    <div class="result-score-circle">
+      <div class="result-score-num" id="resultPct">0%</div>
+      <div class="result-score-sub">réussite</div>
+    </div>
+    <div class="result-msg" id="resultMsg"></div>
+    <div class="result-btns">
+      <button class="btn" onclick="retryLevel()" style="background:#f8fafc">🔁 Rejouer</button>
+      <button class="btn btn-primary" id="nextLevelBtn" onclick="startNextLevel()" style="display:none">Niveau suivant →</button>
+      <button class="btn" onclick="showSection('niveaux')" style="background:#f0f4ff;color:var(--primary)">Tous les niveaux</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODALE NOUVEAU JOUEUR -->
+
+<div id="newPlayerModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:1000;align-items:center;justify-content:center;padding:15px">
+  <div style="background:white;padding:25px;border-radius:20px;max-width:320px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3)">
+    <div style="font-size:2.5em;margin-bottom:10px">👤</div>
+    <h3 style="margin-bottom:15px;color:var(--text)">Nouveau joueur</h3>
+    <input type="text" id="newPlayerNameModal" placeholder="Ton prénom" style="width:100%;padding:14px;border:2px solid #e2e8f0;border-radius:12px;font-size:1.1em;margin-bottom:18px;outline:none" onkeyup="if(event.key==='Enter')confirmNewPlayer()">
+    <div style="display:flex;gap:10px">
+      <button class="btn btn-primary" onclick="confirmNewPlayer()" style="flex:1;padding:12px">✓ Créer</button>
+      <button class="btn" onclick="closeNewPlayerModal()" style="flex:1;padding:12px;background:#f8fafc;color:#718096">✕ Annuler</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- MODALE LEXIQUE POPUP -->
+<div id="lexique-popup-modal" onclick="closeLexPopup(event)">
+  <div class="lex-modal-overlay"></div>
+  <div class="lex-modal-content">
+    <div class="lex-modal-header">
+      <div class="lex-modal-fr" id="lexPopupFr"></div>
+      <div class="lex-modal-phon" id="lexPopupPhon"></div>
+    </div>
+    <div class="lex-modal-en" id="lexPopupEn"></div>
+    <div class="lex-modal-def"><h4>📖 Définition</h4><p id="lexPopupDef"></p></div>
+    <div class="lex-modal-ex"><h4>💬 Exemple</h4><p id="lexPopupEx" style="font-style:italic"></p></div>
+    <div class="lex-modal-cat"><h4>📝 Catégorie</h4><p id="lexPopupCat"></p></div>
+    <button class="lex-modal-close" onclick="closeLexPopup()">Fermer</button>
+  </div>
+</div>
+</div><!-- /.quiz-container -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// CONFIG SUJET — Modifier ici pour changer de matière
+// ═══════════════════════════════════════════════════════════════════
+const SUBJECT_CONFIG = {
+  name: "Français Master",
+  emoji: "🥖",
+  lang: "fr",
+  storageKey: "francaisMaster_v1",
+  playersKey: "francaisMaster_players",
+  dashboardFile: "dashboard.html",
+  lexiqueFile: "lexique.html"
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// LEÇONS (basées sur le cahier CM2)
+// ═══════════════════════════════════════════════════════════════════
+const LESSONS_DATA = [
+  {num:1,title:"Salutations & Présentations",content:`<div class="lesson-rule"><h4>👋 Dire bonjour et se présenter</h4><p>En France, on <strong>vouvoie</strong> les inconnus et dans les situations formelles. On <strong>tutoie</strong> les amis proches.</p><table class="lesson-table"><tr><th>Situation</th><th>Formule</th><th>Prononciation</th></tr><tr><td>Matin</td><td><strong>Bonjour</strong></td><td>*bon-ZHOOR*</td></tr><tr><td>Soir</td><td><strong>Bonsoir</strong></td><td>*bon-SWAHR*</td></tr><tr><td>Départ</td><td><strong>Au revoir</strong></td><td>*oh ruh-VWAHR*</td></tr><tr><td>Nuit</td><td><strong>Bonne nuit</strong></td><td>*bon NUEE*</td></tr><tr><td>Présentation</td><td>Je m'appelle...</td><td>*zhuh ma-PEL*</td></tr></table></div><div class="lesson-rule"><h4>🤝 Présentations essentielles</h4><p>• <strong>Enchanté(e)</strong> *on-shon-TAY* = Nice to meet you</p><p>• <strong>Je viens de...</strong> *zhuh VYAN duh* = I come from...</p><p>• <strong>J'habite à...</strong> *zha-BEET ah* = I live in...</p><p>• <strong>Je suis retraité(e)</strong> *ruh-treh-TAY* = I am retired</p></div><div class="lesson-warning">⚠️ Ne dites jamais "Je suis fini" → dites <strong>"J'ai fini"</strong> *zha-ay fee-NEE*</div><div class="lesson-example">💡 <strong>Bonjour Madame, je m'appelle John. Enchanté.</strong><br>💡 <strong>Je viens d'Irlande. J'habite à Craon, dans la Vienne.</strong></div>`},
+  {num:2,title:"Au marché & Les courses",content:`<div class="lesson-rule"><h4>🛒 Vocabulaire du marché français</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>un kilo de...</td><td>a kilo of...</td><td>*uh KEE-lo duh*</td></tr><tr><td>une livre de...</td><td>500g of...</td><td>*oon LEEVR duh*</td></tr><tr><td>une douzaine d'œufs</td><td>a dozen eggs</td><td>*oon doo-ZEN DUH-ZUH*</td></tr><tr><td>une tranche de...</td><td>a slice of...</td><td>*oon TRONSH duh*</td></tr><tr><td>du fromage de chèvre</td><td>goat cheese</td><td>*fro-MAHZH duh SHEH-vruh*</td></tr></table></div><div class="lesson-rule"><h4>💬 Phrases clés au marché</h4><p>• <strong>Je voudrais...</strong> *zhuh voo-DRAY* = I would like...</p><p>• <strong>Ça fait combien ?</strong> *sa FAY kom-BYAN* = How much is it?</p><p>• <strong>C'est tout, merci.</strong> *say TOO* = That's all, thank you.</p><p>• <strong>C'est trop cher.</strong> *say troh SHAIR* = It's too expensive.</p></div><div class="lesson-warning">⚠️ <strong>Je voudrais</strong> est plus poli que <strong>Je veux</strong> en magasin !</div><div class="lesson-example">💡 <strong>Je voudrais un kilo de tomates, s'il vous plaît.</strong><br>💡 <strong>Ça fait combien en tout ? — Huit euros vingt.</strong></div>`},
+  {num:3,title:"Au jardin & La nature",content:`<div class="lesson-rule"><h4>🌿 Le jardin à la française</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>une fleur</td><td>a flower</td><td>*oon FLUHR*</td></tr><tr><td>un arbre</td><td>a tree</td><td>*uh NAR-bruh*</td></tr><tr><td>l'herbe (f)</td><td>grass</td><td>*LAR-buh*</td></tr><tr><td>un potager</td><td>vegetable garden</td><td>*po-ta-ZHAY*</td></tr><tr><td>un arrosoir</td><td>watering can</td><td>*na-roz-WAHR*</td></tr></table></div><div class="lesson-rule"><h4>🌱 Actions au jardin</h4><p>• <strong>planter</strong> *plan-TAY* = to plant</p><p>• <strong>arroser</strong> *a-roh-ZAY* = to water</p><p>• <strong>tailler</strong> *TIE-yay* = to prune</p><p>• <strong>récolter</strong> *ray-kol-TAY* = to harvest</p><p>• <strong>désherber</strong> *day-zair-BAY* = to weed</p><p>• <strong>faucher</strong> *foh-SHAY* = to mow</p></div><div class="lesson-warning">⚠️ "Planter" = l'action. "Une plante" = la chose.<br>Ex: <strong>Je plante une plante.</strong></div><div class="lesson-example">💡 <strong>Je plante des tomates dans mon potager.</strong><br>💡 <strong>Il faut arroser les fleurs tous les soirs en été.</strong></div>`},
+  {num:4,title:"Les voisins & La vie de quartier",content:`<div class="lesson-rule"><h4>🏘️ Vocabulaire du voisinage</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>un voisin / une voisine</td><td>neighbor</td><td>*vwa-ZAN / vwa-ZEEN*</td></tr><tr><td>le quartier</td><td>neighborhood</td><td>*kar-TYAY*</td></tr><tr><td>une impasse</td><td>dead end</td><td>*om-PASS*</td></tr><tr><td>le bruit</td><td>noise</td><td>*BREE*</td></tr><tr><td>le calme</td><td>quiet</td><td>*KALM*</td></tr></table></div><div class="lesson-rule"><h4>💬 Parler avec les voisins</h4><p>• <strong>Je peux vous demander un service ?</strong> = May I ask you a favor?</p><p>• <strong>Je vous remercie beaucoup.</strong> = Thank you very much.</p><p>• <strong>Je suis désolé(e) de vous déranger.</strong> = Sorry to bother you.</p></div><div class="lesson-warning">⚠️ "Demander" = to ask. "Exiger" = to demand (agressif).<br>Dites <strong>"Je voudrais du sucre"</strong>, pas "Je demande du sucre".</div><div class="lesson-example">💡 <strong>Bonjour Madame, je suis votre nouveau voisin.</strong><br>💡 <strong>Je peux vous emprunter une échelle ? — Avec plaisir !</strong></div>`},
+  {num:5,title:"Parler de ses goûts & envies",content:`<div class="lesson-rule"><h4>❤️ J'aime / Je n'aime pas</h4><table class="lesson-table"><tr><th>Expression</th><th>Niveau</th><th>Prononciation</th></tr><tr><td>J'adore</td><td>I love (fort)</td><td>*zha-DOR*</td></tr><tr><td>J'aime beaucoup</td><td>I really like</td><td>*zhem bo-KOO*</td></tr><tr><td>J'aime bien</td><td>I like</td><td>*zhem BYAN*</td></tr><tr><td>Je n'aime pas trop</td><td>I don't really like</td><td>*zhuh nem PAH troh*</td></tr><tr><td>Je déteste</td><td>I hate</td><td>*zhuh day-TEST*</td></tr><tr><td>Je préfère</td><td>I prefer</td><td>*zhuh pray-FAIR*</td></tr></table></div><div class="lesson-rule"><h4>🎯 Exprimer un désir poliment</h4><p>• <strong>J'ai envie de...</strong> *zha-ay on-VEE duh* = I feel like...</p><p>• <strong>J'aimerais...</strong> *zhem-REH* = I would like...</p><p>• <strong>Ça me tente.</strong> *sa muh TONT* = I'm tempted.</p><p>• <strong>Je rêve de...</strong> *zhuh REV duh* = I dream of...</p></div><div class="lesson-warning">⚠️ "J'ai envie de" + VERBE infinitif — pas de "to" en français !<br>❌ J'ai envie de to manger → ✅ <strong>J'ai envie de manger.</strong></div><div class="lesson-example">💡 <strong>J'adore le fromage français, surtout le camembert.</strong><br>💡 <strong>Ça vous dit d'aller au marché ? — Oui, ça me tente !</strong></div>`},
+  {num:6,title:"Chez le commerçant & Les magasins",content:`<div class="lesson-rule"><h4>🏬 Types de commerces en France</h4><table class="lesson-table"><tr><th>Commerce</th><th>Ce qu'on y achète</th><th>Prononciation</th></tr><tr><td>la boulangerie</td><td>pain, croissants</td><td>*boo-lan-zhuh-REE*</td></tr><tr><td>la pâtisserie</td><td>gâteaux, éclairs</td><td>*pa-tee-suh-REE*</td></tr><tr><td>la boucherie</td><td>viande</td><td>*boo-shuh-REE*</td></tr><tr><td>la charcuterie</td><td>jambon, saucisson</td><td>*shar-koo-tuh-REE*</td></tr><tr><td>la pharmacie</td><td>médicaments</td><td>*far-ma-SEE*</td></tr><tr><td>le tabac-presse</td><td>timbres, journaux</td><td>*ta-BAK PRESS*</td></tr></table></div><div class="lesson-rule"><h4>💬 Phrases utiles chez le commerçant</h4><p>• <strong>Je cherche...</strong> *zhuh SHAIRSH* = I'm looking for...</p><p>• <strong>Je vais prendre...</strong> *zhuh vay PRONDR* = I'll take...</p><p>• <strong>Je regarde, merci.</strong> = I'm just looking.</p><p>• <strong>Avez-vous ça en plus grand ?</strong> = Do you have this larger?</p></div><div class="lesson-warning">⚠️ En France, dites <strong>Bonjour</strong> en entrant dans tout commerce — c'est obligatoire !</div><div class="lesson-example">💡 <strong>Bonjour, je voudrais une baguette tradition et deux croissants.</strong><br>💡 <strong>Avez-vous du pain sans gluten ? — Non, commandez la veille.</strong></div>`},
+  {num:7,title:"Les amis & Les sorties",content:`<div class="lesson-rule"><h4>👫 Vocabulaire social</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>un ami / une amie</td><td>friend</td><td>*a-MEE*</td></tr><tr><td>un rendez-vous</td><td>appointment / date</td><td>*ron-day-VOO*</td></tr><tr><td>sortir</td><td>to go out</td><td>*sor-TEER*</td></tr><tr><td>inviter</td><td>to invite</td><td>*on-vee-TAY*</td></tr><tr><td>retrouver</td><td>to meet up</td><td>*ruh-troo-VAY*</td></tr></table></div><div class="lesson-rule"><h4>💬 Proposer une sortie</h4><p>• <strong>Ça vous dit d'aller... ?</strong> *sa voo DEE da-lay* = Fancy going to...?</p><p>• <strong>On se retrouve où ?</strong> = Where shall we meet?</p><p>• <strong>À quelle heure ?</strong> *a KEL URH* = At what time?</p><p>• <strong>Je suis libre mardi prochain.</strong> = I'm free next Tuesday.</p></div><div class="lesson-warning">⚠️ "Copain/copine" peut signifier boyfriend/girlfriend. Pour éviter l'ambiguïté, utilisez <strong>"ami/amie"</strong>.</div><div class="lesson-example">💡 <strong>Ça vous dit d'aller déjeuner au restaurant du village ?</strong><br>💡 <strong>On se retrouve à midi devant la mairie.</strong></div>`},
+  {num:8,title:"Le temps & La météo",content:`<div class="lesson-rule"><h4>🌤️ Parler de la météo</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>Il fait beau</td><td>Nice weather</td><td>*eel FAY bo*</td></tr><tr><td>Il pleut</td><td>It's raining</td><td>*eel PLUH*</td></tr><tr><td>Il neige</td><td>It's snowing</td><td>*eel NEHZH*</td></tr><tr><td>Il fait du vent</td><td>It's windy</td><td>*eel FAY dew VON*</td></tr><tr><td>Il fait chaud/froid</td><td>Hot/cold</td><td>*eel FAY sho/FRWAH*</td></tr><tr><td>Il fait frais</td><td>Cool/chilly</td><td>*eel FAY FRAY*</td></tr></table></div><div class="lesson-rule"><h4>📅 Les saisons</h4><p>• <strong>au printemps</strong> *oh PRAN-ton* = in spring</p><p>• <strong>en été</strong> *on ay-TAY* = in summer</p><p>• <strong>en automne</strong> *on no-TON* = in autumn</p><p>• <strong>en hiver</strong> *on ee-VAIR* = in winter</p></div><div class="lesson-warning">⚠️ Toujours <strong>"Il fait"</strong> pour la météo !<br>❌ C'est chaud → ✅ <strong>Il fait chaud.</strong></div><div class="lesson-example">💡 <strong>Il fait beau mais frais, prenez un pull.</strong><br>💡 <strong>Il pleut beaucoup en hiver dans l'ouest de la France.</strong></div>`},
+  {num:9,title:"Les verbes essentiels du quotidien",content:`<div class="lesson-rule"><h4>⚡ Verbes irréguliers essentiels (présent)</h4><table class="lesson-table"><tr><th>Infinitif</th><th>je</th><th>vous</th><th>ils/elles</th></tr><tr><td>aller (to go)</td><td>vais</td><td>allez</td><td>vont</td></tr><tr><td>faire (to do)</td><td>fais</td><td>faites</td><td>font</td></tr><tr><td>prendre (to take)</td><td>prends</td><td>prenez</td><td>prennent</td></tr><tr><td>venir (to come)</td><td>viens</td><td>venez</td><td>viennent</td></tr><tr><td>pouvoir (can)</td><td>peux</td><td>pouvez</td><td>peuvent</td></tr><tr><td>vouloir (to want)</td><td>veux</td><td>voulez</td><td>veulent</td></tr><tr><td>savoir (to know)</td><td>sais</td><td>savez</td><td>savent</td></tr><tr><td>devoir (must)</td><td>dois</td><td>devez</td><td>doivent</td></tr></table></div><div class="lesson-warning">⚠️ <strong>Savoir</strong> = un fait. <strong>Connaître</strong> = une personne/lieu.<br>❌ Je sais Paris → ✅ <strong>Je connais Paris.</strong></div><div class="lesson-example">💡 <strong>Je veux apprendre le français pour parler avec mes voisins.</strong><br>💡 <strong>Pouvez-vous répéter, s'il vous plaît ?</strong></div>`},
+  {num:10,title:"Expressions utiles & Formules de politesse",content:`<div class="lesson-rule"><h4>🎩 Formules de politesse essentielles</h4><table class="lesson-table"><tr><th>Français</th><th>Quand l'utiliser</th><th>Prononciation</th></tr><tr><td>S'il vous plaît</td><td>Toujours quand on demande</td><td>*seel voo PLEH*</td></tr><tr><td>Merci beaucoup</td><td>Remercier</td><td>*mair-SEE bo-KOO*</td></tr><tr><td>Je vous en prie</td><td>You're welcome (formel)</td><td>*zhuh voo zon PREE*</td></tr><tr><td>Excusez-moi</td><td>Attirer l'attention</td><td>*ek-skew-zay-MWAH*</td></tr><tr><td>Je ne comprends pas</td><td>I don't understand</td><td>*zhuh nuh kom-PRON PAH*</td></tr><tr><td>Parlez plus lentement</td><td>Speak more slowly</td><td>*par-LAY plew lon-TUH-mon*</td></tr></table></div><div class="lesson-warning">⚠️ En France, dire <strong>Bonjour</strong> en entrant dans un magasin, cabinet médical, bureau est OBLIGATOIRE. Très impoli de ne pas le dire.</div><div class="lesson-example">💡 <strong>Excusez-moi, je cherche la pharmacie. — C'est à droite.</strong><br>💡 <strong>Je ne comprends pas. Parlez plus lentement, s'il vous plaît.</strong></div>`}
+];
+
+
+
+const QUESTIONS_DB = {
+  1:{title:"Salutations 🙋",objective:"Dire bonjour, se présenter",
+  hint:"Pensez au vouvoiement (vous) pour les inconnus !",
+  qcm:[
+    {q:"Comment dit-on 'Good morning' en français (formel) ?",options:["Salut","Bonjour","Bonsoir","Coucou"],correct:"Bonjour",explanation:"Bonjour = Good morning/day. Salut = informel. Bonsoir = evening."},
+    {q:"Quelle formule utilise-t-on le soir ?",options:["Bonjour","Bonsoir","Salut","Bonne nuit"],correct:"Bonsoir",explanation:"Bonsoir = Good evening. Bonne nuit = Good night (avant de dormir)."},
+    {q:"Comment dit-on 'Nice to meet you' (homme) ?",options:["Enchantée","Enchanté","Bonjour","Salut"],correct:"Enchanté",explanation:"Enchanté (sans e) = homme. Enchantée = femme."},
+    {q:"Comment demande-t-on poliment 'What is your name?' ?",options:["Tu t'appelles comment ?","Vous vous appelez comment ?","C'est quoi ton nom ?","Ton prénom ?"],correct:"Vous vous appelez comment ?",explanation:"Vous = formel/poli. Tu = informel. Avec des inconnus, utilisez VOUS."},
+    {q:"Je ___ d'Irlande. (I come from Ireland)",options:["viens","vais","suis","habite"],correct:"viens",explanation:"Je viens de = I come from. *zhuh VYAN duh*"},
+    {q:"Comment dit-on 'I am retired' (femme) ?",options:["Je suis retraité","Je suis retraitée","Je suis en vacances","Je suis ancienne"],correct:"Je suis retraitée",explanation:"Retraitée (avec e) = femme. Retraité = homme."},
+    {q:"Comment dit-on 'Please' (formel) ?",options:["S'il te plaît","S'il vous plaît","Merci","Excusez-moi"],correct:"S'il vous plaît",explanation:"S'il vous plaît = please (formel). S'il te plaît = informel. *seel voo PLEH*"},
+    {q:"Comment dit-on 'Thank you very much' ?",options:["Merci","Merci beaucoup","Je vous en prie","S'il vous plaît"],correct:"Merci beaucoup",explanation:"Merci beaucoup = Thank you very much. *mair-SEE bo-KOO*"},
+    {q:"Comment dit-on 'Goodbye' (formel) ?",options:["Salut","Au revoir","Bye","Ciao"],correct:"Au revoir",explanation:"Au revoir = Goodbye (standard). *oh ruh-VWAHR*"},
+    {q:"J'___ à Craon, dans la Vienne. (I live in)",options:["viens","vais","habite","suis"],correct:"habite",explanation:"J'habite à = I live in. *zha-BEET ah*"}
+  ],
+  libre:[
+    {q:"Complétez : 'Je m'___ Jean.'",answer:"appelle",alternatives:["apel","appele"],explanation:"Je m'appelle = My name is. *zhuh ma-PEL*"},
+    {q:"Comment dit-on 'Good morning' (formel) ?",answer:"Bonjour",alternatives:["bonjour"],explanation:"Bonjour = formel, toute la journée jusqu'au soir."},
+    {q:"Complétez : 'Je ___ de France.'",answer:"viens",explanation:"Je viens de = I come from. *zhuh VYAN*"},
+    {q:"Complétez : 'J'___ à Paris.'",answer:"habite",alternatives:["abite"],explanation:"J'habite à = I live in. *zha-BEET*"},
+    {q:"Comment dit-on 'Nice to meet you' (femme) ?",answer:"Enchantée",alternatives:["enchantée"],explanation:"Enchantée (e final) = femme. Enchanté = homme."},
+    {q:"Comment dit-on 'Please' (formel) ?",answer:"S'il vous plaît",alternatives:["s'il vous plait"],explanation:"S'il vous plaît. *seel voo PLEH*"},
+    {q:"Comment dit-on 'Thank you very much' ?",answer:"Merci beaucoup",alternatives:["merci bocou"],explanation:"Merci beaucoup. *mair-SEE bo-KOO*"},
+    {q:"Comment dit-on 'Goodbye' (standard) ?",answer:"Au revoir",alternatives:["au revoir"],explanation:"Au revoir. *oh ruh-VWAHR*"},
+    {q:"Complétez : 'Je suis ___ .' (retired, homme)",answer:"retraité",alternatives:["retraite"],explanation:"Retraité (homme). *ruh-treh-TAY*"},
+    {q:"Comment dit-on 'Good evening' ?",answer:"Bonsoir",alternatives:["bon swar"],explanation:"Bonsoir. *bon-SWAHR*"}
+  ]},
+  2:{title:"Au marché 🛒",objective:"Faire les courses, demander des prix",
+  hint:"Je voudrais = I would like (poli). Je veux = I want (moins poli).",
+  qcm:[
+    {q:"Comment demande-t-on poliment 'I would like a kilo of tomatoes' ?",options:["Je veux un kilo de tomates.","Je voudrais un kilo de tomates, s'il vous plaît.","Donnez-moi un kilo de tomates.","Un kilo de tomates !"],correct:"Je voudrais un kilo de tomates, s'il vous plaît.",explanation:"Je voudrais = I would like (poli, conditionnel). *zhuh voo-DRAY*"},
+    {q:"Comment dit-on 'How much is it?' ?",options:["C'est quoi le prix ?","Ça fait combien ?","Combien coûte ?","Dites le prix"],correct:"Ça fait combien ?",explanation:"Ça fait combien ? = How much is it? *sa FAY kom-BYAN*"},
+    {q:"Je voudrais ___ tranche de jambon.",options:["une","un","des","du"],correct:"une",explanation:"Une tranche = a slice (féminin). *oon TRONSH*"},
+    {q:"Comment dit-on 'That's all, thank you' ?",options:["C'est fini, merci.","C'est tout, merci.","Terminé, merci.","Fin, merci."],correct:"C'est tout, merci.",explanation:"C'est tout, merci = That's all. *say TOO mair-SEE*"},
+    {q:"Quelle quantité fait 'une livre' en France ?",options:["250g","500g","1kg","100g"],correct:"500g",explanation:"Une livre = 500g en France. *oon LEEVR*"},
+    {q:"Je voudrais ___ fromage de chèvre.",options:["du","de la","un","des"],correct:"du",explanation:"Du fromage = some cheese (masculin). *dew fro-MAHZH*"},
+    {q:"Comment dit-on 'It's too expensive' ?",options:["C'est trop cher.","C'est très cher.","C'est pas donné.","Trop"],correct:"C'est trop cher.",explanation:"C'est trop cher = too expensive. *say troh SHAIR*"},
+    {q:"Je voudrais ___ baguette tradition, s'il vous plaît.",options:["une","un","du","des"],correct:"une",explanation:"Une baguette = a baguette (féminin). *oon ba-GET*"},
+    {q:"Comment dit-on 'Do you have change?' ?",options:["Vous avez de l'argent ?","Vous avez de la monnaie ?","Avez-vous des sous ?","Vous avez du cash ?"],correct:"Vous avez de la monnaie ?",explanation:"De la monnaie = change (pièces). *mon-NAY*"},
+    {q:"Qu'est-ce qu'on achète à la boulangerie ?",options:["De la viande","Du pain et des viennoiseries","Des médicaments","Des légumes"],correct:"Du pain et des viennoiseries",explanation:"Boulangerie = bread and pastries. *boo-lan-zhuh-REE*"}
+  ],
+  libre:[
+    {q:"Complétez : 'Je ___ un kilo de tomates.'",answer:"voudrais",alternatives:["voudré"],explanation:"Je voudrais = I would like. *zhuh voo-DRAY*"},
+    {q:"Comment dit-on 'How much is it?' ?",answer:"Ça fait combien",alternatives:["sa fait combien","ça fait combien ?"],explanation:"Ça fait combien ? *sa FAY kom-BYAN*"},
+    {q:"Complétez : 'Je voudrais une ___ de jambon.'",answer:"tranche",alternatives:["tranch"],explanation:"Une tranche = a slice. *oon TRONSH*"},
+    {q:"Comment dit-on 'That's all, thank you' ?",answer:"C'est tout, merci",alternatives:["c'est tout merci"],explanation:"C'est tout, merci. *say TOO mair-SEE*"},
+    {q:"Comment dit-on 'Do you have change?' ?",answer:"Vous avez de la monnaie",alternatives:["vous avez de la monnaie ?"],explanation:"De la monnaie = change (pièces). *mon-NAY*"},
+    {q:"Complétez : 'Je voudrais ___ fromage.' (some cheese)",answer:"du",explanation:"Du fromage (masculin). *dew*"},
+    {q:"Comment dit-on 'It's too expensive' ?",answer:"C'est trop cher",alternatives:["c'est trop chère"],explanation:"C'est trop cher. *say troh SHAIR*"},
+    {q:"Complétez : 'Une ___ fait 500 grammes.'",answer:"livre",alternatives:["liv"],explanation:"Une livre = 500g. *oon LEEVR*"},
+    {q:"Comment dit-on 'a baguette' (avec article) ?",answer:"une baguette",alternatives:["une baguète"],explanation:"Une baguette (féminin). *oon ba-GET*"},
+    {q:"Complétez : 'Je voudrais ___ cerises.' (some cherries)",answer:"des",explanation:"Des cerises (pluriel). *day suh-REEZ*"}
+  ]},
+  3:{title:"Au jardin 🌿",objective:"Vocabulaire du jardin, actions, plantes",
+  hint:"Les noms de jardinage sont souvent féminins (une fleur, une haie, une serre).",
+  qcm:[
+    {q:"Comment dit-on 'a flower' ?",options:["une fleur","un fleur","une fleure","un flore"],correct:"une fleur",explanation:"Une fleur = a flower (féminin). *oon FLUHR*"},
+    {q:"Comment dit-on 'to water' (les plantes) ?",options:["aroser","arroser","arrosé","eau donner"],correct:"arroser",explanation:"Arroser = to water. Double 'r'. *a-roh-ZAY*"},
+    {q:"Comment dit-on 'a watering can' ?",options:["un arrosoir","une bouteille","un tuyau","un seau"],correct:"un arrosoir",explanation:"Un arrosoir = a watering can. *uh na-roz-WAHR*"},
+    {q:"Qu'est-ce qu'un 'potager' ?",options:["Un jardin d'ornement","Un jardin de légumes","Un pot de fleurs","Un outil"],correct:"Un jardin de légumes",explanation:"Un potager = vegetable garden. *po-ta-ZHAY*"},
+    {q:"Je vais ___ des tomates dans le potager.",options:["planter","tailler","récolter","faucher"],correct:"planter",explanation:"Planter = to plant. *plan-TAY*"},
+    {q:"Comment dit-on 'a greenhouse' ?",options:["une serre","une maison verte","un jardin couvert","une chambre chaude"],correct:"une serre",explanation:"Une serre = a greenhouse. *oon SAIR*"},
+    {q:"Comment dit-on 'to harvest' ?",options:["récolter","planter","tailler","faucher"],correct:"récolter",explanation:"Récolter = to harvest. *ray-kol-TAY*"},
+    {q:"Je dois ___ la haie devant la maison.",options:["tailler","planter","récolter","arroser"],correct:"tailler",explanation:"Tailler = to prune/trim. *TIE-yay*"},
+    {q:"Comment dit-on 'a leaf' ?",options:["une feuille","un feuille","une feu","une feuillure"],correct:"une feuille",explanation:"Une feuille = a leaf (féminin). *oon FUH-yuh*"},
+    {q:"Comment dit-on 'to mow' (the grass) ?",options:["tailler","arroser","faucher","récolter"],correct:"faucher",explanation:"Faucher = to mow. *foh-SHAY*"}
+  ],
+  libre:[
+    {q:"Comment dit-on 'a flower' (avec article) ?",answer:"une fleur",explanation:"Une fleur (féminin). *oon FLUHR*"},
+    {q:"Comment dit-on 'to water' (les plantes) ?",answer:"arroser",alternatives:["arosé"],explanation:"Arroser. Double 'r'. *a-roh-ZAY*"},
+    {q:"Comment dit-on 'a watering can' ?",answer:"un arrosoir",explanation:"Un arrosoir. *uh na-roz-WAHR*"},
+    {q:"Complétez : 'Un ___ est un jardin de légumes.'",answer:"potager",explanation:"Un potager. *po-ta-ZHAY*"},
+    {q:"Comment dit-on 'a greenhouse' ?",answer:"une serre",explanation:"Une serre. *oon SAIR*"},
+    {q:"Complétez : 'Je vais ___ des tomates.' (to plant)",answer:"planter",explanation:"Planter. *plan-TAY*"},
+    {q:"Comment dit-on 'to harvest' ?",answer:"récolter",explanation:"Récolter. *ray-kol-TAY*"},
+    {q:"Complétez : 'Je dois ___ la haie.' (to prune)",answer:"tailler",explanation:"Tailler. *TIE-yay*"},
+    {q:"Comment dit-on 'a leaf' (avec article) ?",answer:"une feuille",alternatives:["une feuile"],explanation:"Une feuille. *oon FUH-yuh*"},
+    {q:"Comment dit-on 'to mow' ?",answer:"faucher",explanation:"Faucher. *foh-SHAY*"}
+  ]},
+  4:{title:"Les voisins 🏘️",objective:"Quartier, politesse, services",
+  hint:"Avec les voisins, utilisez toujours 'vous' et non 'tu' au début.",
+  qcm:[
+    {q:"Comment dit-on 'neighbor' (féminin) ?",options:["un voisin","une voisine","un voisine","une voisin"],correct:"une voisine",explanation:"Une voisine = female neighbor. *vwa-ZEEN*"},
+    {q:"Comment dit-on 'neighborhood' ?",options:["un quartier","une rue","une place","un village"],correct:"un quartier",explanation:"Un quartier. *kar-TYAY*"},
+    {q:"Je peux vous demander un ___ ?",options:["service","faveur","cadeau","problème"],correct:"service",explanation:"Un service = a favor. *SAIR-vees*"},
+    {q:"Comment dit-on 'a dead end' (street) ?",options:["une impasse","une rue","une place","un cul-de-sac"],correct:"une impasse",explanation:"Une impasse. *om-PASS*"},
+    {q:"Comment dit-on 'noise' ?",options:["le bruit","le calme","le son","la musique"],correct:"le bruit",explanation:"Le bruit = noise. *BREE*"},
+    {q:"Comment dit-on 'to borrow' ?",options:["emprunter","prêter","donner","vendre"],correct:"emprunter",explanation:"Emprunter = to borrow. Prêter = to lend. *om-PRON-tay*"},
+    {q:"Je suis ___ de vous déranger.",options:["désolé","content","heureux","fâché"],correct:"désolé",explanation:"Désolé = sorry. *day-zo-LAY*"},
+    {q:"Comment dit-on 'with pleasure' (accepting) ?",options:["Avec plaisir","De rien","Je vous en prie","Pas de problème"],correct:"Avec plaisir",explanation:"Avec plaisir = With pleasure. *a-vek pleh-ZEER*"},
+    {q:"Comment dit-on 'a street' ?",options:["une rue","une place","une impasse","un chemin"],correct:"une rue",explanation:"Une rue = a street. *oon ROO*"},
+    {q:"Qu'est-ce qu'on dit en entrant dans un petit commerce en France ?",options:["Rien","Bonjour","Au revoir","Merci"],correct:"Bonjour",explanation:"Bonjour en entrant est OBLIGATOIRE en France !"}
+  ],
+  libre:[
+    {q:"Comment dit-on 'a female neighbor' ?",answer:"une voisine",explanation:"Une voisine. *oon vwa-ZEEN*"},
+    {q:"Complétez : 'Je peux vous demander un ___ ?'",answer:"service",explanation:"Un service = a favor. *SAIR-vees*"},
+    {q:"Comment dit-on 'a dead end' ?",answer:"une impasse",explanation:"Une impasse. *oon om-PASS*"},
+    {q:"Complétez : 'Ce ___ est très calme.'",answer:"quartier",explanation:"Un quartier. *kar-TYAY*"},
+    {q:"Comment dit-on 'noise' ?",answer:"le bruit",explanation:"Le bruit. *BREE*"},
+    {q:"Comment dit-on 'to borrow' ?",answer:"emprunter",explanation:"Emprunter. *om-PRON-tay*"},
+    {q:"Complétez : 'Je suis ___ de vous déranger.'",answer:"désolé",alternatives:["desole"],explanation:"Désolé = sorry. *day-zo-LAY*"},
+    {q:"Comment dit-on 'With pleasure' ?",answer:"Avec plaisir",explanation:"Avec plaisir. *a-vek pleh-ZEER*"},
+    {q:"Comment dit-on 'a street' ?",answer:"une rue",explanation:"Une rue. *oon ROO*"},
+    {q:"Comment dit-on 'to lend' ?",answer:"prêter",alternatives:["preter"],explanation:"Prêter = to lend. *PRAY-tay*"}
+  ]},
+  5:{title:"Goûts & envies ❤️",objective:"Exprimer ses goûts, préférences, désirs",
+  hint:"J'adore = très fort. J'aime bien = modéré. Je déteste = I hate.",
+  qcm:[
+    {q:"Comment dit-on 'I love' (fort sentiment) ?",options:["J'aime","J'adore","Je préfère","Je déteste"],correct:"J'adore",explanation:"J'adore = I love (strong). *zha-DOR*"},
+    {q:"Comment dit-on 'I prefer' ?",options:["Je préfère","Je préfère","Je préfert","Je préfére"],correct:"Je préfère",explanation:"Je préfère. Accent grave sur le e. *zhuh pray-FAIR*"},
+    {q:"Je n'aime pas ___ fromage.",options:["le","du","de la","un"],correct:"le",explanation:"Je n'aime pas LE = general dislike. Article défini pour les généralités."},
+    {q:"Comment dit-on 'I feel like...' ?",options:["J'ai envie de...","Je veux...","J'aimerais...","Je rêve de..."],correct:"J'ai envie de...",explanation:"J'ai envie de = I feel like. *zha-ay on-VEE duh*"},
+    {q:"Ça me ___ ! (I'm tempted)",options:["dit","tente","plait","va"],correct:"tente",explanation:"Ça me tente = I'm tempted. *sa muh TONT*"},
+    {q:"Quelle structure est correcte ?",options:["J'ai envie de to manger.","J'ai envie de manger.","J'ai envie manger.","J'ai envie à manger."],correct:"J'ai envie de manger.",explanation:"J'ai envie de + infinitif. Pas de 'to' en français !"},
+    {q:"Comment dit-on 'I hate' ?",options:["Je n'aime pas","Je déteste","Je refuse","Je n'accepte pas"],correct:"Je déteste",explanation:"Je déteste = I hate. *zhuh day-TEST*"},
+    {q:"Je préfère le thé ___ café.",options:["au","du","et","ou"],correct:"au",explanation:"Je préfère le thé AU café. Au = à + le."},
+    {q:"Comment dit-on 'so-so' / 'okay' ?",options:["Ça va.","Bien.","Mal.","Super."],correct:"Ça va.",explanation:"Ça va = so-so / I'm fine. *sa VA*"},
+    {q:"Comment dit-on 'I dream of...' ?",options:["Je rêve de...","Je dors de...","Je pense de...","J'imagine de..."],correct:"Je rêve de...",explanation:"Je rêve de = I dream of. *zhuh REV duh*"}
+  ],
+  libre:[
+    {q:"Comment dit-on 'I love' (fort sentiment) ?",answer:"J'adore",alternatives:["j'adore"],explanation:"J'adore. *zha-DOR*"},
+    {q:"Complétez : 'Je ___ bien le vin rouge.'",answer:"aime",explanation:"J'aime bien = I like (moderate)."},
+    {q:"Comment dit-on 'I prefer' ?",answer:"Je préfère",alternatives:["je prefere"],explanation:"Je préfère. Accent grave. *zhuh pray-FAIR*"},
+    {q:"Comment dit-on 'I feel like going to the market' ?",answer:"J'ai envie d'aller au marché",alternatives:["j'ai envie d'aller au marché"],explanation:"J'ai envie d'aller = I feel like going."},
+    {q:"Complétez : 'J'ai envie ___ dormir.'",answer:"de",explanation:"J'ai envie de dormir. De + infinitif. Pas de 'to' !"},
+    {q:"Comment dit-on 'I'm tempted' ?",answer:"Ça me tente",alternatives:["sa me tente"],explanation:"Ça me tente. *sa muh TONT*"},
+    {q:"Comment dit-on 'I hate' ?",answer:"Je déteste",alternatives:["je deteste"],explanation:"Je déteste. *zhuh day-TEST*"},
+    {q:"Complétez : 'Je préfère le thé ___ café.'",answer:"au",explanation:"Au café = to coffee. Au = à + le."},
+    {q:"Comment dit-on 'so-so' ?",answer:"Ça va",explanation:"Ça va. *sa VA*"},
+    {q:"Comment dit-on 'I dream of visiting Paris' ?",answer:"Je rêve de visiter Paris",alternatives:["je reve de visiter paris"],explanation:"Je rêve de visiter. *zhuh REV duh*"}
+  ]}
+,6:{title:"Chez le commerçant 🏬",objective:"Magasins, commerces, formules d'achat",
+  hint:"Bonjour en entrant = OBLIGATOIRE en France !",
+  qcm:[
+    {q:"Où achète-t-on du pain ?",options:["À la boucherie","À la boulangerie","À la pharmacie","À la poste"],correct:"À la boulangerie",explanation:"La boulangerie = bread. *boo-lan-zhuh-REE*"},
+    {q:"Comment dit-on 'a pastry shop' ?",options:["une boulangerie","une pâtisserie","une épicerie","une charcuterie"],correct:"une pâtisserie",explanation:"Une pâtisserie. *pa-tee-suh-REE*"},
+    {q:"Je voudrais ___ baguette tradition.",options:["une","un","du","des"],correct:"une",explanation:"Une baguette (féminin)."},
+    {q:"Comment dit-on 'I am just looking' ?",options:["Je cherche.","Je regarde, merci.","Je ne veux rien.","Je pars."],correct:"Je regarde, merci.",explanation:"Je regarde, merci = I'm just looking."},
+    {q:"Quel commerce vend des timbres ?",options:["La banque","La poste","Le tabac-presse","La pharmacie"],correct:"Le tabac-presse",explanation:"Le tabac-presse = stamps, papers. *ta-BAK PRESS*"},
+    {q:"Je voudrais ___ croissants au beurre.",options:["deux","de","des","du"],correct:"deux",explanation:"Deux croissants = two croissants."},
+    {q:"Comment dit-on 'I'll take this one' (masculin) ?",options:["Je vais prendre celui-ci.","Je vais prendre celle-ci.","Je prends ça.","Celui"],correct:"Je vais prendre celui-ci.",explanation:"Celui-ci = this one (masc.). *suh-lee-SEE*"},
+    {q:"Comment dit-on 'without gluten' ?",options:["sans gluten","sans farine","sans blé","sans pâte"],correct:"sans gluten",explanation:"Sans gluten. *SON gloo-TEN*"},
+    {q:"Comment dit-on 'a chocolate éclair' ?",options:["un éclair au chocolat","un gâteau","une tarte","un croissant"],correct:"un éclair au chocolat",explanation:"Un éclair. *uh nay-KLAIR*"},
+    {q:"Qu'est-ce que 'lait cru' sur un fromage ?",options:["Du lait cuit","Du lait non pasteurisé","Du lait frais","Du lait en poudre"],correct:"Du lait non pasteurisé",explanation:"Lait cru = raw milk. *lay KROO*"}
+  ],
+  libre:[
+    {q:"Comment dit-on 'a bakery' ?",answer:"une boulangerie",explanation:"*boo-lan-zhuh-REE*"},
+    {q:"Comment dit-on 'a pastry shop' ?",answer:"une pâtisserie",explanation:"*pa-tee-suh-REE*"},
+    {q:"Complétez : 'Je voudrais une ___ tradition.'",answer:"baguette",explanation:"*ba-GET*"},
+    {q:"Comment dit-on 'I'm just looking' ?",answer:"Je regarde, merci",explanation:"Très poli et courant."},
+    {q:"Comment dit-on 'without gluten' ?",answer:"sans gluten",explanation:"*SON gloo-TEN*"},
+    {q:"Complétez : 'Je vais prendre ___ .' (this one, masc.)",answer:"celui-ci",explanation:"Celui-ci = this one (masc.). *suh-lee-SEE*"},
+    {q:"Comment dit-on 'a chocolate éclair' ?",answer:"un éclair au chocolat",explanation:"*uh nay-KLAIR*"},
+    {q:"Complétez : 'Du lait ___ = raw milk.'",answer:"cru",explanation:"Lait cru = unpasteurized. *KROO*"},
+    {q:"Comment dit-on 'two butter croissants' ?",answer:"deux croissants au beurre",explanation:"*duh kroa-SAN oh BUHR*"},
+    {q:"Comment dit-on 'a newsagent/tobacconist' ?",answer:"un tabac-presse",explanation:"*ta-BAK PRESS*"}
+  ]},
+  7:{title:"Les amis & sorties 👫",objective:"Proposer, accepter, fixer un rendez-vous",
+  hint:"Ça vous dit = Fancy it? (formel). Ça te dit = Fancy it? (informel).",
+  qcm:[
+    {q:"Comment dit-on 'Would you like to go to...?' (formel)",options:["Tu veux aller... ?","Ça vous dit d'aller... ?","Va là !","Allons-y !"],correct:"Ça vous dit d'aller... ?",explanation:"Ça vous dit d'aller ? = Fancy going to? *sa voo DEE da-lay*"},
+    {q:"Comment dit-on 'Where shall we meet?' ?",options:["On se retrouve quand ?","On se retrouve où ?","On se retrouve comment ?","Où vas-tu ?"],correct:"On se retrouve où ?",explanation:"On se retrouve où ? *on suh ruh-troov OO*"},
+    {q:"Je suis ___ mardi prochain.",options:["libre","occupé","parti","malade"],correct:"libre",explanation:"Je suis libre = I am free. *LEEB-ruh*"},
+    {q:"Comment dit-on 'At what time?' ?",options:["Quel temps ?","Quelle heure ?","À quelle heure ?","Quand ?"],correct:"À quelle heure ?",explanation:"À quelle heure ? *a KEL URH*"},
+    {q:"Comment dit-on 'See you soon' ?",options:["Au revoir","À bientôt","Salut","À plus"],correct:"À bientôt",explanation:"À bientôt. *a byan-TOH*"},
+    {q:"Qu'est-ce que 'midi' en France ?",options:["Minuit","12h00","18h00","14h00"],correct:"12h00",explanation:"Midi = noon. *mee-DEE*"},
+    {q:"Comment dit-on 'to invite' ?",options:["inviter","invité","invitons","invitation"],correct:"inviter",explanation:"Inviter = to invite. *on-vee-TAY*"},
+    {q:"Comment dit-on 'I am busy' (masculin) ?",options:["Je suis occupé.","Je travaille.","Je ne peux pas.","Je suis pris."],correct:"Je suis occupé.",explanation:"Je suis occupé. *ok-kew-PAY*"},
+    {q:"Comment dit-on 'With pleasure!' (accepting) ?",options:["Non merci.","Avec plaisir !","Peut-être.","Je ne sais pas."],correct:"Avec plaisir !",explanation:"Avec plaisir = With pleasure! *a-vek pleh-ZEER*"},
+    {q:"Comment dit-on 'a café' ?",options:["un restaurant","un café","un bar","une brasserie"],correct:"un café",explanation:"Un café = coffee shop/café. *ka-FAY*"}
+  ],
+  libre:[
+    {q:"Comment dit-on 'Fancy going to the restaurant?' (formel)",answer:"Ça vous dit d'aller au restaurant",explanation:"*sa voo DEE da-lay*"},
+    {q:"Complétez : 'On se retrouve ___ ?'",answer:"où",explanation:"On se retrouve où ? *OO*"},
+    {q:"Comment dit-on 'At what time?' ?",answer:"À quelle heure",explanation:"*a KEL URH*"},
+    {q:"Complétez : 'Je suis ___ mardi.' (free)",answer:"libre",explanation:"*LEEB-ruh*"},
+    {q:"Comment dit-on 'See you soon' ?",answer:"À bientôt",explanation:"*a byan-TOH*"},
+    {q:"Complétez : 'On se retrouve à ___ devant la mairie.' (noon)",answer:"midi",explanation:"*mee-DEE*"},
+    {q:"Comment dit-on 'to invite' ?",answer:"inviter",explanation:"*on-vee-TAY*"},
+    {q:"Comment dit-on 'I am busy' (masculin) ?",answer:"Je suis occupé",explanation:"*ok-kew-PAY*"},
+    {q:"Comment dit-on 'With pleasure!' ?",answer:"Avec plaisir",explanation:"*a-vek pleh-ZEER*"},
+    {q:"Comment dit-on 'next Tuesday' ?",answer:"mardi prochain",explanation:"*mar-DEE pro-SHAN*"}
+  ]},
+  8:{title:"Le temps & la météo 🌤️",objective:"Météo, saisons, temps",
+  hint:"Il fait + [condition] = toujours la structure correcte pour la météo !",
+  qcm:[
+    {q:"Comment dit-on 'It's nice weather' ?",options:["C'est beau.","Il fait beau.","Il est beau.","Le temps est beau."],correct:"Il fait beau.",explanation:"Il fait beau. *eel FAY bo*"},
+    {q:"Comment dit-on 'It's raining' ?",options:["Il tombe la pluie.","Il pleut.","C'est la pluie.","Il fait la pluie."],correct:"Il pleut.",explanation:"Il pleut. *eel PLUH*"},
+    {q:"Comment dit-on 'It's sunny' ?",options:["Il fait du soleil.","C'est soleil.","Il est ensoleillé.","Le soleil brille."],correct:"Il fait du soleil.",explanation:"Il fait du soleil. *eel FAY dew so-LAY*"},
+    {q:"Comment dit-on 'It's cold' ?",options:["Il fait frais.","Il fait froid.","Il fait fraîche.","Il fait fraisé."],correct:"Il fait froid.",explanation:"Il fait froid. *eel FAY FRWAH*"},
+    {q:"Comment dit-on 'in summer' ?",options:["En hiver","Au printemps","En été","En automne"],correct:"En été",explanation:"En été. *on ay-TAY*"},
+    {q:"Comment dit-on 'the day after tomorrow' ?",options:["après-demain","demain prochain","le jour suivant","la semaine prochaine"],correct:"après-demain",explanation:"Après-demain. *a-PRAY duh-MAN*"},
+    {q:"Comment dit-on 'It's windy' ?",options:["Il fait du vent.","Il y a du vent.","Les deux","Le vent souffle."],correct:"Les deux",explanation:"Il fait du vent / Il y a du vent = both correct."},
+    {q:"Comment dit-on 'It's cool/chilly' ?",options:["Il fait frais.","Il fait froid.","Il fait fraîche.","Il fait fraisé."],correct:"Il fait frais.",explanation:"Il fait frais = cool/chilly. *eel FAY FRAY*"},
+    {q:"Qu'est-ce qui tombe en automne ?",options:["La pluie","Les feuilles","La neige","Le soleil"],correct:"Les feuilles",explanation:"Les feuilles tombent en automne. *lay FUH-yuh*"},
+    {q:"Comment dit-on 'today' ?",options:["aujourd'hui","ce jour","cette journée","maintenant"],correct:"aujourd'hui",explanation:"Aujourd'hui. *oh-zhoord-DWEE*"}
+  ],
+  libre:[
+    {q:"Comment dit-on 'It's nice weather' ?",answer:"Il fait beau",explanation:"*eel FAY bo*"},
+    {q:"Complétez : 'Il ___ .' (It's raining)",answer:"pleut",explanation:"*eel PLUH*"},
+    {q:"Comment dit-on 'It's sunny' ?",answer:"Il fait du soleil",explanation:"*eel FAY dew so-LAY*"},
+    {q:"Complétez : 'Il fait ___ , prenez un manteau !' (cold)",answer:"froid",explanation:"*eel FAY FRWAH*"},
+    {q:"Comment dit-on 'in summer' ?",answer:"En été",explanation:"*on ay-TAY*"},
+    {q:"Comment dit-on 'the day after tomorrow' ?",answer:"après-demain",explanation:"*a-PRAY duh-MAN*"},
+    {q:"Complétez : 'Il fait ___ aujourd'hui.' (nice weather)",answer:"beau",explanation:"Il fait beau. *bo*"},
+    {q:"Comment dit-on 'It's cool/chilly' ?",answer:"Il fait frais",explanation:"*eel FAY FRAY*"},
+    {q:"Complétez : 'En ___, les fleurs poussent.' (spring)",answer:"printemps",explanation:"Au printemps. *PRAN-ton*"},
+    {q:"Comment dit-on 'tomorrow' ?",answer:"demain",explanation:"*duh-MAN*"}
+  ]},
+  9:{title:"Les verbes essentiels ⚡",objective:"Conjuguer les verbes du quotidien",
+  hint:"Savoir = un fait. Connaître = une personne ou un lieu.",
+  qcm:[
+    {q:"Comment conjugue-t-on 'aller' (je) ?",options:["vais","va","vas","vont"],correct:"vais",explanation:"Je vais. *zhuh VAY*"},
+    {q:"Comment dit-on 'He does/makes' ?",options:["Il fait","Il fais","Il font","Il fas"],correct:"Il fait",explanation:"Il fait. *eel FAY*"},
+    {q:"Je ___ le bus pour aller à Poitiers.",options:["prends","prend","prenons","prenez"],correct:"prends",explanation:"Je prends. *zhuh PRON*"},
+    {q:"Quelle forme est correcte : 'Je ___ parler français.' (can)",options:["peux","peut","pouvons","peuvent"],correct:"peux",explanation:"Je peux. *zhuh PUH*"},
+    {q:"Comment dit-on 'She wants' ?",options:["Elle veux","Elle veut","Elle voulons","Elle veulent"],correct:"Elle veut",explanation:"Elle veut. *el VUH*"},
+    {q:"Comment dit-on 'I know' (a fact) ?",options:["Je sais","Je connais","Je sait","Je connait"],correct:"Je sais",explanation:"Je sais = fact. *zhuh SAY*"},
+    {q:"Comment dit-on 'I know Paris' (place) ?",options:["Je sais Paris","Je connais Paris","Je sait Paris","Je vois Paris"],correct:"Je connais Paris",explanation:"Connaître = people/places. *zhuh kon-NAY*"},
+    {q:"Je ___ aller à la banque avant midi.",options:["dois","doit","devons","devez"],correct:"dois",explanation:"Je dois = I must. *zhuh DWAH*"},
+    {q:"Comment conjugue-t-on 'faire' (vous) ?",options:["faites","faisons","font","fais"],correct:"faites",explanation:"Vous faites. *voo FET*"},
+    {q:"Comment dit-on 'Can you help me?' (formel) ?",options:["Pouvez-vous m'aider ?","Peux-tu m'aider ?","Pouvons-nous aider ?","Peut-il m'aider ?"],correct:"Pouvez-vous m'aider ?",explanation:"Pouvez-vous m'aider ? *poo-vay voo may-DAY*"}
+  ],
+  libre:[
+    {q:"Comment conjugue-t-on 'aller' avec 'je' ?",answer:"vais",explanation:"Je vais. *VAY*"},
+    {q:"Comment dit-on 'He does' ?",answer:"Il fait",explanation:"*eel FAY*"},
+    {q:"Complétez : 'Je ___ le bus.'",answer:"prends",explanation:"Je prends. *PRON*"},
+    {q:"Complétez : 'Je ___ parler français.' (can)",answer:"peux",explanation:"Je peux. *PUH*"},
+    {q:"Comment dit-on 'She wants' ?",answer:"Elle veut",explanation:"*el VUH*"},
+    {q:"Comment dit-on 'I know' (a fact) ?",answer:"Je sais",explanation:"Savoir = facts. *zhuh SAY*"},
+    {q:"Complétez : 'Je ___ Paris.' (know a place)",answer:"connais",explanation:"Connaître = places. *kon-NAY*"},
+    {q:"Complétez : 'Je ___ aller à la banque.' (must)",answer:"dois",explanation:"Je dois. *DWAH*"},
+    {q:"Comment conjugue-t-on 'faire' avec 'vous' ?",answer:"faites",explanation:"Vous faites. *FET*"},
+    {q:"Comment dit-on 'Can you help me?' (formel) ?",answer:"Pouvez-vous m'aider",explanation:"*poo-vay voo may-DAY*"}
+  ]},
+  10:{title:"Politesse & expressions 🎩",objective:"Formules de politesse, s'excuser, demander de l'aide",
+  hint:"Je vous en prie = You're welcome (formel). De rien = casual.",
+  qcm:[
+    {q:"Comment dit-on 'Excuse me' (formel) ?",options:["Excusez-moi","Pardon","Je suis désolé","Les deux A et B"],correct:"Les deux A et B",explanation:"Excusez-moi et Pardon = both correct. *ek-skew-zay-MWAH*"},
+    {q:"Comment dit-on 'I'm sorry' (masculin) ?",options:["Je suis désolé.","Je suis désolée.","Pardon.","Excusez-moi."],correct:"Je suis désolé.",explanation:"Je suis désolé (male). *day-zo-LAY*"},
+    {q:"Comment répond-on à 'Merci' (formel) ?",options:["De rien.","Je vous en prie.","Avec plaisir.","Les trois"],correct:"Les trois",explanation:"De rien / Je vous en prie / Avec plaisir = all correct."},
+    {q:"Comment dit-on 'I don't understand' ?",options:["Je ne comprends pas.","Je ne sais pas.","Je ne connais pas.","Je ne parle pas."],correct:"Je ne comprends pas.",explanation:"Je ne comprends pas. *zhuh nuh kom-PRON PAH*"},
+    {q:"Comment dit-on 'Speak more slowly' (formel) ?",options:["Parlez plus lentement.","Parlez moins vite.","Parlez doucement.","Les deux A et B"],correct:"Les deux A et B",explanation:"Both correct. *par-LAY plew lon-TUH-mon*"},
+    {q:"Comment dit-on 'How do you say...in French?' ?",options:["Comment dit-on... en français ?","Comment on dit... ?","Que veut dire... ?","Les deux A et B"],correct:"Les deux A et B",explanation:"Both correct. *ko-MON dee-TON on fron-SAY*"},
+    {q:"Comment dit-on 'What does that mean?' ?",options:["Qu'est-ce que ça veut dire ?","Que veut dire ça ?","Ça veut dire quoi ?","Les trois"],correct:"Les trois",explanation:"All correct. *kes-kuh sa VUH deer*"},
+    {q:"Je ___ mes mots. (I'm looking for my words)",options:["cherche","perds","trouve","oublie"],correct:"cherche",explanation:"Je cherche mes mots = natural when hesitating."},
+    {q:"Quelle formule est la plus polie pour demander ?",options:["Je veux...","Je voudrais..., s'il vous plaît.","Donnez-moi...","J'ai besoin de..."],correct:"Je voudrais..., s'il vous plaît.",explanation:"Je voudrais + s'il vous plaît = most polite."},
+    {q:"Qu'est-ce qu'on dit en partant d'un magasin ?",options:["Rien","Au revoir, merci.","Salut.","À plus."],correct:"Au revoir, merci.",explanation:"Au revoir, merci = essential politeness when leaving."}
+  ],
+  libre:[
+    {q:"Comment dit-on 'Excuse me' (formel) ?",answer:"Excusez-moi",explanation:"*ek-skew-zay-MWAH*"},
+    {q:"Complétez : 'Je suis ___ .' (sorry, masculin)",answer:"désolé",alternatives:["desole"],explanation:"*day-zo-LAY*"},
+    {q:"Comment dit-on 'Thank you very much' ?",answer:"Merci beaucoup",explanation:"*mair-SEE bo-KOO*"},
+    {q:"Complétez : '___ vous en prie.' (You're welcome)",answer:"Je",explanation:"Je vous en prie = formal. *zhuh voo zon PREE*"},
+    {q:"Comment dit-on 'I don't understand' ?",answer:"Je ne comprends pas",explanation:"*zhuh nuh kom-PRON PAH*"},
+    {q:"Complétez : 'Parlez plus ___ .' (slowly)",answer:"lentement",explanation:"*lon-TUH-mon*"},
+    {q:"Comment dit-on 'How do you say...in French?' ?",answer:"Comment dit-on en français",explanation:"*ko-MON dee-TON on fron-SAY*"},
+    {q:"Complétez : 'Qu'est-ce que ça ___ dire ?'",answer:"veut",explanation:"Ça veut dire = it means. *VUH*"},
+    {q:"Comment dit-on 'I'm looking for my words' ?",answer:"Je cherche mes mots",explanation:"Natural when hesitating in French."},
+    {q:"Comment dit-on 'Goodbye, thank you' (leaving a shop) ?",answer:"Au revoir, merci",explanation:"Essential politeness rule."}
+  ]}
+};
+
+
+
+// ÉTAT DU JEU
+// ═══════════════════════════════════════════════════════════════════
+let gameState = {
+  currentPlayer:null, currentLevel:1, currentMode:"mixte",
+  questions:[], currentQuestionIndex:0, score:0, answers:[], selectedOption:null
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// GESTION JOUEURS
+// ═══════════════════════════════════════════════════════════════════
+function getPlayers(){try{return JSON.parse(localStorage.getItem(SUBJECT_CONFIG.playersKey))||{};}catch(e){return {};}}
+function savePlayers(p){localStorage.setItem(SUBJECT_CONFIG.playersKey,JSON.stringify(p));}
+function getPlayerData(name){
+  const p=getPlayers();
+  
+
+if(!p[name])p[name]={name,currentLevel:1,score:0,completed:[],totalQuestions:0,totalCorrect:0,streak:0,lastPlayed:null,errorHistory:[],sessionHistory:[],activeSession:null};
+
+
+  savePlayers(p); return p[name];
+}
+function switchPlayer(name){
+  if(!name)return;
+  gameState.currentPlayer=name;
+  const p=getPlayerData(name);
+  gameState.currentLevel=p.currentLevel||1;
+  gameState.score=p.score||0;
+  updatePlayerDisplay(); renderLevels(); showToast("Joueur : "+name);
+}
+
+function showNewPlayerModal(){
+  document.getElementById("newPlayerModal").style.display="flex";
+  document.getElementById("newPlayerNameModal").value="";
+  setTimeout(()=>document.getElementById("newPlayerNameModal").focus(),100);
+}
+function closeNewPlayerModal(){
+  document.getElementById("newPlayerModal").style.display="none";
+}
+function confirmNewPlayer(){
+  const name=document.getElementById("newPlayerNameModal").value;
+  if(!name||!name.trim()){closeNewPlayerModal();return;}
+  const n=name.trim();
+  const players=getPlayers();
+  if(players[n]){showToast("Ce joueur existe déjà !");return;}
+  players[n]={name:n,currentLevel:1,score:0,completed:[],totalQuestions:0,totalCorrect:0,streak:0,lastPlayed:null,errorHistory:[],sessionHistory:[],activeSession:null};
+  savePlayers(players); switchPlayer(n);
+  closeNewPlayerModal();
+  showToast("Bienvenue "+n+" ! 🎉");
+}
+
+
+function deleteCurrentPlayer(){
+  if(!gameState.currentPlayer){showToast("Aucun joueur sélectionné");return;}
+  if(!confirm("Supprimer "+gameState.currentPlayer+" ? Toute sa progression sera perdue."))return;
+  const p=getPlayers(); delete p[gameState.currentPlayer]; savePlayers(p);
+  gameState.currentPlayer=null; updatePlayerDisplay(); renderLevels(); showToast("Joueur supprimé");
+}
+function updatePlayerDisplay(){
+  const players=getPlayers();
+  const sel=document.getElementById("playerSelect");
+  sel.innerHTML="<option value=''>-- Joueur --</option>";
+  Object.keys(players).forEach(n=>{
+    const o=document.createElement("option"); o.value=n;
+    o.textContent=n+" (Niv."+players[n].currentLevel+")";
+    if(n===gameState.currentPlayer)o.selected=true;
+    sel.appendChild(o);
+  });
+  if(gameState.currentPlayer&&players[gameState.currentPlayer]){
+    const p=players[gameState.currentPlayer];
+    document.getElementById("playerNameDisplay").textContent=p.name;
+    document.getElementById("playerAvatar").textContent=p.name.charAt(0).toUpperCase();
+    document.getElementById("playerStats").textContent="Niv."+p.currentLevel+" • "+p.score+" pts";
+    document.getElementById("headerScore").textContent=p.score+" pts";
+    document.getElementById("homeLevel").textContent=p.currentLevel;
+    document.getElementById("homeScore").textContent=p.score;
+    document.getElementById("homeStreak").textContent=p.streak||0;
+    const rate=p.totalQuestions>0?Math.round((p.totalCorrect/p.totalQuestions)*100):0;
+    document.getElementById("homeRate").textContent=rate+"%";
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
+function showSection(id){
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  if(id==="niveaux")renderLevels();
+  if(id==="accueil")updatePlayerDisplay();
+  if(id==="lecons")renderLessons();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// LEÇONS
+// ═══════════════════════════════════════════════════════════════════
+function renderLessons(){
+  const c=document.getElementById("lessonsContainer");
+  c.innerHTML=LESSONS_DATA.map(l=>`
+    <div class="lesson-card" onclick="toggleLesson(${l.num})">
+      <div class="lesson-header">
+        <div class="lesson-title">📘 Leçon ${l.num} — ${l.title}</div>
+        <span class="lesson-tag" id="lessonTag${l.num}">▼ ouvrir</span>
+      </div>
+      <div class="lesson-body" id="lessonBody${l.num}">${l.content}</div>
+    </div>`).join("");
+}
+function toggleLesson(num){
+  const body=document.getElementById("lessonBody"+num);
+  const tag=document.getElementById("lessonTag"+num);
+  const card=body.parentElement;
+  const open=body.classList.contains("open");
+  body.classList.toggle("open",!open);
+  card.classList.toggle("open",!open);
+  tag.textContent=open?"▼ ouvrir":"▲ fermer";
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NIVEAUX
+// ═══════════════════════════════════════════════════════════════════
+function selectMode(mode){
+  gameState.currentMode=mode;
+  document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("selected"));
+  document.getElementById("btn"+mode.charAt(0).toUpperCase()+mode.slice(1)).classList.add("selected");
+}
+function renderLevels(){
+  const c=document.getElementById("levelsContainer");
+  const players=getPlayers();
+  const p=gameState.currentPlayer?players[gameState.currentPlayer]:null;
+  const currentLvl=p?p.currentLevel:1;
+  const completed=p?(p.completed||[]):[];
+  let h="";
+  for(let i=1;i<=10;i++){
+    const lv=QUESTIONS_DB[i];
+    const isLocked=i>currentLvl&&!completed.includes(i);
+    const isDone=completed.includes(i);
+    const isCurrent=i===currentLvl;
+    let cls="level-card"; let statusIcon="▶️";
+    if(isLocked){cls+=" locked";statusIcon="🔒";}
+    else if(isDone){cls+=" completed";statusIcon="✅";}
+    else if(isCurrent){cls+=" current";statusIcon="🎯";}
+    h+=`<div class="${cls}" onclick="${isLocked?"":"startLevel("+i+")"}">
+      <div class="level-header"><span class="level-number">Niveau ${i}</span><span>${statusIcon}</span></div>
+      <div class="level-title">${lv.title}</div>
+      <div class="level-obj">${lv.objective}</div>
+      <div style="font-size:.75em;color:#718096;margin-top:8px">${isDone?"✅ Terminé":isLocked?"🔒 Verrouillé":"▶️ Disponible"}</div>
+      ${lv.hint?`<div style="font-size:.72em;color:var(--secondary);margin-top:4px;font-style:italic">💡 ${lv.hint}</div>`:""}
+    </div>`;
+  }
+  c.innerHTML=h;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// JEU
+// ═══════════════════════════════════════════════════════════════════
+function startLevel(levelNum){
+
+// Reprise session en cours
+
+if(!gameState.currentPlayer){
+  const players=getPlayers();
+  const names=Object.keys(players);
+  if(names.length>0){switchPlayer(names[0]);}
+  else {showToast("Crée ou choisis un joueur d'abord !");return;}
+}
+gameState.currentLevel=levelNum;
+
+const players=getPlayers();
+const p=players[gameState.currentPlayer];
+if(p&&p.activeSession&&p.activeSession.level===levelNum&&p.activeSession.answers&&p.activeSession.answers.length>0){
+  if(confirm("Tu as une session en cours pour ce niveau ("+p.activeSession.answers.length+"/"+p.activeSession.questions.length+" questions). Reprendre où tu t'étais arrêté ?")){
+    gameState.questions=p.activeSession.questions;
+    gameState.currentQuestionIndex=p.activeSession.currentQuestionIndex;
+    gameState.answers=p.activeSession.answers;
+    gameState.selectedOption=null;
+    document.getElementById("gameTitle").textContent="Niveau "+levelNum+" : "+QUESTIONS_DB[levelNum].title;
+    showSection("jeu");
+    renderQuestion();
+    return;
+  }
+}
+gameState.currentQuestionIndex=0; gameState.answers=[]; gameState.selectedOption=null;
+
+// Fin const. Reprise session en cours
+
+  const lv=QUESTIONS_DB[levelNum];
+  const allQcm=lv.qcm.map(q=>({...q,type:"qcm"}));
+  const allLibre=lv.libre.map(q=>({...q,type:"libre"}));
+  const mode=gameState.currentMode;
+  if(mode==="qcm") gameState.questions=shuffle(allQcm).slice(0,10);
+  else if(mode==="libre") gameState.questions=shuffle(allLibre).slice(0,10);
+  else gameState.questions=shuffle([...shuffle(allQcm).slice(0,5),...shuffle(allLibre).slice(0,5)]);
+  document.getElementById("gameTitle").textContent="Niveau "+levelNum+" : "+lv.title;
+  showSection("jeu");
+  showLessonIntro(levelNum);
+}
+
+// Fonction showLessonIntro (correction CSS tassement)
+
+function showLessonIntro(levelNum){
+  const lv=QUESTIONS_DB[levelNum];
+  const lesson=LESSONS_DATA.find(l=>l.num===levelNum);
+  document.getElementById("questionCounter").textContent="📚 Leçon";
+  document.getElementById("scoreDisplay").textContent="";
+  document.getElementById("progressFill").style.width="0%";
+  
+  document.querySelector(".question-box").style.display="none";
+  document.querySelector(".game-actions").style.display="none";
+  
+  const intro=document.getElementById("lessonIntro");
+  intro.style.display="block";
+  
+  document.getElementById("lessonIntroTitle").textContent=lesson?lesson.title:lv.title;
+  document.getElementById("lessonIntroObj").textContent=lv.objective;
+  
+  const contentDiv = document.getElementById("lessonIntroContent");
+  if(lesson){
+    contentDiv.innerHTML = lesson.content;
+  } else {
+    contentDiv.innerHTML = "<p>Objectif : "+lv.objective+"</p>";
+  }
+  
+  document.getElementById("lessonIntroLexique").href = SUBJECT_CONFIG.lexiqueFile + "?level=" + levelNum;
+}
+
+
+
+function startQuestions(){
+  document.getElementById("lessonIntro").style.display="none";
+  document.querySelector(".question-box").style.display="block";
+  document.querySelector(".game-actions").style.display="flex";
+  renderQuestion();
+}
+
+function shuffle(a){
+  const arr=[...a];
+  for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+  return arr;
+}
+function renderQuestion(){
+  const q=gameState.questions[gameState.currentQuestionIndex];
+  const total=gameState.questions.length;
+  const idx=gameState.currentQuestionIndex;
+  document.getElementById("questionCounter").textContent="Q"+(idx+1)+"/"+total;
+  document.getElementById("scoreDisplay").textContent=gameState.answers.filter(a=>a.isCorrect).length+" ✓";
+  document.getElementById("progressFill").style.width=(idx/total*100)+"%";
+  document.getElementById("questionNum").textContent=(idx+1)+". "+q.type.toUpperCase();
+  document.getElementById("questionText").innerHTML=(typeof highlightLexiqueWords==="function")?highlightLexiqueWords(q.q):q.q;
+  document.getElementById("feedback").style.display="none";
+  document.getElementById("feedback").className="feedback";
+  document.getElementById("validateBtn").style.display="inline-block";
+  document.getElementById("nextBtn").style.display="none";
+  gameState.selectedOption=null;
+  const hintBox=document.getElementById("hintBox");
+  if(hintBox){if(q.hint){hintBox.textContent="💡 "+q.hint;hintBox.style.display="block";}else{hintBox.style.display="none";}}
+  if(q.type==="qcm"){
+    document.getElementById("qcmOptions").style.display="grid";
+    document.getElementById("libreInput").style.display="none";
+    const g=document.getElementById("qcmOptions");
+    g.innerHTML=q.options.map((opt,i)=>`<button class="option-btn" onclick="selectOption(this,${i})">　${opt}</button>`).join("");
+  } else {
+    document.getElementById("qcmOptions").style.display="none";
+    document.getElementById("libreInput").style.display="block";
+    const inp=document.getElementById("answerInput");
+    inp.value=""; inp.className="answer-input"; inp.disabled=false;
+    setTimeout(()=>inp.focus(),100);
+  }
+}
+function selectOption(btn,idx){
+  document.querySelectorAll(".option-btn").forEach(b=>b.classList.remove("selected"));
+  btn.classList.add("selected"); gameState.selectedOption=idx;
+}
+function validateAnswer(){
+  const q=gameState.questions[gameState.currentQuestionIndex];
+  let isCorrect=false; let userAnswer="";
+  if(q.type==="qcm"){
+    if(gameState.selectedOption===null||gameState.selectedOption===undefined){showToast("Choisis une réponse !");return;}
+    const selIdx=gameState.selectedOption;
+    userAnswer=q.options[selIdx];
+    isCorrect=userAnswer===q.correct;
+    document.querySelectorAll(".option-btn").forEach((btn,i)=>{
+      btn.disabled=true;
+      if(q.options[i]===q.correct)btn.classList.add("correct");
+      else if(i===selIdx&&!isCorrect)btn.classList.add("wrong");
+    });
+  } else {
+    const inp=document.getElementById("answerInput");
+    userAnswer=inp.value.trim();
+    if(!userAnswer){showToast("Écris ta réponse !");return;}
+const clean=userAnswer.toLowerCase().replace(/[.,;:!?']/g,"").replace(/\s+/g," ").trim();
+const cc=q.answer.toLowerCase().replace(/[.,;:!?']/g,"").replace(/\s+/g," ").trim();
+    isCorrect=clean===cc;
+    if(!isCorrect&&q.alternatives){
+  isCorrect=q.alternatives.some(a=>clean===a.toLowerCase().replace(/[.,;:!?']/g,"").replace(/\s+/g," ").trim());
+    }
+    inp.disabled=true; inp.className="answer-input "+(isCorrect?"correct":"wrong");
+  }
+  // Feedback
+  const fb=document.getElementById("feedback");
+  fb.style.display="block";
+  fb.className="feedback show "+(isCorrect?"correct-fb":"wrong-fb");
+  document.getElementById("feedbackTitle").textContent=isCorrect?"✅ Bonne réponse !":"❌ Pas tout à fait…";
+  document.getElementById("feedbackCorrect").textContent=isCorrect?"":"Bonne réponse : "+(q.correct||q.answer);
+
+// Lien lexique dans le feedback
+document.getElementById("feedbackExplanation").innerHTML=(q.explanation||"")+`<br><br><a href="${SUBJECT_CONFIG.lexiqueFile}?level=${gameState.currentLevel}" target="_blank" style="color:var(--primary);font-size:.9em;font-weight:bold">📖 Voir le vocabulaire du niveau ${gameState.currentLevel}</a>`;
+// Fin lien lexique
+ 
+
+  // Stats
+  gameState.answers.push({question:q.q,userAnswer,correct:q.correct||q.answer,isCorrect,explanation:q.explanation});
+  if(isCorrect) gameState.score+=10; else trackError(q,userAnswer);
+  const players=getPlayers();
+  if(gameState.currentPlayer&&players[gameState.currentPlayer]){
+    const pp=players[gameState.currentPlayer];
+    pp.totalQuestions=(pp.totalQuestions||0)+1;
+    if(isCorrect)pp.totalCorrect=(pp.totalCorrect||0)+1;
+    if(isCorrect)pp.streak=(pp.streak||0)+1; else pp.streak=0;
+    savePlayers(players);
+  }
+  document.getElementById("validateBtn").style.display="none";
+  document.getElementById("nextBtn").style.display="inline-block";
+  document.getElementById("nextBtn").textContent=
+    gameState.currentQuestionIndex===gameState.questions.length-1?"Voir les résultats →":"Suivant →";
+    // Sauvegarde session en cours 
+
+  saveActiveSession();
+
+    // Fin Sauvegarde session en cours 
+
+}
+
+  /* ══════════════════════════════════════════════════════
+     💾 ENREGISTREMENT DE L'ERREUR (Source des Fiches)
+     ══════════════════════════════════════════════════════ */
+function trackError(question, userAnswer) {
+  if (!gameState.currentPlayer) return;
+  const players = getPlayers();
+  const p = players[gameState.currentPlayer];
+  if (!p.errorHistory) p.errorHistory = [];
+
+  p.errorHistory.push({
+    question     : question.q,
+    userAnswer   : userAnswer,
+    // On pioche la bonne réponse et l'explication (expl)
+    correctAnswer: question.a || question.correct || question.answer,
+    explanation  : question.expl || question.explanation || "", 
+    date         : new Date().toISOString(),
+    level        : gameState.currentLevel
+  });
+
+  // On garde les 50 dernières erreurs pour la performance
+  if (p.errorHistory.length > 50) p.errorHistory = p.errorHistory.slice(-50);
+  
+  savePlayers(players);
+}
+
+  // Sauvegarde session en cours
+
+function saveActiveSession(){
+  if(!gameState.currentPlayer)return;
+  const players=getPlayers();
+  const p=players[gameState.currentPlayer];
+  p.activeSession={
+    level:gameState.currentLevel,
+    questions:gameState.questions,
+    currentQuestionIndex:gameState.currentQuestionIndex,
+    answers:gameState.answers,
+    mode:gameState.currentMode,
+    date:new Date().toISOString()
+  };
+  savePlayers(players);
+}
+// Fin Sauvegarde session en cours
+
+function nextQuestion(){
+  if(gameState.currentQuestionIndex>=gameState.questions.length-1) showResults();
+  else{gameState.currentQuestionIndex++; renderQuestion();}
+}
+function showResults(){
+  const total=gameState.questions.length;
+  const correct=gameState.answers.filter(a=>a.isCorrect).length;
+  const pct=Math.round(correct/total*100);
+  document.getElementById("resultPct").textContent=pct+"%";
+  const msg=pct>=80?"🎉 Excellent ! Niveau suivant débloqué !":pct>=50?"👍 Pas mal ! Continue à t'entraîner.":"💪 Courage ! Relis la leçon et réessaie !";
+  document.getElementById("resultMsg").textContent=msg+" ("+correct+"/"+total+" bonnes réponses)";
+  const players=getPlayers();
+  const p=players[gameState.currentPlayer];
+
+// Correction Historique des sessions
+
+if(p){
+  if(!p.sessionHistory)p.sessionHistory=[];
+  p.sessionHistory.push({
+    date:new Date().toISOString(),
+    level:gameState.currentLevel,
+    levelTitle:QUESTIONS_DB[gameState.currentLevel].title,
+    correct:correct,
+    total:total,
+    pct:pct,
+    passed:pct>=80,
+    mode:gameState.currentMode
+  });
+  if(p.sessionHistory.length>50)p.sessionHistory=p.sessionHistory.slice(-50);
+  p.activeSession=null;
+  p.lastPlayed=new Date().toISOString();
+
+ // ⬇️ sauvegarder quel que soit le score
+    if(pct>=80){
+      if(!p.completed.includes(gameState.currentLevel))p.completed.push(gameState.currentLevel);
+      if(p.currentLevel<=gameState.currentLevel&&gameState.currentLevel<10)p.currentLevel=gameState.currentLevel+1;
+      p.score=(p.score||0)+correct*10;
+    }
+    savePlayers(players);
+  }
+
+  // Affichage bouton niveau suivant
+  document.getElementById("nextLevelBtn").style.display = pct >= 80 ? "inline-block" : "none";
+  updatePlayerDisplay();
+  showSection("resultats");
+}
+function retryLevel(){startLevel(gameState.currentLevel);}
+function startNextLevel(){
+  const players=getPlayers();
+  const nlvl=players[gameState.currentPlayer]?players[gameState.currentPlayer].currentLevel:1;
+  if(nlvl<=10)startLevel(nlvl); else showToast("Félicitations ! Tu as tout terminé ! 🏆");
+}
+function quitGame(){
+if(confirm("Quitter ? Ta progression sera sauvegardée et tu pourras la reprendre plus tard.")){
+  saveActiveSession();
+  showSection("niveaux");
+  }
+}
+// ═══════════════════════════════════════════════════════════════════
+// EXPORT / IMPORT SAUVEGARDE
+// ═══════════════════════════════════════════════════════════════════
+function exportSave(){
+  const players=getPlayers();
+  if(Object.keys(players).length===0){showToast("Aucune sauvegarde à exporter.");return;}
+  const data=JSON.stringify(players,null,2);
+  const blob=new Blob([data],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  const date=new Date().toISOString().slice(0,10);
+  a.download="francais-master-sauvegarde-"+date+".json";
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("Sauvegarde téléchargée !");
+}
+function importSave(event){
+  const file=event.target.files[0];
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(e){
+    try{
+      const data=JSON.parse(e.target.result);
+      if(typeof data==="object"&&data!==null){
+        savePlayers(data);
+        updatePlayerDisplay();
+        renderLevels();
+        const names=Object.keys(data);
+        if(names.length>0)switchPlayer(names[0]);
+        showToast("Sauvegarde importée ! Bienvenue "+names[0]+" !");
+      } else {showToast("Fichier invalide.");}
+    } catch(err){showToast("Erreur : fichier non reconnu.");}
+  };
+  reader.readAsText(file);
+  event.target.value="";
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),3000);
+}
+
+function closeLexPopup(e){
+  if(!e||e.target.classList.contains("lex-modal-overlay")||e.target.id==="lexique-popup-modal"){
+    document.getElementById("lexique-popup-modal").style.display="none";
+  }
+}
+function openLexPopup(fr){
+  if(typeof LEXIQUE_BDD==="undefined")return;
+  const w=LEXIQUE_BDD.find(x=>x.fr===fr);
+  if(!w)return;
+  document.getElementById("lexPopupFr").textContent=w.fr;
+  document.getElementById("lexPopupPhon").textContent=w.phon||"";
+  document.getElementById("lexPopupEn").textContent=w.en;
+  document.getElementById("lexPopupDef").textContent=w.def;
+  document.getElementById("lexPopupEx").textContent=w.ex;
+  document.getElementById("lexPopupCat").textContent=w.cat+" • Niveau "+w.level;
+  const modal=document.getElementById("lexique-popup-modal");
+  modal.style.display="flex";
+}
+function goToDashboard(){
+  if(gameState.currentPlayer){
+    window.location.href='dashboard.html?player='+encodeURIComponent(gameState.currentPlayer);
+  } else {
+    window.location.href='dashboard.html';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════
+
+    // Auto-créer un joueur par défaut pour éviter le blocage
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  // ── Rendu initial de l'interface ──────────────────────────────────
+  renderLessons();
+  renderLevels();
+  updatePlayerDisplay();
+
+  // ── Lecture des paramètres URL (?player=Prénom&level=3) ───────────
+  const params    = new URLSearchParams(window.location.search);
+  const urlPlayer = params.get('player');
+  const lvlParam  = params.get('level');
+
+  // ── Chargement du joueur : URL en priorité, sinon premier de la liste
+  const players = getPlayers();
+  const names   = Object.keys(players);
+
+  if (urlPlayer && players[urlPlayer]) {
+    // Cas 1 : un joueur précis est passé depuis le dashboard ou un lien
+    switchPlayer(urlPlayer);
+
+  } else if (names.length > 0) {
+    // Cas 2 : aucun joueur dans l'URL → on prend le premier de la liste
+    switchPlayer(names[0]);
+
+  } else {
+    // Cas 3 : aucun joueur → inviter à créer un profil
+    showToast("Bienvenue ! Créez votre profil pour commencer 👤");
+    setTimeout(() => showNewPlayerModal(), 800);
+  }
+
+  // Auto-wrap phonétique *...*  dans les leçons
+  setTimeout(() => {
+    document.querySelectorAll('.lesson-rule, .lesson-warning, .lesson-example, #lessonIntroContent').forEach(el => {
+      el.innerHTML = el.innerHTML.replace(/\*([^*<]+)\*/g, '<span class="phon">*$1*</span>');
+    });
+  }, 600);
+
+  // ── Démarrage automatique d'un niveau si demandé par l'URL ────────
+  if (lvlParam) {
+    const lvl = parseInt(lvlParam);
+    if (lvl >= 1 && lvl <= 10) { setTimeout(() => startLevel(lvl), 300); }
+  }
+
+});
+
+// Fin init
+
+</script>
+
+</body>
+</html>
