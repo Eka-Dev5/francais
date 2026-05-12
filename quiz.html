@@ -246,7 +246,145 @@ word-break: break-word;
 
 .phon{font-weight:600;color:var(--secondary);cursor:help;transition:all .2s}
 .phon:hover{background:#f0f4ff;padding:2px 8px;border-radius:6px;box-shadow:0 2px 8px rgba(102,126,234,.15)}
+/* ═══════════════════════════════════════════
+   SURLIGNEMENT LEXIQUE DANS LES QUESTIONS
+   ═══════════════════════════════════════════ */
+.lex-highlight{
+  background:linear-gradient(120deg,#f0f4ff 0%,#e8ecff 100%);
+  border-bottom:2px solid var(--primary);
+  padding:1px 4px;
+  border-radius:4px;
+  cursor:pointer;
+  transition:all .2s;
+  position:relative;
+  display:inline
+}
+.lex-highlight:hover{
+  background:var(--primary);
+  color:white;
+  border-bottom-color:var(--secondary)
+}
+.lex-tooltip{
+  position:absolute;
+  bottom:100%;
+  left:50%;
+  transform:translateX(-50%) translateY(-6px);
+  background:#2d3748;
+  color:white;
+  padding:10px 14px;
+  border-radius:10px;
+  font-size:.82em;
+  white-space:normal;
+  max-width:280px;
+  z-index:100;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+  line-height:1.4;
+  text-align:left
+}
+.lex-tooltip::after{
+  content:"";
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  border:6px solid transparent;
+  border-top-color:#2d3748
+}
+.lex-highlight:hover .lex-tooltip{
+  opacity:1
+}
+.lex-phon{
+  color:#a3bffa;
+  font-style:italic
+}
+/* Modal lexique popup */
+#lexique-popup-modal{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:3000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px
+}
+.lex-modal-overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background:rgba(0,0,0,.5)
+}
+.lex-modal-content{
+  position:relative;
+  background:white;
+  border-radius:18px;
+  padding:26px;
+  max-width:480px;
+  width:100%;
+  max-height:85vh;
+  overflow-y:auto;
+  animation:popIn .25s ease;
+  box-shadow:0 20px 60px rgba(0,0,0,.3)
+}
+.lex-modal-header{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  margin-bottom:8px;
+  flex-wrap:wrap
+}
+.lex-modal-fr{
+  font-size:1.8em;
+  font-weight:bold;
+  color:var(--primary)
+}
+.lex-modal-phon{
+  font-size:1em;
+  color:var(--secondary);
+  font-style:italic
+}
+.lex-modal-en{
+  font-size:1.1em;
+  color:#718096;
+  margin-bottom:14px
+}
+.lex-modal-def,.lex-modal-ex,.lex-modal-cat{
+  margin:10px 0;
+  padding:10px 14px;
+  background:#f7fafc;
+  border-radius:8px
+}
+.lex-modal-def h4,.lex-modal-ex h4,.lex-modal-cat h4{
+  color:var(--secondary);
+  font-size:.8em;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  margin-bottom:4px
+}
+.lex-modal-close{
+  background:var(--primary);
+  color:white;
+  border:none;
+  padding:10px 22px;
+  border-radius:20px;
+  cursor:pointer;
+  font-weight:bold;
+  margin-top:10px;
+  width:100%
+}
+
 </style>
+  <!-- Chargement BDD Lexique + Moteur de surlignement -->
+  <script src="BDDlexique.js"></script>
+  <script src="lexique-engine.js"></script>
+
 </head>
 <body>
 <div class="quiz-container">
@@ -985,7 +1123,7 @@ function renderQuestion(){
   document.getElementById("scoreDisplay").textContent=gameState.answers.filter(a=>a.isCorrect).length+" ✓";
   document.getElementById("progressFill").style.width=(idx/total*100)+"%";
   document.getElementById("questionNum").textContent=(idx+1)+". "+q.type.toUpperCase();
-  document.getElementById("questionText").textContent=q.q;
+document.getElementById("questionText").innerHTML=highlightLexiqueWords(q.q);
   document.getElementById("feedback").style.display="none";
   document.getElementById("feedback").className="feedback";
   document.getElementById("validateBtn").style.display="inline-block";
