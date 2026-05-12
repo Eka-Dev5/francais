@@ -189,6 +189,9 @@ function renderLevelView() {
   const grid = document.getElementById('lexGridLevel');
   let words = LEXIQUE;
   
+  // Ajouter le titre "Par Niveau"
+  let html = '<h2 style="text-align:center;color:var(--primary);margin-bottom:20px;font-size:1.5em">📚 Par Niveau</h2>';
+
   // Filtrer par niveau
   if (currentLevel > 0) {
     words = words.filter(w => w.level === currentLevel);
@@ -208,9 +211,9 @@ function renderLevelView() {
   words.sort((a, b) => a.fr.localeCompare(b.fr, 'fr'));
   
   if (words.length === 0) {
-    grid.innerHTML = '<div class="empty-msg">Aucun mot trouvé.</div>';
+    grid.innerHTML = html + '<div class="empty-msg">Aucun mot trouvé.</div>';
   } else {
-    grid.innerHTML = words.map((w, i) => renderWordCardHTML(w, LEXIQUE.indexOf(w))).join('');
+    grid.innerHTML = html + words.map((w, i) => renderWordCardHTML(w, LEXIQUE.indexOf(w))).join('');
   }
   
   updateStatBar(words.length);
@@ -253,10 +256,11 @@ function renderThemeView() {
     );
   }
   
-  // Grouper par thème
+    // Grouper par thème (ignorer les mots sans thème)
   const byTheme = {};
   words.forEach(w => {
-    const t = w.theme || 'Sans thème';
+    if (!w.theme) return; // Skip les mots sans thème
+    const t = w.theme;
     if (!byTheme[t]) byTheme[t] = [];
     byTheme[t].push(w);
   });
@@ -266,8 +270,7 @@ function renderThemeView() {
   if (currentTheme) {
     themesToShow = [currentTheme];
   }
-  
-  let html = '';
+  let html = '<h2 style="text-align:center;color:var(--primary);margin-bottom:20px;font-size:1.5em">🗂️ Par Thème</h2>';
   themesToShow.forEach(theme => {
     const themeWords = byTheme[theme] || [];
     themeWords.sort((a, b) => a.fr.localeCompare(b.fr, 'fr'));
@@ -279,7 +282,6 @@ function renderThemeView() {
       </div>
     </div>`;
   });
-  
   container.innerHTML = html || '<div class="empty-msg">Aucun mot trouvé.</div>';
   updateStatBar(words.length);
 }
