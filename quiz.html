@@ -18,20 +18,20 @@
 *{box-sizing:border-box;margin:0;padding:0;font-family:"Segoe UI",system-ui,sans-serif}
 body{background:linear-gradient(135deg,var(--primary),var(--secondary));min-height:100vh;padding:15px}
 
-.quiz-container{background:white;width:100%;max-width:820px;margin:0 auto;border-radius:20px;padding:25px;box-shadow:var(--shadow)}
+.quiz-container{background:white;width:100%;max-width:820px;margin:0 auto;border-radius:20px;padding:25px;box-shadow:var(–shadow)}
 
 /* HEADER */
 .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:2px solid #e2e8f0;flex-wrap:wrap;gap:10px}
 .player-info{display:flex;align-items:center;gap:10px}
-.player-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;display:flex;align-items:center;justify-content:center;font-size:1.2em;font-weight:bold}
-.player-name{font-weight:bold;font-size:1.1em;color:var(--text)}
+.player-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(–primary),var(–secondary));color:white;display:flex;align-items:center;justify-content:center;font-size:1.2em;font-weight:bold}
+.player-name{font-weight:bold;font-size:1.1em;color:var(–text)}
 .player-stats{font-size:0.8em;color:#718096}
-.header-score{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;padding:8px 18px;border-radius:20px;font-weight:bold;font-size:1em}
+.header-score{background:linear-gradient(135deg,var(–primary),var(–secondary));color:white;padding:8px 18px;border-radius:20px;font-weight:bold;font-size:1em}
 .player-selector{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .player-selector select{padding:8px 12px;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;font-size:0.95em;flex:1;min-width:120px}
-.player-selector select:focus{outline:none;border-color:var(--primary)}
+.player-selector select:focus{outline:none;border-color:var(–primary)}
 .btn{padding:9px 18px;border:none;border-radius:10px;cursor:pointer;font-weight:bold;font-size:0.9em;transition:all .2s}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:white}
+.btn-primary{background:linear-gradient(135deg,var(–primary),var(–secondary));color:white}
 .btn-primary:hover{opacity:.88;transform:translateY(-1px)}
 .btn-danger{background:#fed7d7;color:#c53030}
 .btn-danger:hover{background:#feb2b2}
@@ -43,11 +43,11 @@ body{background:linear-gradient(135deg,var(--primary),var(--secondary));min-heig
 .section.active{display:block}
 
 /* ACCUEIL */
-.home-title{text-align:center;font-size:2.2em;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.home-title{text-align:center;font-size:2.2em;font-weight:800;background:linear-gradient(135deg,var(–primary),var(–secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
 .home-sub{text-align:center;color:#718096;margin-bottom:25px}
 .home-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:15px;margin:20px 0}
 .home-stat{background:linear-gradient(145deg,#f0f4ff,#e8ecff);padding:18px;border-radius:15px;text-align:center}
-.home-stat-num{font-size:2em;font-weight:bold;color:var(--primary)}
+.home-stat-num{font-size:2em;font-weight:bold;color:var(–primary)}
 .home-stat-label{font-size:.8em;color:#718096;text-transform:uppercase;letter-spacing:.5px}
 .home-btns{display:flex;gap:12px;margin-top:22px;flex-wrap:wrap}
 .home-btns .btn{flex:1;padding:14px;font-size:1em;border-radius:12px}
@@ -55,73 +55,73 @@ body{background:linear-gradient(135deg,var(--primary),var(--secondary));min-heig
 /* LEÇONS */
 .lessons-list{display:grid;gap:12px}
 .lesson-card{background:#f8fafc;border:2px solid #e2e8f0;border-radius:14px;padding:18px;cursor:pointer;transition:all .25s}
-.lesson-card:hover{border-color:var(--primary);background:#f0f4ff}
-.lesson-card.open{border-color:var(--primary);background:#f0f4ff}
+.lesson-card:hover{border-color:var(–primary);background:#f0f4ff}
+.lesson-card.open{border-color:var(–primary);background:#f0f4ff}
 .lesson-header{display:flex;justify-content:space-between;align-items:center}
-.lesson-title{font-weight:bold;font-size:1.05em;color:var(--text)}
-.lesson-tag{background:var(--primary);color:white;padding:3px 10px;border-radius:12px;font-size:.75em}
+.lesson-title{font-weight:bold;font-size:1.05em;color:var(–text)}
+.lesson-tag{background:var(–primary);color:white;padding:3px 10px;border-radius:12px;font-size:.75em}
 .lesson-body{display:none;margin-top:14px;padding-top:14px;border-top:1px solid #e2e8f0}
 .lesson-body.open{display:block}
-.lesson-rule{background:white;border-left:4px solid var(--primary);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:10px}
-.lesson-rule h4{color:var(--secondary);margin-bottom:6px;font-size:.95em;text-transform:uppercase;letter-spacing:.5px}
+.lesson-rule{background:white;border-left:4px solid var(–primary);padding:12px 16px;border-radius:0 10px 10px 0;margin-bottom:10px}
+.lesson-rule h4{color:var(–secondary);margin-bottom:6px;font-size:.95em;text-transform:uppercase;letter-spacing:.5px}
 .lesson-table{width:100%;border-collapse:collapse;margin:8px 0;font-size:.9em}
 .lesson-table td,.lesson-table th{padding:7px 10px;border:1px solid #e2e8f0;text-align:left}
-.lesson-table th{background:var(--primary);color:white;font-weight:600}
+.lesson-table th{background:var(–primary);color:white;font-weight:600}
 .lesson-table tr:nth-child(even){background:#f8fafc}
-.lesson-warning{background:#fff5d6;border-left:4px solid var(--warning);padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.9em}
+.lesson-warning{background:#fff5d6;border-left:4px solid var(–warning);padding:10px 14px;border-radius:0 8px 8px 0;margin:8px 0;font-size:.9em}
 .lesson-example{background:#EEF2FF;border-left:4px solid #667eea;border-radius:0 10px 10px 0;padding:11px 13px;margin:10px 0;font-size:.88em;color:#2d3748}
 
 /* NIVEAUX */
 .levels-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:15px}
 .level-card{border:2px solid #e2e8f0;border-radius:14px;padding:18px;transition:all .25s}
 .level-card:not(.locked){cursor:pointer}
-.level-card:not(.locked):hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow)}
+.level-card:not(.locked):hover{border-color:var(–primary);transform:translateY(-2px);box-shadow:var(–shadow)}
 .level-card.locked{opacity:.55;background:#f8fafc}
-.level-card.completed{border-color:var(--success);background:#f0fff4}
-.level-card.current{border-color:var(--primary);background:#f0f4ff}
+.level-card.completed{border-color:var(–success);background:#f0fff4}
+.level-card.current{border-color:var(–primary);background:#f0f4ff}
 .level-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .level-number{font-size:.8em;font-weight:bold;color:#718096;text-transform:uppercase;letter-spacing:.5px}
-.level-title{font-size:1.1em;font-weight:bold;color:var(--text);margin-bottom:4px}
+.level-title{font-size:1.1em;font-weight:bold;color:var(–text);margin-bottom:4px}
 .level-obj{font-size:.85em;color:#718096}
 .mode-selector{background:#f8fafc;border-radius:14px;padding:18px;margin-bottom:18px}
-.mode-title{font-weight:bold;margin-bottom:12px;color:var(--text)}
+.mode-title{font-weight:bold;margin-bottom:12px;color:var(–text)}
 .mode-btns{display:flex;gap:10px;flex-wrap:wrap}
 .mode-btn{flex:1;padding:11px;border:2px solid #e2e8f0;background:white;border-radius:10px;cursor:pointer;font-weight:bold;transition:all .2s;text-align:center;min-width:100px}
-.mode-btn.selected,.mode-btn:hover{border-color:var(--primary);background:var(--primary);color:white}
+.mode-btn.selected,.mode-btn:hover{border-color:var(–primary);background:var(–primary);color:white}
 
 /* JEU */
 .question-box{background:#f8fafc;border-radius:14px;padding:22px;margin-bottom:16px}
 .question-num{font-size:.85em;color:#718096;margin-bottom:8px;font-weight:600}
-.question-text{font-size:1.25em;font-weight:bold;color:var(--text);line-height:1.5}
+.question-text{font-size:1.25em;font-weight:bold;color:var(–text);line-height:1.5}
 .options-grid{display:grid;gap:10px;margin-top:16px}
 .option-btn{padding:13px 18px;border:2px solid #e2e8f0;background:white;border-radius:10px;cursor:pointer;text-align:left;font-size:1em;transition:all .2s}
-.option-btn:hover:not(:disabled){border-color:var(--primary);background:#f0f4ff}
-.option-btn.selected{border-color:var(--primary);background:#f0f4ff}
-.option-btn.correct{border-color:var(--success) !important;background:#c6f6d5 !important;color:#276749 !important}
-.option-btn.wrong{border-color:var(--error) !important;background:#fed7d7 !important;color:#c53030 !important}
+.option-btn:hover:not(:disabled){border-color:var(–primary);background:#f0f4ff}
+.option-btn.selected{border-color:var(–primary);background:#f0f4ff}
+.option-btn.correct{border-color:var(–success) !important;background:#c6f6d5 !important;color:#276749 !important}
+.option-btn.wrong{border-color:var(–error) !important;background:#fed7d7 !important;color:#c53030 !important}
 .option-btn:disabled{cursor:not-allowed}
 .answer-input{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:10px;font-size:1.1em;margin-top:12px;transition:border-color .2s}
-.answer-input:focus{outline:none;border-color:var(--primary)}
-.answer-input.correct{border-color:var(--success);background:#f0fff4}
-.answer-input.wrong{border-color:var(--error);background:#fff5f5}
+.answer-input:focus{outline:none;border-color:var(–primary)}
+.answer-input.correct{border-color:var(–success);background:#f0fff4}
+.answer-input.wrong{border-color:var(–error);background:#fff5f5}
 .feedback{border-radius:12px;padding:16px 18px;margin-top:14px;display:none}
 .feedback.show{display:block;animation:fadeIn .3s}
-.feedback.correct-fb{background:#c6f6d5;border-left:4px solid var(--success)}
-.feedback.wrong-fb{background:#fed7d7;border-left:4px solid var(--error)}
+.feedback.correct-fb{background:#c6f6d5;border-left:4px solid var(–success)}
+.feedback.wrong-fb{background:#fed7d7;border-left:4px solid var(–error)}
 .feedback-title{font-weight:bold;font-size:1.1em;margin-bottom:5px}
 .feedback-explanation{font-size:.9em;color:#4a5568;margin-top:5px}
 .progress-wrap{margin-bottom:16px}
 .progress-bar{height:10px;background:#e2e8f0;border-radius:5px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--primary),var(--secondary));transition:width .4s;border-radius:5px}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(–primary),var(–secondary));transition:width .4s;border-radius:5px}
 .game-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
 .game-actions .btn{flex:1}
 
 /* RÉSULTATS */
 .results-box{text-align:center;padding:20px}
-.result-score-circle{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:var(--shadow)}
+.result-score-circle{width:130px;height:130px;border-radius:50%;background:linear-gradient(135deg,var(–primary),var(–secondary));color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:var(–shadow)}
 .result-score-num{font-size:2.5em;font-weight:800}
 .result-score-sub{font-size:.8em;opacity:.9}
-.result-msg{font-size:1.1em;color:var(--text);margin-bottom:20px}
+.result-msg{font-size:1.1em;color:var(–text);margin-bottom:20px}
 .result-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .result-btns .btn{padding:12px 24px}
 
@@ -149,7 +149,7 @@ line-height:1.6;
 }
 
 #lessonIntroTitle{
-color:var(--primary);
+color:var(–primary);
 margin-bottom:10px;
 font-size:1.35rem;
 font-weight:800;
@@ -236,42 +236,45 @@ word-break: break-word;
 /* Tableau complet : défilement horizontal si nécessaire */
 .lesson-table,
 #lessonIntroContent .lesson-table {
-    width: 100%;
-    overflow-x: auto;
-    display: block;
+width: 100%;
+overflow-x: auto;
+display: block;
 }
 
 }
 /* fin de modif des affichages pour écran petits  */
 
-.phon{font-weight:600;color:var(--secondary);cursor:help;transition:all .2s}
+.phon{font-weight:600;color:var(–secondary);cursor:help;transition:all .2s}
 .phon:hover{background:#f0f4ff;padding:2px 8px;border-radius:6px;box-shadow:0 2px 8px rgba(102,126,234,.15)}
 
 /* ═══ SURLIGNEMENT LEXIQUE ═══ */
-.lex-highlight{background:linear-gradient(120deg,#f0f4ff,#e8ecff);border-bottom:2px solid var(--primary);padding:1px 4px;border-radius:4px;cursor:pointer;transition:all .2s;position:relative;display:inline}
-.lex-highlight:hover{background:var(--primary);color:white;border-bottom-color:var(--secondary)}
+.lex-highlight{background:linear-gradient(120deg,#f0f4ff,#e8ecff);border-bottom:2px solid var(–primary);padding:1px 4px;border-radius:4px;cursor:pointer;transition:all .2s;position:relative;display:inline}
+.lex-highlight:hover{background:var(–primary);color:white;border-bottom-color:var(–secondary)}
 .lex-tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%) translateY(-6px);background:#2d3748;color:white;padding:10px 14px;border-radius:10px;font-size:.82em;white-space:normal;max-width:280px;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s;box-shadow:0 4px 12px rgba(0,0,0,.2);line-height:1.4;text-align:left}
-.lex-tooltip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#2d3748}
+.lex-tooltip::after{content:””;position:absolute;top:100%;left:50%;transform:translateX(-50%);border:6px solid transparent;border-top-color:#2d3748}
 .lex-highlight:hover .lex-tooltip{opacity:1}
 .lex-phon{color:#a3bffa;font-style:italic}
 #lexique-popup-modal{position:fixed;top:0;left:0;right:0;bottom:0;z-index:3000;display:none;align-items:center;justify-content:center;padding:15px}
 .lex-modal-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5)}
 .lex-modal-content{position:relative;background:white;border-radius:18px;padding:26px;max-width:480px;width:100%;max-height:85vh;overflow-y:auto;animation:popIn .25s ease;box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .lex-modal-header{display:flex;align-items:baseline;gap:10px;margin-bottom:8px;flex-wrap:wrap}
-.lex-modal-fr{font-size:1.8em;font-weight:bold;color:var(--primary)}
-.lex-modal-phon{font-size:1em;color:var(--secondary);font-style:italic}
+.lex-modal-fr{font-size:1.8em;font-weight:bold;color:var(–primary)}
+.lex-modal-phon{font-size:1em;color:var(–secondary);font-style:italic}
 .lex-modal-en{font-size:1.1em;color:#718096;margin-bottom:14px}
 .lex-modal-def,.lex-modal-ex,.lex-modal-cat{margin:10px 0;padding:10px 14px;background:#f7fafc;border-radius:8px}
-.lex-modal-def h4,.lex-modal-ex h4,.lex-modal-cat h4{color:var(--secondary);font-size:.8em;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
-.lex-modal-close{background:var(--primary);color:white;border:none;padding:10px 22px;border-radius:20px;cursor:pointer;font-weight:bold;margin-top:10px;width:100%}
+.lex-modal-def h4,.lex-modal-ex h4,.lex-modal-cat h4{color:var(–secondary);font-size:.8em;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.lex-modal-close{background:var(–primary);color:white;border:none;padding:10px 22px;border-radius:20px;cursor:pointer;font-weight:bold;margin-top:10px;width:100%}
 @keyframes popIn{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 /* Fix largeur colonnes tableaux */
 .lesson-table{table-layout:auto}
 .lesson-table th,.lesson-table td{word-break:normal;min-width:60px}
 .lesson-table th:first-child,.lesson-table td:first-child{width:auto;min-width:auto;max-width:none}
 </style>
+
   <script src="BDDlexique.js"></script>
+
   <script src="lexique-engine.js"></script>
+
 </head>
 <body>
 <div class="quiz-container">
@@ -307,11 +310,12 @@ word-break: break-word;
   <button class="btn btn-primary" onclick="showSection('accueil')">🏠</button>
   <button class="btn" onclick="showSection('lecons')" style="background:#f0f4ff;color:var(--primary)">📚 Leçons</button>
   <button class="btn" onclick="showSection('niveaux')" style="background:#f0fff4;color:#276749">🎮 Niveaux</button>
-  
+
 <!-- Bouton pour se rendre à l'espace  -->
+
 <button class="btn" 
-  onclick="goToDashboard()" 
-  style="background:#fff5d6;color:#744210
+onclick="goToDashboard()" 
+style="background:#fff5d6;color:#744210
 ">📊 Espace</button>
 
 <!-- Bouton Lexique -->
@@ -409,7 +413,7 @@ style="background:#f5e8ff;color:#553c9a">📖 Lexique</button>
 
 <a id="lessonIntroLexique" href="#" target="_blank" style="display:inline-block;margin-bottom:12px;color:var(--primary);font-weight:bold;text-decoration:none;border-bottom:1px dashed var(--primary)">📖 Voir le vocabulaire du niveau</a>
 <br>
-<button class="btn btn-primary" onclick="startQuestions()" style="padding:14px 32px;font-size:1.1em;border-radius:14px">🎮 C'est parti !</button>
+<button class="btn btn-primary" onclick="startQuestions()" style="padding:14px 32px;font-size:1.1em;border-radius:14px">🎮 C’est parti !</button>
 
   </div>
 
@@ -465,8 +469,8 @@ style="background:#f5e8ff;color:#553c9a">📖 Lexique</button>
   </div>
 </div>
 
-
 <!-- MODALE LEXIQUE POPUP -->
+
 <div id="lexique-popup-modal" onclick="closeLexPopup(event)">
   <div class="lex-modal-overlay"></div>
   <div class="lex-modal-content">
@@ -512,10 +516,9 @@ const LESSONS_DATA = [
   {num:8,title:"Le temps & La météo",content:`<div class="lesson-rule"><h4>🌤️ Parler de la météo</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>Il fait beau</td><td>Nice weather</td><td>*eel FAY bo*</td></tr><tr><td>Il pleut</td><td>It's raining</td><td>*eel PLUH*</td></tr><tr><td>Il neige</td><td>It's snowing</td><td>*eel NEHZH*</td></tr><tr><td>Il fait du vent</td><td>It's windy</td><td>*eel FAY dew VON*</td></tr><tr><td>Il fait chaud/froid</td><td>Hot/cold</td><td>*eel FAY sho/FRWAH*</td></tr><tr><td>Il fait frais</td><td>Cool/chilly</td><td>*eel FAY FRAY*</td></tr></table></div><div class="lesson-rule"><h4>📅 Les saisons</h4><p>• <strong>au printemps</strong> *oh PRAN-ton* = in spring</p><p>• <strong>en été</strong> *on ay-TAY* = in summer</p><p>• <strong>en automne</strong> *on no-TON* = in autumn</p><p>• <strong>en hiver</strong> *on ee-VAIR* = in winter</p></div><div class="lesson-warning">⚠️ Toujours <strong>"Il fait"</strong> pour la météo !<br>❌ C'est chaud → ✅ <strong>Il fait chaud.</strong></div><div class="lesson-example">💡 <strong>Il fait beau mais frais, prenez un pull.</strong><br>💡 <strong>Il pleut beaucoup en hiver dans l'ouest de la France.</strong></div>`},
   {num:9,title:"Les verbes essentiels du quotidien",content:`<div class="lesson-rule"><h4>⚡ Verbes irréguliers essentiels (présent)</h4><table class="lesson-table"><tr><th>Infinitif</th><th>je</th><th>vous</th><th>ils/elles</th></tr><tr><td>aller (to go)</td><td>vais</td><td>allez</td><td>vont</td></tr><tr><td>faire (to do)</td><td>fais</td><td>faites</td><td>font</td></tr><tr><td>prendre (to take)</td><td>prends</td><td>prenez</td><td>prennent</td></tr><tr><td>venir (to come)</td><td>viens</td><td>venez</td><td>viennent</td></tr><tr><td>pouvoir (can)</td><td>peux</td><td>pouvez</td><td>peuvent</td></tr><tr><td>vouloir (to want)</td><td>veux</td><td>voulez</td><td>veulent</td></tr><tr><td>savoir (to know)</td><td>sais</td><td>savez</td><td>savent</td></tr><tr><td>devoir (must)</td><td>dois</td><td>devez</td><td>doivent</td></tr></table></div><div class="lesson-warning">⚠️ <strong>Savoir</strong> = un fait. <strong>Connaître</strong> = une personne/lieu.<br>❌ Je sais Paris → ✅ <strong>Je connais Paris.</strong></div><div class="lesson-example">💡 <strong>Je veux apprendre le français pour parler avec mes voisins.</strong><br>💡 <strong>Pouvez-vous répéter, s'il vous plaît ?</strong></div>`},
   {num:10,title:"Expressions utiles & Formules de politesse",content:`<div class="lesson-rule"><h4>🎩 Formules de politesse essentielles</h4><table class="lesson-table"><tr><th>Français</th><th>Quand l'utiliser</th><th>Prononciation</th></tr><tr><td>S'il vous plaît</td><td>Toujours quand on demande</td><td>*seel voo PLEH*</td></tr><tr><td>Merci beaucoup</td><td>Remercier</td><td>*mair-SEE bo-KOO*</td></tr><tr><td>Je vous en prie</td><td>You're welcome (formel)</td><td>*zhuh voo zon PREE*</td></tr><tr><td>Excusez-moi</td><td>Attirer l'attention</td><td>*ek-skew-zay-MWAH*</td></tr><tr><td>Je ne comprends pas</td><td>I don't understand</td><td>*zhuh nuh kom-PRON PAH*</td></tr><tr><td>Parlez plus lentement</td><td>Speak more slowly</td><td>*par-LAY plew lon-TUH-mon*</td></tr></table></div><div class="lesson-warning">⚠️ En France, dire <strong>Bonjour</strong> en entrant dans un magasin, cabinet médical, bureau est OBLIGATOIRE. Très impoli de ne pas le dire.</div><div class="lesson-example">💡 <strong>Excusez-moi, je cherche la pharmacie. — C'est à droite.</strong><br>💡 <strong>Je ne comprends pas. Parlez plus lentement, s'il vous plaît.</strong></div>`}
-  {num:11,title:"Ma vie en France — Admin & Quotidien",content:`<<div class="lesson-rule"><h4>🏦 À la banque</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>un compte bancaire</td><td>bank account</td><td>*kompt bon-KAIR*</td></tr><tr><td>une carte bancaire</td><td>debit card</td><td>*kart bon-KAIR*</td></tr><tr><td>un chèque</td><td>check</td><td>*uh SHEK*</td></tr><tr><td>retirer de l'argent</td><td>withdraw money</td><td>*ruh-tee-RAY duh lar-ZHAN*</td></tr><tr><td>le solde</td><td>balance</td><td>*luh SOLD*</td></tr></table></div><div class="lesson-rule"><h4>⛽ La voiture</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>faire le plein</td><td>fill up</td><td>*fair luh PLAN*</td></tr><tr><td>l'essence (f)</td><td>gasoline</td><td>*lay-SONSS*</td></tr><tr><td>le gazole / gasoil</td><td>diesel</td><td>*luh ga-ZOL*</td></tr><tr><td>en panne</td><td>broken down</td><td>*on PAN*</td></tr><tr><td>une station-service</td><td>gas station</td><td>*sta-SYON ser-VEES*</td></tr></table></div><div class="lesson-rule"><h4>📮 La poste & colis</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>la poste</td><td>post office</td><td>*la POST*</td></tr><tr><td>un timbre</td><td>stamp</td><td>*uh TAN-bruh*</td></tr><tr><td>un colis</td><td>package</td><td>*uh ko-LEE*</td></tr><tr><td>envoyer</td><td>to send</td><td>*on-vwa-YAY*</td></tr><tr><td>recommandé</td><td>registered (mail)</td><td>*ruh-ko-mon-DAY*</td></tr></table></div><div class="lesson-rule"><h4>📞 Téléphone & Internet</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>un forfait</td><td>plan / bundle</td><td>*uh for-FAY*</td></tr><tr><td>la box / la livebox</td><td>router</td><td>*la BOKS*</td></tr><tr><td>en panne</td><td>down / broken</td><td>*on PAN*</td></tr><tr><td>le débit</td><td>speed / bandwidth</td><td>*luh day-BEE*</td></tr><tr><td>couper</td><td>to cut off</td><td>*koo-PAY*</td></tr></table></div><div class="lesson-warning">⚠️ En France, on dit <strong>"la box"</strong> pour le routeur internet — pas "router" !</div><div class="lesson-example">💡 <strong>Je voudrais ouvrir un compte bancaire, s'il vous plaît.</strong><br>💡 <strong>Ma voiture est en panne, je dois appeler le garage.</strong><br>💡 <strong>Je voudrais envoyer ce colis en recommandé.</strong></div>`}
+,
+  {num:11,title:"Ma vie en France — Admin & Quotidien",content:`<div class="lesson-rule"><h4>🏦 À la banque</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>un compte bancaire</td><td>bank account</td><td>*kompt bon-KAIR*</td></tr><tr><td>une carte bancaire</td><td>debit card</td><td>*kart bon-KAIR*</td></tr><tr><td>un chèque</td><td>check</td><td>*uh SHEK*</td></tr><tr><td>retirer de l'argent</td><td>withdraw money</td><td>*ruh-tee-RAY duh lar-ZHAN*</td></tr><tr><td>le solde</td><td>balance</td><td>*luh SOLD*</td></tr></table></div><div class="lesson-rule"><h4>⛽ La voiture</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>faire le plein</td><td>fill up</td><td>*fair luh PLAN*</td></tr><tr><td>l'essence (f)</td><td>gasoline</td><td>*lay-SONSS*</td></tr><tr><td>le gazole</td><td>diesel</td><td>*luh ga-ZOL*</td></tr><tr><td>en panne</td><td>broken down</td><td>*on PAN*</td></tr><tr><td>une station-service</td><td>gas station</td><td>*sta-SYON ser-VEES*</td></tr></table></div><div class="lesson-rule"><h4>📮 La poste & colis</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>la poste</td><td>post office</td><td>*la POST*</td></tr><tr><td>un timbre</td><td>stamp</td><td>*uh TAN-bruh*</td></tr><tr><td>un colis</td><td>package</td><td>*uh ko-LEE*</td></tr><tr><td>envoyer</td><td>to send</td><td>*on-vwa-YAY*</td></tr><tr><td>recommandé</td><td>registered mail</td><td>*ruh-ko-mon-DAY*</td></tr></table></div><div class="lesson-rule"><h4>📞 Téléphone & Internet</h4><table class="lesson-table"><tr><th>Français</th><th>Anglais</th><th>Prononciation</th></tr><tr><td>un forfait</td><td>plan / bundle</td><td>*uh for-FAY*</td></tr><tr><td>la box</td><td>router/modem box</td><td>*la BOKS*</td></tr><tr><td>en panne</td><td>down / broken</td><td>*on PAN*</td></tr><tr><td>le débit</td><td>speed / bandwidth</td><td>*luh day-BEE*</td></tr><tr><td>couper</td><td>to cut off</td><td>*koo-PAY*</td></tr></table></div><div class="lesson-warning">⚠️ En France, on dit <strong>"la box"</strong> pour le routeur internet — pas "router" !</div><div class="lesson-example">💡 <strong>Je voudrais ouvrir un compte bancaire, s'il vous plaît.</strong><br>💡 <strong>Ma voiture est en panne, je dois appeler le garage.</strong><br>💡 <strong>Je voudrais envoyer ce colis en recommandé.</strong></div>`}
 ];
-
-
 
 const QUESTIONS_DB = {
   1:{title:"Salutations 🙋",objective:"Dire bonjour, se présenter",
@@ -776,37 +779,61 @@ const QUESTIONS_DB = {
     {q:"Comment dit-on 'How do you say...in French?' ?",answer:"Comment dit-on en français",explanation:"*ko-MON dee-TON on fron-SAY*"},
     {q:"Complétez : 'Qu'est-ce que ça ___ dire ?'",answer:"veut",explanation:"Ça veut dire = it means. *VUH*"},
     {q:"Comment dit-on 'I'm looking for my words' ?",answer:"Je cherche mes mots",explanation:"Natural when hesitating in French."},
-    {q:"Comment dit-on 'Goodbye, thank you' (leaving a shop) ?",answer:"Au revoir, merci",explanation:"Essential politeness rule."},
+    {q:"Comment dit-on 'Goodbye, thank you' (leaving a shop) ?",answer:"Au revoir, merci",explanation:"Essential politeness rule."}
   ]},
-    11:{title:"Ma vie en France 🇫🇷",objective:"Administratif, banque, voiture, poste, téléphone",
+  11:{title:"Ma vie en France 🇫🇷",objective:"Administratif, banque, voiture, poste, téléphone",
   hint:"En France, 'la box' = le routeur internet !",
   qcm:[
     {q:"Comment dit-on 'bank account' ?",options:["un compte bancaire","une banque compte","un compte de banque","une carte bancaire"],correct:"un compte bancaire",explanation:"Un compte bancaire. *kompt bon-KAIR*"},
-    {q:"Je dois ___ ma voiture. (fill up)",options:["faire le plein","remplir","charger","essence"],correct:"faire le plein",explanation:"Faire le plein = fill up (car). *fair luh PLAN*"},
+    {q:"Je dois ___ ma voiture. (fill up)",options:["faire le plein","remplir","charger","mettre de l'essence"],correct:"faire le plein",explanation:"Faire le plein = fill up. *fair luh PLAN*"},
     {q:"Comment dit-on 'post office' ?",options:["la poste","le bureau de poste","les deux","la lettre"],correct:"les deux",explanation:"La poste / le bureau de poste = both correct."},
     {q:"Je voudrais ___ un colis. (send)",options:["envoyer","partir","donner","poster"],correct:"envoyer",explanation:"Envoyer un colis = send a package. *on-vwa-YAY*"},
-    {q:"Comment dit-on 'appointment' (doctor) ?",options:["un rendez-vous","une date","un meeting","une heure"],correct:"un rendez-vous",explanation:"Un rendez-vous = appointment. *ron-day-VOO*"},
-    {q:"Ma voiture est ___ . (broken down)",options:["en panne","cassée","brisée","les deux A et B"],correct:"les deux A et B",explanation:"En panne / cassée = broken down."},
+    {q:"Comment dit-on 'appointment' (doctor) ?",options:["un rendez-vous","une date","un meeting","une heure"],correct:"un rendez-vous",explanation:"Un rendez-vous. *ron-day-VOO*"},
+    {q:"Ma voiture est ___ . (broken down)",options:["en panne","cassée","brisée","les deux A et B"],correct:"les deux A et B",explanation:"En panne / cassée = both used."},
     {q:"Comment dit-on 'insurance' ?",options:["une assurance","une insurance","une sécurité","un contrat"],correct:"une assurance",explanation:"Une assurance. *oon a-syon-RAHNS*"},
-    {q:"Je dois ___ l'huile. (check)",options:["vérifier","contrôler","checker","regarder"],correct:"vérifier",explanation:"Vérifier l'huile = check the oil. *vay-ree-fee-YAY*"},
     {q:"Comment dit-on 'gas station' ?",options:["une station-service","une pompe à essence","les deux","un garage"],correct:"les deux",explanation:"Station-service / pompe à essence = both used."},
-    {q:"Je voudrais ___ un chèque. (cash)",options:["encaisser","casser","payer","retirer"],correct:"encaisser",explanation:"Encaisser un chèque = cash a check. *on-kay-SAY*"}
+    {q:"Je voudrais ___ un chèque. (cash it)",options:["encaisser","casser","payer","retirer"],correct:"encaisser",explanation:"Encaisser un chèque. *on-kay-SAY*"},
+    {q:"Comment dit-on 'router/internet box' en français ?",options:["le router","la box","le modem","le wifi"],correct:"la box",explanation:"La box = terme courant en France pour le routeur internet."}
   ],
   libre:[
     {q:"Comment dit-on 'bank account' ?",answer:"un compte bancaire",explanation:"*kompt bon-KAIR*"},
-    {q:"Complétez : 'Je dois ___ ma voiture.' (fill up)",answer:"faire le plein",explanation:"Faire le plein. *fair luh PLAN*"},
-    {q:"Comment dit-on 'post office' ?",answer:"la poste",alternatives:["le bureau de poste"],explanation:"La poste. *la POST*"},
-    {q:"Complétez : 'Je voudrais ___ un colis.' (send)",answer:"envoyer",explanation:"Envoyer. *on-vwa-YAY*"},
-    {q:"Comment dit-on 'my car broke down' ?",answer:"ma voiture est en panne",alternatives:["ma voiture est cassée"],explanation:"En panne = broken down. *on PAN*"},
+    {q:"Complétez : 'Je dois ___ ma voiture.' (fill up)",answer:"faire le plein",explanation:"*fair luh PLAN*"},
+    {q:"Comment dit-on 'post office' ?",answer:"la poste",alternatives:["le bureau de poste"],explanation:"*la POST*"},
+    {q:"Complétez : 'Je voudrais ___ un colis.' (send)",answer:"envoyer",explanation:"*on-vwa-YAY*"},
+    {q:"Comment dit-on 'my car broke down' ?",answer:"ma voiture est en panne",alternatives:["ma voiture est cassée"],explanation:"*on PAN*"},
     {q:"Comment dit-on 'insurance' ?",answer:"une assurance",explanation:"*oon a-syon-RAHNS*"},
-    {q:"Complétez : 'Je dois ___ l'huile.' (check)",answer:"vérifier",explanation:"Vérifier. *vay-ree-fee-YAY*"},
     {q:"Comment dit-on 'gas station' ?",answer:"une station-service",alternatives:["une pompe à essence"],explanation:"*sta-SYON ser-VEES*"},
-    {q:"Complétez : 'Je voudrais ___ un chèque.' (cash)",answer:"encaisser",explanation:"Encaisser. *on-kay-SAY*"},
-    {q:"Comment dit-on 'I have an appointment' ?",answer:"J'ai un rendez-vous",explanation:"*zhay uh ron-day-VOO*"}
+    {q:"Complétez : 'Je voudrais ___ un chèque.' (cash)",answer:"encaisser",explanation:"*on-kay-SAY*"},
+    {q:"Comment dit-on 'I have an appointment' ?",answer:"J'ai un rendez-vous",explanation:"*zhay uh ron-day-VOO*"},
+    {q:"Comment dit-on 'router/internet box' ?",answer:"la box",explanation:"Terme courant en France."}
+  ]},
+  11:{title:"Ma vie en France 🇫🇷",objective:"Administratif, banque, voiture, poste, téléphone",
+  hint:"En France, 'la box' = le routeur internet !",
+  qcm:[
+    {q:"Comment dit-on 'bank account' ?",options:["un compte bancaire","une banque compte","un compte de banque","une carte bancaire"],correct:"un compte bancaire",explanation:"Un compte bancaire. *kompt bon-KAIR*"},
+    {q:"Je dois ___ ma voiture. (fill up)",options:["faire le plein","remplir","charger","mettre de l'essence"],correct:"faire le plein",explanation:"Faire le plein = fill up. *fair luh PLAN*"},
+    {q:"Comment dit-on 'post office' ?",options:["la poste","le bureau de poste","les deux","la lettre"],correct:"les deux",explanation:"La poste / le bureau de poste = both correct."},
+    {q:"Je voudrais ___ un colis. (send)",options:["envoyer","partir","donner","poster"],correct:"envoyer",explanation:"Envoyer un colis = send a package. *on-vwa-YAY*"},
+    {q:"Comment dit-on 'appointment' (doctor) ?",options:["un rendez-vous","une date","un meeting","une heure"],correct:"un rendez-vous",explanation:"Un rendez-vous. *ron-day-VOO*"},
+    {q:"Ma voiture est ___ . (broken down)",options:["en panne","cassée","brisée","les deux A et B"],correct:"les deux A et B",explanation:"En panne / cassée = both used."},
+    {q:"Comment dit-on 'insurance' ?",options:["une assurance","une insurance","une sécurité","un contrat"],correct:"une assurance",explanation:"Une assurance. *oon a-syon-RAHNS*"},
+    {q:"Comment dit-on 'gas station' ?",options:["une station-service","une pompe à essence","les deux","un garage"],correct:"les deux",explanation:"Station-service / pompe à essence = both used."},
+    {q:"Je voudrais ___ un chèque. (cash it)",options:["encaisser","casser","payer","retirer"],correct:"encaisser",explanation:"Encaisser un chèque. *on-kay-SAY*"},
+    {q:"Comment dit-on 'router/internet box' en français ?",options:["le router","la box","le modem","le wifi"],correct:"la box",explanation:"La box = terme courant en France pour le routeur internet."}
+  ],
+  libre:[
+    {q:"Comment dit-on 'bank account' ?",answer:"un compte bancaire",explanation:"*kompt bon-KAIR*"},
+    {q:"Complétez : 'Je dois ___ ma voiture.' (fill up)",answer:"faire le plein",explanation:"*fair luh PLAN*"},
+    {q:"Comment dit-on 'post office' ?",answer:"la poste",alternatives:["le bureau de poste"],explanation:"*la POST*"},
+    {q:"Complétez : 'Je voudrais ___ un colis.' (send)",answer:"envoyer",explanation:"*on-vwa-YAY*"},
+    {q:"Comment dit-on 'my car broke down' ?",answer:"ma voiture est en panne",alternatives:["ma voiture est cassée"],explanation:"*on PAN*"},
+    {q:"Comment dit-on 'insurance' ?",answer:"une assurance",explanation:"*oon a-syon-RAHNS*"},
+    {q:"Comment dit-on 'gas station' ?",answer:"une station-service",alternatives:["une pompe à essence"],explanation:"*sta-SYON ser-VEES*"},
+    {q:"Complétez : 'Je voudrais ___ un chèque.' (cash)",answer:"encaisser",explanation:"*on-kay-SAY*"},
+    {q:"Comment dit-on 'I have an appointment' ?",answer:"J'ai un rendez-vous",explanation:"*zhay uh ron-day-VOO*"},
+    {q:"Comment dit-on 'router/internet box' ?",answer:"la box",explanation:"Terme courant en France."}
   ]}
 };
-
-
 
 // ÉTAT DU JEU
 // ═══════════════════════════════════════════════════════════════════
@@ -932,7 +959,6 @@ function selectMode(mode){
   document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("selected"));
   document.getElementById("btn"+mode.charAt(0).toUpperCase()+mode.slice(1)).classList.add("selected");
 }
-
 function renderLevels(){
   const c=document.getElementById("levelsContainer");
   const players=getPlayers();
@@ -940,11 +966,7 @@ function renderLevels(){
   const currentLvl=p?p.currentLevel:1;
   const completed=p?(p.completed||[]):[];
   let h="";
-  
-  /* ════════════════════════════════════════════════════════
-     NIVEAUX 1 À 10 — Quiz vocabulaire classique
-     ════════════════════════════════════════════════════════ */
-  for(let i=1;i<=10;i++){
+  for(let i=1;i<=11;i++){
     const lv=QUESTIONS_DB[i];
     const isLocked=i>currentLvl&&!completed.includes(i);
     const isDone=completed.includes(i);
@@ -961,22 +983,8 @@ function renderLevels(){
       ${lv.hint?`<div style="font-size:.72em;color:var(--secondary);margin-top:4px;font-style:italic">💡 ${lv.hint}</div>`:""}
     </div>`;
   }
-  
-  /* ════════════════════════════════════════════════════════
-     NIVEAU 11 — Construction de Phrases (module grammaire séparé)
-     Fichier : niveau11.html
-     ════════════════════════════════════════════════════════ */
-  h+=`<div class="level-card" onclick="window.location.href='niveau11.html'" style="border:2px solid #38b2ac;background:#e6fffa">
-    <div class="level-header"><span class="level-number">Niveau 11</span><span>🏗️</span></div>
-    <div class="level-title">Construction de Phrases</div>
-    <div class="level-obj">Grammaire interactive : sujet, verbe, négation, questions, futur proche</div>
-    <div style="font-size:.75em;color:#234e52;margin-top:8px">▶️ Module séparé</div>
-    <div style="font-size:.72em;color:#38b2ac;margin-top:4px;font-style:italic">💡 5 leçons • 4 jeux • 1 quiz</div>
-  </div>`;
-  
   c.innerHTML=h;
 }
-
 
 // ═══════════════════════════════════════════════════════════════════
 // JEU
@@ -1236,7 +1244,7 @@ if(p){
  // ⬇️ sauvegarder quel que soit le score
     if(pct>=80){
       if(!p.completed.includes(gameState.currentLevel))p.completed.push(gameState.currentLevel);
-      if(p.currentLevel<=gameState.currentLevel&&gameState.currentLevel<10)p.currentLevel=gameState.currentLevel+1;
+      if(p.currentLevel<=gameState.currentLevel&&gameState.currentLevel<11)p.currentLevel=gameState.currentLevel+1;
       p.score=(p.score||0)+correct*10;
     }
     savePlayers(players);
@@ -1251,7 +1259,7 @@ function retryLevel(){startLevel(gameState.currentLevel);}
 function startNextLevel(){
   const players=getPlayers();
   const nlvl=players[gameState.currentPlayer]?players[gameState.currentPlayer].currentLevel:1;
-  if(nlvl<=10)startLevel(nlvl); else showToast("Félicitations ! Tu as tout terminé ! 🏆");
+  if(nlvl<=11)startLevel(nlvl); else showToast("Félicitations ! Tu as tout terminé ! 🏆");
 }
 function quitGame(){
 if(confirm("Quitter ? Ta progression sera sauvegardée et tu pourras la reprendre plus tard.")){
@@ -1341,6 +1349,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ── Rendu initial de l'interface ──────────────────────────────────
   renderLessons();
+  renderLevels();
   updatePlayerDisplay();
 
   // ── Lecture des paramètres URL (?player=Prénom&level=3) ───────────
@@ -1352,18 +1361,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const players = getPlayers();
   const names   = Object.keys(players);
 
-    if (urlPlayer && players[urlPlayer]) {
+  if (urlPlayer && players[urlPlayer]) {
+    // Cas 1 : un joueur précis est passé depuis le dashboard ou un lien
     switchPlayer(urlPlayer);
-    renderLevels();
 
   } else if (names.length > 0) {
+    // Cas 2 : aucun joueur dans l'URL → on prend le premier de la liste
     switchPlayer(names[0]);
-    renderLevels();
 
   } else {
+    // Cas 3 : aucun joueur → inviter à créer un profil
     showToast("Bienvenue ! Créez votre profil pour commencer 👤");
     setTimeout(() => showNewPlayerModal(), 800);
-    renderLevels();
   }
 
   // Auto-wrap phonétique *...*  dans les leçons
@@ -1376,7 +1385,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // ── Démarrage automatique d'un niveau si demandé par l'URL ────────
   if (lvlParam) {
     const lvl = parseInt(lvlParam);
-    if (lvl >= 1 && lvl <= 10) { setTimeout(() => startLevel(lvl), 300); }
+    if (lvl >= 1 && lvl <= 11) { setTimeout(() => startLevel(lvl), 300); }
   }
 
 });
