@@ -778,6 +778,32 @@ const QUESTIONS_DB = {
     {q:"Comment dit-on 'I'm looking for my words' ?",answer:"Je cherche mes mots",explanation:"Natural when hesitating in French."},
     {q:"Comment dit-on 'Goodbye, thank you' (leaving a shop) ?",answer:"Au revoir, merci",explanation:"Essential politeness rule."}
   ]}
+    11:{title:"Ma vie en France 🇫🇷",objective:"Administratif, banque, voiture, poste, téléphone",
+  hint:"En France, 'la box' = le routeur internet !",
+  qcm:[
+    {q:"Comment dit-on 'bank account' ?",options:["un compte bancaire","une banque compte","un compte de banque","une carte bancaire"],correct:"un compte bancaire",explanation:"Un compte bancaire. *kompt bon-KAIR*"},
+    {q:"Je dois ___ ma voiture. (fill up)",options:["faire le plein","remplir","charger","essence"],correct:"faire le plein",explanation:"Faire le plein = fill up (car). *fair luh PLAN*"},
+    {q:"Comment dit-on 'post office' ?",options:["la poste","le bureau de poste","les deux","la lettre"],correct:"les deux",explanation:"La poste / le bureau de poste = both correct."},
+    {q:"Je voudrais ___ un colis. (send)",options:["envoyer","partir","donner","poster"],correct:"envoyer",explanation:"Envoyer un colis = send a package. *on-vwa-YAY*"},
+    {q:"Comment dit-on 'appointment' (doctor) ?",options:["un rendez-vous","une date","un meeting","une heure"],correct:"un rendez-vous",explanation:"Un rendez-vous = appointment. *ron-day-VOO*"},
+    {q:"Ma voiture est ___ . (broken down)",options:["en panne","cassée","brisée","les deux A et B"],correct:"les deux A et B",explanation:"En panne / cassée = broken down."},
+    {q:"Comment dit-on 'insurance' ?",options:["une assurance","une insurance","une sécurité","un contrat"],correct:"une assurance",explanation:"Une assurance. *oon a-syon-RAHNS*"},
+    {q:"Je dois ___ l'huile. (check)",options:["vérifier","contrôler","checker","regarder"],correct:"vérifier",explanation:"Vérifier l'huile = check the oil. *vay-ree-fee-YAY*"},
+    {q:"Comment dit-on 'gas station' ?",options:["une station-service","une pompe à essence","les deux","un garage"],correct:"les deux",explanation:"Station-service / pompe à essence = both used."},
+    {q:"Je voudrais ___ un chèque. (cash)",options:["encaisser","casser","payer","retirer"],correct:"encaisser",explanation:"Encaisser un chèque = cash a check. *on-kay-SAY*"}
+  ],
+  libre:[
+    {q:"Comment dit-on 'bank account' ?",answer:"un compte bancaire",explanation:"*kompt bon-KAIR*"},
+    {q:"Complétez : 'Je dois ___ ma voiture.' (fill up)",answer:"faire le plein",explanation:"Faire le plein. *fair luh PLAN*"},
+    {q:"Comment dit-on 'post office' ?",answer:"la poste",alternatives:["le bureau de poste"],explanation:"La poste. *la POST*"},
+    {q:"Complétez : 'Je voudrais ___ un colis.' (send)",answer:"envoyer",explanation:"Envoyer. *on-vwa-YAY*"},
+    {q:"Comment dit-on 'my car broke down' ?",answer:"ma voiture est en panne",alternatives:["ma voiture est cassée"],explanation:"En panne = broken down. *on PAN*"},
+    {q:"Comment dit-on 'insurance' ?",answer:"une assurance",explanation:"*oon a-syon-RAHNS*"},
+    {q:"Complétez : 'Je dois ___ l'huile.' (check)",answer:"vérifier",explanation:"Vérifier. *vay-ree-fee-YAY*"},
+    {q:"Comment dit-on 'gas station' ?",answer:"une station-service",alternatives:["une pompe à essence"],explanation:"*sta-SYON ser-VEES*"},
+    {q:"Complétez : 'Je voudrais ___ un chèque.' (cash)",answer:"encaisser",explanation:"Encaisser. *on-kay-SAY*"},
+    {q:"Comment dit-on 'I have an appointment' ?",answer:"J'ai un rendez-vous",explanation:"*zhay uh ron-day-VOO*"}
+  ]}
 };
 
 
@@ -904,6 +930,9 @@ function toggleLesson(num){
 function selectMode(mode){
   gameState.currentMode=mode;
   document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("selected"));
+  document.getElementById("btn"+mode.charAt(0).toUpperCase()+mode.slice(1)).classList.add("selected");
+}
+
 function renderLevels(){
   const c=document.getElementById("levelsContainer");
   const players=getPlayers();
