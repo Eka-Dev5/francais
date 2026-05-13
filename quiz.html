@@ -776,8 +776,8 @@ const QUESTIONS_DB = {
     {q:"Comment dit-on 'How do you say...in French?' ?",answer:"Comment dit-on en français",explanation:"*ko-MON dee-TON on fron-SAY*"},
     {q:"Complétez : 'Qu'est-ce que ça ___ dire ?'",answer:"veut",explanation:"Ça veut dire = it means. *VUH*"},
     {q:"Comment dit-on 'I'm looking for my words' ?",answer:"Je cherche mes mots",explanation:"Natural when hesitating in French."},
-    {q:"Comment dit-on 'Goodbye, thank you' (leaving a shop) ?",answer:"Au revoir, merci",explanation:"Essential politeness rule."}
-  ]}
+    {q:"Comment dit-on 'Goodbye, thank you' (leaving a shop) ?",answer:"Au revoir, merci",explanation:"Essential politeness rule."},
+  ]},
     11:{title:"Ma vie en France 🇫🇷",objective:"Administratif, banque, voiture, poste, téléphone",
   hint:"En France, 'la box' = le routeur internet !",
   qcm:[
@@ -1341,7 +1341,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ── Rendu initial de l'interface ──────────────────────────────────
   renderLessons();
-  renderLevels();
   updatePlayerDisplay();
 
   // ── Lecture des paramètres URL (?player=Prénom&level=3) ───────────
@@ -1353,18 +1352,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const players = getPlayers();
   const names   = Object.keys(players);
 
-  if (urlPlayer && players[urlPlayer]) {
-    // Cas 1 : un joueur précis est passé depuis le dashboard ou un lien
+    if (urlPlayer && players[urlPlayer]) {
     switchPlayer(urlPlayer);
+    renderLevels();
 
   } else if (names.length > 0) {
-    // Cas 2 : aucun joueur dans l'URL → on prend le premier de la liste
     switchPlayer(names[0]);
+    renderLevels();
 
   } else {
-    // Cas 3 : aucun joueur → inviter à créer un profil
     showToast("Bienvenue ! Créez votre profil pour commencer 👤");
     setTimeout(() => showNewPlayerModal(), 800);
+    renderLevels();
   }
 
   // Auto-wrap phonétique *...*  dans les leçons
