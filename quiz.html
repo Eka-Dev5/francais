@@ -903,8 +903,6 @@ function toggleLesson(num){
 function selectMode(mode){
   gameState.currentMode=mode;
   document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("selected"));
-  document.getElementById("btn"+mode.charAt(0).toUpperCase()+mode.slice(1)).classList.add("selected");
-}
 function renderLevels(){
   const c=document.getElementById("levelsContainer");
   const players=getPlayers();
@@ -912,6 +910,10 @@ function renderLevels(){
   const currentLvl=p?p.currentLevel:1;
   const completed=p?(p.completed||[]):[];
   let h="";
+  
+  /* ════════════════════════════════════════════════════════
+     NIVEAUX 1 À 10 — Quiz vocabulaire classique
+     ════════════════════════════════════════════════════════ */
   for(let i=1;i<=10;i++){
     const lv=QUESTIONS_DB[i];
     const isLocked=i>currentLvl&&!completed.includes(i);
@@ -929,8 +931,22 @@ function renderLevels(){
       ${lv.hint?`<div style="font-size:.72em;color:var(--secondary);margin-top:4px;font-style:italic">💡 ${lv.hint}</div>`:""}
     </div>`;
   }
+  
+  /* ════════════════════════════════════════════════════════
+     NIVEAU 11 — Construction de Phrases (module grammaire séparé)
+     Fichier : niveau11.html
+     ════════════════════════════════════════════════════════ */
+  h+=`<div class="level-card" onclick="window.location.href='niveau11.html'" style="border:2px solid #38b2ac;background:#e6fffa">
+    <div class="level-header"><span class="level-number">Niveau 11</span><span>🏗️</span></div>
+    <div class="level-title">Construction de Phrases</div>
+    <div class="level-obj">Grammaire interactive : sujet, verbe, négation, questions, futur proche</div>
+    <div style="font-size:.75em;color:#234e52;margin-top:8px">▶️ Module séparé</div>
+    <div style="font-size:.72em;color:#38b2ac;margin-top:4px;font-style:italic">💡 5 leçons • 4 jeux • 1 quiz</div>
+  </div>`;
+  
   c.innerHTML=h;
 }
+
 
 // ═══════════════════════════════════════════════════════════════════
 // JEU
