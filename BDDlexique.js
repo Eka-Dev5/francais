@@ -103,7 +103,7 @@ const LEXIQUE_BDD = [
 {fr:"je cherche mes mots",en:"I'm looking for my words",phon:"*zhuh SHAIRSH may MOH*",def:"Hésiter en parlant.",ex:"Je cherche mes mots, désolé.",level:10,cat:"expression"},
 {fr:"avec plaisir",en:"with pleasure",phon:"*a-vek pleh-ZEER*",def:"Accepter avec enthousiasme.",ex:"Avec plaisir, je viendrai.",level:10,cat:"politesse"},
 {fr:"de rien",en:"you're welcome (casual)",phon:"*duh RYAN*",def:"Réponse légère à un remerciement.",ex:"De rien, c'était un plaisir.",level:10,cat:"politesse"},
-{fr:"pas de problème",en:"no problem",phon:"*pa duh pro-BLEM*",def:"Rassurer, indiquer que c'est facile.",ex:"Pas de problème, je peux vous aider.",level:10,cat:"expression"}
+{fr:"pas de problème",en:"no problem",phon:"*pa duh pro-BLEM*",def:"Rassurer, indiquer que c'est facile.",ex:"Pas de problème, je peux vous aider.",level:10,cat:"expression"},
 {fr:"un compte bancaire",en:"bank account",phon:"*kompt bon-KAIR*",def:"Compte où l'on dépose et retire de l'argent.",ex:"J'ai ouvert un compte bancaire à la Banque Postale.",level:11,cat:"admin"},
 {fr:"une carte bancaire",en:"debit card",phon:"*kart bon-KAIR*",def:"Carte permettant de payer et retirer de l'argent.",ex:"Payer par carte bancaire.",level:11,cat:"admin"},
 {fr:"un chèque",en:"check",phon:"*uh SHEK*",def:"Document bancaire pour payer une somme.",ex:"Remplir un chèque.",level:11,cat:"admin"},
@@ -118,5 +118,5 @@ const LEXIQUE_BDD = [
 {fr:"un forfait",en:"plan / bundle",phon:"*uh for-FAY*",def:"Abonnement téléphonique ou internet.",ex:"Un forfait mobile illimité.",level:11,cat:"télécom"},
 {fr:"la box",en:"internet router",phon:"*la BOKS*",def:"Routeur internet (terme français).",ex:"La box est en panne.",level:11,cat:"télécom"},
 {fr:"le débit",en:"speed / bandwidth",phon:"*luh day-BEE*",def:"Vitesse de connexion internet.",ex:"Le débit est faible ici.",level:11,cat:"télécom"},
-{fr:"un rendez-vous",en:"appointment",phon:"*uh ron-day-VOO*",def:"Rencontre fixée à l'avance.",ex:"J'ai un rendez-vous chez le médecin.",level:11,cat:"admin"}
+{fr:"un rendez-vous médical",en:"medical appointment",phon:"*uh ron-day-VOO may-dee-KAL*",def:"Consultation chez un docteur.",ex:"J'ai un rendez-vous médical à 14h.",level:11,cat:"admin"},
 ];
