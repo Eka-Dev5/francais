@@ -478,7 +478,7 @@ style="background:#f5e8ff;color:#553c9a">📖 Lexique</button>
     <div class="lex-modal-def"><h4>📖 Définition</h4><p id="lexPopupDef"></p></div>
     <div class="lex-modal-ex"><h4>💬 Exemple</h4><p id="lexPopupEx" style="font-style:italic"></p></div>
     <div class="lex-modal-cat"><h4>📝 Catégorie</h4><p id="lexPopupCat"></p></div>
-  <button class="lex-modal-close" onclick="event.stopPropagation(); closeLexPopup();">Fermer</button>
+   <button class="lex-modal-close" onclick="closeLexPopup(event)">Fermer</button>
 
 
 
@@ -1286,11 +1286,9 @@ function showToast(msg){
 }
 
 function closeLexPopup(e){
-  if(!e||e.target.classList.contains("lex-modal-overlay")||e.target.id==="lexique-popup-modal"){
-    document.getElementById("lexique-popup-modal").style.display="none";
-  }
+  if(e && e.stopImmediatePropagation) e.stopImmediatePropagation();
+  document.getElementById("lexique-popup-modal").style.display="none";
 }
-
 
 function openLexPopup(fr){
   if(typeof LEXIQUE_BDD==="undefined")return;
