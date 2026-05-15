@@ -19,7 +19,7 @@ function highlightLexiqueWords(text) {
     if (regex.test(result)) {
       result = result.replace(regex, (match) => {
         const tooltip = `<span class="lex-phon">${word.phon || ''}</span> ${word.en}`;
-        return `<span class="lex-highlight" onclick="event.stopPropagation(); openLexPopup('${word.fr.replace(/'/g,"\\'")}')">` +
+        return `<span class="lex-highlight" onclick="event.stopPropagation(); this.querySelector('.lex-tooltip').style.opacity='0'; openLexPopup('${word.fr.replace(/'/g,"\\'")}')">` +
                `${match}` +
                `<span class="lex-tooltip">${tooltip}<br><em style="font-size:.8em;color:#a0aec0">${word.def}</em></span>` +
                `</span>`;
