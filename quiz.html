@@ -478,10 +478,7 @@ style="background:#f5e8ff;color:#553c9a">📖 Lexique</button>
     <div class="lex-modal-def"><h4>📖 Définition</h4><p id="lexPopupDef"></p></div>
     <div class="lex-modal-ex"><h4>💬 Exemple</h4><p id="lexPopupEx" style="font-style:italic"></p></div>
     <div class="lex-modal-cat"><h4>📝 Catégorie</h4><p id="lexPopupCat"></p></div>
-   <button class="lex-modal-close" onclick="closeLexPopup(event)">Fermer</button>
-
-
-
+   <button class="lex-modal-close" onclick="closeLexPopup()">Fermer</button>
   </div>
 </div>
 <div class="toast" id="toast"></div>
@@ -1286,23 +1283,13 @@ function showToast(msg){
 }
 
 function closeLexPopup(e){
-  if(e && e.stopImmediatePropagation) e.stopImmediatePropagation();
   document.getElementById("lexique-popup-modal").style.display="none";
-  
-  document.querySelectorAll('.lesson-card').forEach(card => {
-    card.style.pointerEvents = 'auto';
-  });
 }
-
 
 function openLexPopup(fr){
   if(typeof LEXIQUE_BDD==="undefined")return;
   const w=LEXIQUE_BDD.find(x=>x.fr===fr);
   if(!w)return;
-  
-  document.querySelectorAll('.lesson-card').forEach(card => {
-    card.style.pointerEvents = 'none';
-  });
   
   document.getElementById("lexPopupFr").textContent=w.fr;
   document.getElementById("lexPopupPhon").textContent=w.phon||"";
@@ -1313,6 +1300,7 @@ function openLexPopup(fr){
   const modal=document.getElementById("lexique-popup-modal");
   modal.style.display="flex";
 }
+
 
 function goToDashboard(){
   if(gameState.currentPlayer){
