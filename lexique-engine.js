@@ -7,27 +7,27 @@
  * et ajoute un tooltip au survol + clic pour popup
  */
 function highlightLexiqueWords(text) {
-  if (typeof LEXIQUE_BDD === 'undefined') return text;
+ if (typeof LEXIQUE_BDD === 'undefined') return text;
 
-  let result = text;
-  const sorted = [...LEXIQUE_BDD].sort((a, b) => b.fr.length - a.fr.length);
+ let result = text;
+ const sorted = [...LEXIQUE_BDD].sort((a, b) => b.fr.length - a.fr.length);
 
-  sorted.forEach(word => {
-    const escaped = word.fr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const regex = new RegExp(`(?<![\\w'\\u00C0-\\u024F])(${escaped})(?![\\w'\\u00C0-\\u024F])`, 'gi');
+ sorted.forEach(word => {
+   const escaped = word.fr.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+   const regex = new RegExp(`(?<![\\w'\\u00C0-\\u024F])(${escaped})(?![\\w'\\u00C0-\\u024F])`, 'gi');
 
-    if (regex.test(result)) {
-      result = result.replace(regex, (match) => {
-        const tooltip = `<span class="lex-phon">${word.phon || ''}</span> ${word.en}`;
-        return `<span class="lex-highlight" onclick="event.stopPropagation(); this.querySelector('.lex-tooltip').style.opacity='0'; openLexPopup('${word.fr.replace(/'/g,"\\'")}')">` +
-               `${match}` +
-               `<span class="lex-tooltip">${tooltip}<br><em style="font-size:.8em;color:#a0aec0">${word.def}</em></span>` +
-               `</span>`;
-      });
-    }
-  });
+   if (regex.test(result)) {
+     result = result.replace(regex, (match) => {
+       const tooltip = `<span class="lex-phon">${word.phon || ''}</span> ${word.en}`;
+       return `<span class="lex-highlight" onclick="event.stopPropagation(); openLexPopup('${word.fr.replace(/'/g,"\\'")}')">` +
+              `${match}` +
+              `<span class="lex-tooltip">${tooltip}<br><em style="font-size:.8em;color:#a0aec0">${word.def}</em></span>` +
+              `</span>`;
+     });
+   }
+ });
 
-  return result;
+ return result;
 }
 
 
