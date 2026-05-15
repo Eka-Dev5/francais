@@ -904,8 +904,8 @@ function showSection(id){
 // ═══════════════════════════════════════════════════════════════════
 function renderLessons(){
   const c=document.getElementById("lessonsContainer");
-  c.innerHTML=LESSONS_DATA.map(l=>`
-    <div class="lesson-card" onclick="toggleLesson(${l.num})">
+c.innerHTML=LESSONS_DATA.map(l=>`
+    <div class="lesson-card" onclick="toggleLesson(${l.num}, event)">
       <div class="lesson-header">
         <div class="lesson-title">📘 Leçon ${l.num} — ${l.title}</div>
         <span class="lesson-tag" id="lessonTag${l.num}">▼ ouvrir</span>
@@ -1288,12 +1288,22 @@ function showToast(msg){
 function closeLexPopup(e){
   if(e && e.stopImmediatePropagation) e.stopImmediatePropagation();
   document.getElementById("lexique-popup-modal").style.display="none";
+  
+  document.querySelectorAll('.lesson-card').forEach(card => {
+    card.style.pointerEvents = 'auto';
+  });
 }
+
 
 function openLexPopup(fr){
   if(typeof LEXIQUE_BDD==="undefined")return;
   const w=LEXIQUE_BDD.find(x=>x.fr===fr);
   if(!w)return;
+  
+  document.querySelectorAll('.lesson-card').forEach(card => {
+    card.style.pointerEvents = 'none';
+  });
+  
   document.getElementById("lexPopupFr").textContent=w.fr;
   document.getElementById("lexPopupPhon").textContent=w.phon||"";
   document.getElementById("lexPopupEn").textContent=w.en;
@@ -1303,6 +1313,7 @@ function openLexPopup(fr){
   const modal=document.getElementById("lexique-popup-modal");
   modal.style.display="flex";
 }
+
 function goToDashboard(){
   if(gameState.currentPlayer){
     window.location.href='dashboard.html?player='+encodeURIComponent(gameState.currentPlayer);
