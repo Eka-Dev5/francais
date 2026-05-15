@@ -1326,6 +1326,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const params    = new URLSearchParams(window.location.search);
   const urlPlayer = params.get('player');
   const lvlParam  = params.get('level');
+  const sectionParam = params.get('section');
+  if (sectionParam === 'lecons') {
+  showSection('lecons');
+  } 
 
   // ── Chargement du joueur : URL en priorité, sinon premier de la liste
   const players = getPlayers();
