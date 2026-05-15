@@ -3,6 +3,7 @@
 // Format : {fr, en, phon, def, ex, level, cat}
 
 const LEXIQUE_BDD = [
+// ── NIVEAU 1 — Salutations & Présentations 👋 ──
 {fr:"bonjour",en:"good morning / hello",phon:"*bon-ZHOOR*",def:"Formule de salutation utilisée le matin et la journée.",ex:"Bonjour, Madame Dupont.",level:1,cat:"salutation"},
 {fr:"bonsoir",en:"good evening",phon:"*bon-SWAHR*",def:"Salutation utilisée l'après-midi et le soir.",ex:"Bonsoir, comment allez-vous ?",level:1,cat:"salutation"},
 {fr:"au revoir",en:"goodbye",phon:"*oh ruh-VWAHR*",def:"Formule de départ standard.",ex:"Au revoir et à bientôt !",level:1,cat:"salutation"},
@@ -17,6 +18,8 @@ const LEXIQUE_BDD = [
 {fr:"merci beaucoup",en:"thank you very much",phon:"*mair-SEE bo-KOO*",def:"Remerciement chaleureux.",ex:"Merci beaucoup pour votre aide.",level:1,cat:"politesse"},
 {fr:"je vous en prie",en:"you're welcome (formel)",phon:"*zhuh voo zon PREE*",def:"Réponse à un remerciement, forme polie.",ex:"Je vous en prie, avec plaisir.",level:1,cat:"politesse"},
 {fr:"excusez-moi",en:"excuse me (formel)",phon:"*ek-skew-zay-MWAH*",def:"S'excuser ou attirer l'attention poliment.",ex:"Excusez-moi, l'heure s'il vous plaît ?",level:1,cat:"politesse"},
+
+// ── NIVEAU 2 — Au marché & Les courses 🛒 ──
 {fr:"je voudrais",en:"I would like",phon:"*zhuh voo-DRAY*",def:"Formule polie pour exprimer un souhait.",ex:"Je voudrais un kilo de tomates.",level:2,cat:"expression"},
 {fr:"ça fait combien",en:"how much is it",phon:"*sa FAY kom-BYAN*",def:"Demander le prix total.",ex:"Ça fait combien en tout ?",level:2,cat:"expression"},
 {fr:"c'est tout",en:"that's all",phon:"*say TOO*",def:"Indiquer qu'on a fini ses achats.",ex:"C'est tout, merci Madame.",level:2,cat:"expression"},
@@ -27,6 +30,8 @@ const LEXIQUE_BDD = [
 {fr:"la boulangerie",en:"bakery",phon:"*boo-lan-zhuh-REE*",def:"Commerce où l'on vend du pain et viennoiseries.",ex:"La boulangerie du coin.",level:2,cat:"commerce"},
 {fr:"fromage",en:"cheese",phon:"*fro-MAHZH*",def:"Produit laitier fermenté.",ex:"Du fromage de chèvre.",level:2,cat:"aliment"},
 {fr:"baguette",en:"baguette",phon:"*ba-GET*",def:"Pain long et croustillant, emblème français.",ex:"Une baguette tradition.",level:2,cat:"aliment"},
+
+// ── NIVEAU 3 — Au jardin & La nature 🌿 ──
 {fr:"une fleur",en:"a flower",phon:"*oon FLUHR*",def:"Partie colorée et parfumée d'une plante.",ex:"Une belle fleur rouge.",level:3,cat:"nature"},
 {fr:"un arbre",en:"a tree",phon:"*uh NAR-bruh*",def:"Plante ligneuse de grande taille.",ex:"Un vieil arbre dans le jardin.",level:3,cat:"nature"},
 {fr:"l'herbe",en:"grass",phon:"*LAR-buh*",def:"Plantes basses qui couvrent le sol.",ex:"L'herbe est bien verte.",level:3,cat:"nature"},
@@ -39,6 +44,8 @@ const LEXIQUE_BDD = [
 {fr:"tailler",en:"to prune / trim",phon:"*TIE-yay*",def:"Couper pour former ou nettoyer.",ex:"Tailler la haie.",level:3,cat:"verbe"},
 {fr:"récolter",en:"to harvest",phon:"*ray-kol-TAY*",def:"Cueillir les fruits de son travail.",ex:"Récolter les légumes.",level:3,cat:"verbe"},
 {fr:"faucher",en:"to mow",phon:"*foh-SHAY*",def:"Couper l'herbe ou les céréales.",ex:"Faucher la pelouse.",level:3,cat:"verbe"},
+
+// ── NIVEAU 4 — Les voisins & La vie de quartier 🏘️ ──
 {fr:"un voisin",en:"neighbor (male)",phon:"*uh vwa-ZAN*",def:"Personne qui habite à proximité.",ex:"Mon voisin est très gentil.",level:4,cat:"social"},
 {fr:"une voisine",en:"neighbor (female)",phon:"*oon vwa-ZEEN*",def:"Femme qui habite à proximité.",ex:"Ma voisine m'aide souvent.",level:4,cat:"social"},
 {fr:"le quartier",en:"neighborhood",phon:"*luh kar-TYAY*",def:"Partie d'une ville, zone résidentielle.",ex:"Un quartier très calme.",level:4,cat:"lieu"},
@@ -49,6 +56,8 @@ const LEXIQUE_BDD = [
 {fr:"emprunter",en:"to borrow",phon:"*om-PRON-tay*",def:"Utiliser temporairement quelque chose.",ex:"Je peux vous emprunter une échelle ?",level:4,cat:"verbe"},
 {fr:"prêter",en:"to lend",phon:"*PRAY-tay*",def:"Donner temporairement quelque chose.",ex:"Je vous prête mon livre.",level:4,cat:"verbe"},
 {fr:"désolé",en:"sorry (male)",phon:"*day-zo-LAY*",def:"Exprimer des excuses.",ex:"Je suis désolé du dérangement.",level:4,cat:"politesse"},
+
+// ── NIVEAU 5 — Parler de ses goûts & envies ❤️ ──
 {fr:"j'adore",en:"I love",phon:"*zha-DOR*",def:"Aimer intensément.",ex:"J'adore le fromage français.",level:5,cat:"sentiment"},
 {fr:"j'aime bien",en:"I like",phon:"*zhem BYAN*",def:"Éprouver de l'affection, forme modérée.",ex:"J'aime bien cette région.",level:5,cat:"sentiment"},
 {fr:"je déteste",en:"I hate",phon:"*zhuh day-TEST*",def:"Ne pas aimer du tout.",ex:"Je déteste le bruit.",level:5,cat:"sentiment"},
@@ -56,6 +65,8 @@ const LEXIQUE_BDD = [
 {fr:"j'ai envie de",en:"I feel like",phon:"*zha-ay on-VEE duh*",def:"Fort désir de quelque chose.",ex:"J'ai envie de dormir.",level:5,cat:"expression"},
 {fr:"ça me tente",en:"I'm tempted",phon:"*sa muh TONT*",def:"Être attiré par quelque chose.",ex:"Ça me tente beaucoup.",level:5,cat:"expression"},
 {fr:"je rêve de",en:"I dream of",phon:"*zhuh REV duh*",def:"Aspirer à quelque chose.",ex:"Je rêve de visiter Paris.",level:5,cat:"sentiment"},
+
+// ── NIVEAU 6 — Chez le commerçant & Les magasins 🏬 ──
 {fr:"la pâtisserie",en:"pastry shop",phon:"*pa-tee-suh-REE*",def:"Commerce de gâteaux et pâtisseries.",ex:"Une tarte à la pâtisserie.",level:6,cat:"commerce"},
 {fr:"la boucherie",en:"butcher shop",phon:"*boo-shuh-REE*",def:"Commerce de viande.",ex:"De la viande à la boucherie.",level:6,cat:"commerce"},
 {fr:"la charcuterie",en:"delicatessen",phon:"*shar-koo-tuh-REE*",def:"Commerce de salaison et charcuterie.",ex:"Du saucisson à la charcuterie.",level:6,cat:"commerce"},
@@ -64,6 +75,9 @@ const LEXIQUE_BDD = [
 {fr:"un timbre",en:"a stamp",phon:"*uh TAN-bruh*",def:"Vignette pour affranchir le courrier.",ex:"Un timbre pour l'étranger.",level:6,cat:"objet"},
 {fr:"lait cru",en:"raw milk",phon:"*lay KROO*",def:"Lait non pasteurisé.",ex:"Du fromage au lait cru.",level:6,cat:"aliment"},
 {fr:"sans gluten",en:"gluten-free",phon:"*SON gloo-TEN*",def:"Ne contenant pas de gluten.",ex:"Du pain sans gluten.",level:6,cat:"aliment"},
+{fr:"une douzaine",en:"a dozen",phon:"*oon doo-ZEN*",def:"Douze unités.",ex:"Une douzaine d'œufs.",level:6,cat:"quantité"},
+
+// ── NIVEAU 7 — Les amis & sorties 👫 ──
 {fr:"un ami",en:"a friend (male)",phon:"*uh na-MEE*",def:"Personne liée par l'affection.",ex:"Mon ami d'enfance.",level:7,cat:"social"},
 {fr:"une amie",en:"a friend (female)",phon:"*oon na-MEE*",def:"Personne liée par l'affection.",ex:"Mon amie de toujours.",level:7,cat:"social"},
 {fr:"un rendez-vous",en:"an appointment / a date",phon:"*uh ron-day-VOO*",def:"Rencontre fixée d'avance.",ex:"Un rendez-vous au café.",level:7,cat:"social"},
@@ -73,6 +87,12 @@ const LEXIQUE_BDD = [
 {fr:"libre",en:"free / available",phon:"*LEEB-ruh*",def:"Disponible, sans occupation.",ex:"Je suis libre samedi.",level:7,cat:"état"},
 {fr:"occupé",en:"busy (male)",phon:"*ok-kew-PAY*",def:"Ayant une occupation.",ex:"Je suis occupé demain.",level:7,cat:"état"},
 {fr:"à bientôt",en:"see you soon",phon:"*a byan-TOH*",def:"Prendre congé pour un prochain rendez-vous.",ex:"Au revoir, à bientôt !",level:7,cat:"salutation"},
+{fr:"rendez-vous",en:"appointment / date",phon:"*ron-day-VOO*",def:"Rencontre fixée à l'avance.",ex:"J'ai un rendez-vous à midi.",level:7,cat:"social"},
+{fr:"midi",en:"noon",phon:"*mee-DEE*",def:"12 heures, milieu de la journée.",ex:"On déjeune à midi.",level:7,cat:"temps"},
+{fr:"ça vous dit",en:"do you fancy / how about",phon:"*sa voo DEE*",def:"Proposition informelle.",ex:"Ça vous dit d'aller au café ?",level:7,cat:"expression"},
+{fr:"une amie",en:"a friend (female)",phon:"*oon na-MEE*",def:"Personne liée par l'affection.",ex:"Mon amie de toujours.",level:7,cat:"social"},
+
+// ── NIVEAU 8 — Le temps & la météo 🌤️ ──
 {fr:"il fait beau",en:"it's nice weather",phon:"*eel FAY bo*",def:"Description d'un temps agréable.",ex:"Il fait beau, allons nous promener.",level:8,cat:"météo"},
 {fr:"il pleut",en:"it's raining",phon:"*eel PLUH*",def:"Chute de gouttes d'eau.",ex:"Il pleut, prenez un parapluie.",level:8,cat:"météo"},
 {fr:"il neige",en:"it's snowing",phon:"*eel NEHZH*",def:"Chute de neige.",ex:"Il neige dans le nord.",level:8,cat:"météo"},
@@ -87,6 +107,8 @@ const LEXIQUE_BDD = [
 {fr:"en été",en:"in summer",phon:"*on ay-TAY*",def:"Saison chaude, juin à août.",ex:"En été, le jardin est beau.",level:8,cat:"saison"},
 {fr:"en automne",en:"in autumn",phon:"*on no-TON*",def:"Saison des feuilles mortes.",ex:"En automne, les feuilles tombent.",level:8,cat:"saison"},
 {fr:"en hiver",en:"in winter",phon:"*on ee-VAIR*",def:"Saison froide, décembre à février.",ex:"En hiver, le jardin dort.",level:8,cat:"saison"},
+
+// ── NIVEAU 9 — Les verbes essentiels ⚡ ──
 {fr:"aller",en:"to go",phon:"*a-LAY*",def:"Se déplacer vers un lieu.",ex:"Je vais au marché.",level:9,cat:"verbe"},
 {fr:"faire",en:"to do / to make",phon:"*FAIR*",def:"Réaliser une action.",ex:"Je fais mes courses.",level:9,cat:"verbe"},
 {fr:"prendre",en:"to take",phon:"*PRON-druh*",def:"Saisir ou consommer.",ex:"Je prends le bus.",level:9,cat:"verbe"},
@@ -97,6 +119,18 @@ const LEXIQUE_BDD = [
 {fr:"connaître",en:"to know (people/places)",phon:"*ko-NET-ruh*",def:"Avoir une relation avec une personne ou un lieu.",ex:"Je connais Paris.",level:9,cat:"verbe"},
 {fr:"devoir",en:"must / to have to",phon:"*duh-VWAHR*",def:"Être obligé.",ex:"Je dois partir.",level:9,cat:"verbe"},
 {fr:"comprendre",en:"to understand",phon:"*kom-PRON-druh*",def:"Saisir le sens.",ex:"Je comprends le français.",level:9,cat:"verbe"},
+{fr:"je vais",en:"I go / I am going",phon:"*zhuh VAY*",def:"Conjugaison de 'aller' au présent.",ex:"Je vais au marché.",level:9,cat:"verbe"},
+{fr:"je fais",en:"I do / I make",phon:"*zhuh FAY*",def:"Conjugaison de 'faire' au présent.",ex:"Je fais mes courses.",level:9,cat:"verbe"},
+{fr:"je prends",en:"I take",phon:"*zhuh PRON*",def:"Conjugaison de 'prendre' au présent.",ex:"Je prends le bus.",level:9,cat:"verbe"},
+{fr:"je peux",en:"I can",phon:"*zhuh PUH*",def:"Conjugaison de 'pouvoir' au présent.",ex:"Je peux vous aider.",level:9,cat:"verbe"},
+{fr:"je veux",en:"I want",phon:"*zhuh VUH*",def:"Conjugaison de 'vouloir' au présent.",ex:"Je veux du café.",level:9,cat:"verbe"},
+{fr:"je sais",en:"I know (fact)",phon:"*zhuh SAY*",def:"Conjugaison de 'savoir' — pour les faits.",ex:"Je sais où c'est.",level:9,cat:"verbe"},
+{fr:"je connais",en:"I know (person/place)",phon:"*zhuh ko-NAY*",def:"Conjugaison de 'connaître' — pour les personnes.",ex:"Je connais ce village.",level:9,cat:"verbe"},
+{fr:"je dois",en:"I must",phon:"*zhuh DWAH*",def:"Conjugaison de 'devoir' — obligation.",ex:"Je dois partir.",level:9,cat:"verbe"},
+{fr:"vous faites",en:"you do (formal)",phon:"*voo FET*",def:"Conjugaison irrégulière de 'faire'.",ex:"Qu'est-ce que vous faites ?",level:9,cat:"verbe"},
+{fr:"pouvez-vous",en:"can you (formal)",phon:"*poo-vay VOO*",def:"Demande polie de capacité.",ex:"Pouvez-vous répéter ?",level:9,cat:"expression"},
+
+// ── NIVEAU 10 — Expressions utiles & Formules de politesse 🎩 ──
 {fr:"je ne comprends pas",en:"I don't understand",phon:"*zhuh nuh kom-PRON PAH*",def:"Indiquer qu'on n'a pas saisi.",ex:"Je ne comprends pas, pouvez-vous répéter ?",level:10,cat:"expression"},
 {fr:"parlez plus lentement",en:"speak more slowly",phon:"*par-LAY plew lon-TUH-mon*",def:"Demander de ralentir.",ex:"Parlez plus lentement, s'il vous plaît.",level:10,cat:"expression"},
 {fr:"comment dit-on",en:"how do you say",phon:"*ko-MON dee-TON*",def:"Demander une traduction.",ex:"Comment dit-on 'hello' en français ?",level:10,cat:"expression"},
@@ -104,6 +138,11 @@ const LEXIQUE_BDD = [
 {fr:"avec plaisir",en:"with pleasure",phon:"*a-vek pleh-ZEER*",def:"Accepter avec enthousiasme.",ex:"Avec plaisir, je viendrai.",level:10,cat:"politesse"},
 {fr:"de rien",en:"you're welcome (casual)",phon:"*duh RYAN*",def:"Réponse légère à un remerciement.",ex:"De rien, c'était un plaisir.",level:10,cat:"politesse"},
 {fr:"pas de problème",en:"no problem",phon:"*pa duh pro-BLEM*",def:"Rassurer, indiquer que c'est facile.",ex:"Pas de problème, je peux vous aider.",level:10,cat:"expression"},
+{fr:"je ne comprends pas",en:"I don't understand",phon:"*zhuh nuh kom-PRON PAH*",def:"Indiquer qu'on n'a pas saisi.",ex:"Je ne comprends pas, pouvez-vous répéter ?",level:10,cat:"expression"},
+{fr:"parlez plus lentement",en:"speak more slowly",phon:"*par-LAY plew lon-TUH-mon*",def:"Demander de ralentir.",ex:"Parlez plus lentement, s'il vous plaît.",level:10,cat:"expression"},
+{fr:"comment dit-on",en:"how do you say",phon:"*ko-MON dee-TON*",def:"Demander une traduction.",ex:"Comment dit-on 'hello' en français ?",level:10,cat:"expression"},
+
+// ── NIVEAU 11 — Ma vie en France 🇫🇷 ──
 {fr:"un compte bancaire",en:"bank account",phon:"*kompt bon-KAIR*",def:"Compte où l'on dépose et retire de l'argent.",ex:"J'ai ouvert un compte bancaire à la Banque Postale.",level:11,cat:"admin"},
 {fr:"une carte bancaire",en:"debit card",phon:"*kart bon-KAIR*",def:"Carte permettant de payer et retirer de l'argent.",ex:"Payer par carte bancaire.",level:11,cat:"admin"},
 {fr:"un chèque",en:"check",phon:"*uh SHEK*",def:"Document bancaire pour payer une somme.",ex:"Remplir un chèque.",level:11,cat:"admin"},
@@ -119,4 +158,6 @@ const LEXIQUE_BDD = [
 {fr:"la box",en:"internet router",phon:"*la BOKS*",def:"Routeur internet (terme français).",ex:"La box est en panne.",level:11,cat:"télécom"},
 {fr:"le débit",en:"speed / bandwidth",phon:"*luh day-BEE*",def:"Vitesse de connexion internet.",ex:"Le débit est faible ici.",level:11,cat:"télécom"},
 {fr:"un rendez-vous médical",en:"medical appointment",phon:"*uh ron-day-VOO may-dee-KAL*",def:"Consultation chez un docteur.",ex:"J'ai un rendez-vous médical à 14h.",level:11,cat:"admin"},
+{fr:"un rendez-vous",en:"an appointment",phon:"*uh ron-day-VOO*",def:"Rencontre fixée d'avance.",ex:"J'ai un rendez-vous à 14h.",level:11,cat:"admin"},
+{fr:"le gazole",en:"diesel",phon:"*luh ga-ZOL*",def:"Carburant pour moteur diesel.",ex:"Ma voiture roule au gazole.",level:11,cat:"voiture"},
 ];
