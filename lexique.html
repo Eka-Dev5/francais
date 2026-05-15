@@ -6,52 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Français Master — Lexique</title>
   <style>
-/* ANCIEN :
-:root {
-  --primary: #667eea; --secondary: #764ba2;
-  --bg-light: #f8fafc; --text-dark: #2d3748;
-  --text-muted: #718096; --border-light: #e2e8f0;
-  --shadow: 0 10px 30px rgba(0,0,0,.15);
-}
-*/
-:root {
-  --primary: #667eea; --secondary: #764ba2;
-  --success: #48bb78; --error: #f56565;
-  --warning: #ed8936; --gold: #ffd700;
-  --bg-light: #f8fafc; --text-dark: #2d3748;
-  --text-muted: #718096; --border-light: #e2e8f0;
-  --shadow: 0 10px 30px rgba(0,0,0,.15);
-}
-
+    :root {
+      --primary: #667eea; --secondary: #764ba2;
+      --bg-light: #f8fafc; --text-dark: #2d3748;
+      --text-muted: #718096; --border-light: #e2e8f0;
+      --shadow: 0 10px 30px rgba(0,0,0,.15);
+    }
     * { margin:0; padding:0; box-sizing:border-box; }
-/* ANCIEN :
-body { background:linear-gradient(135deg,var(--primary),var(--secondary)); min-height:100vh; padding:20px; font-family:"Segoe UI",system-ui,sans-serif; }
-*/
-body { background:linear-gradient(135deg,var(--primary),var(--secondary)); min-height:100vh; padding:15px; font-family:"Segoe UI",system-ui,sans-serif; }
-
+    body { background:linear-gradient(135deg,var(--primary),var(--secondary)); min-height:100vh; padding:20px; font-family:"Segoe UI",system-ui,sans-serif; }
 
 ```
 /* ── CARTE PRINCIPALE ── */
-/* ANCIEN :
 .card { max-width:1000px; margin:0 auto; background:white; border-radius:24px; padding:30px 24px; box-shadow:0 20px 60px rgba(0,0,0,.25); }
-*/
-.card { max-width:1000px; margin:0 auto; background:white; border-radius:20px; padding:25px; box-shadow:0 20px 60px rgba(0,0,0,.3); }
-
 
 /* ── TITRE ── */
-/* ANCIEN :
 h1 { font-size:2em; font-weight:800; background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; background-clip:text; color:transparent; margin-bottom:6px; text-align:center; }
-*/
-h1 { font-size:2.1em; font-weight:800; color:var(--primary); background:linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:4px; text-align:center; }
-
 .tagline { text-align:center; color:var(--text-muted); margin-bottom:22px; font-size:.9em; }
 
 /* ── NAV ── */
 .nav-links { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
-/* ANCIEN :
 .btn { display:inline-block; background:#f0f4ff; color:var(--primary); padding:8px 18px; border-radius:40px; font-weight:700; text-decoration:none; transition:all .2s; font-size:.88em; border:none; cursor:pointer; white-space:nowrap; }
-*/
-.btn { display:inline-block; background:#f0f4ff; color:var(--primary); padding:9px 18px; border-radius:10px; font-weight:bold; text-decoration:none; transition:all .2s; font-size:.9em; border:none; cursor:pointer; white-space:nowrap; }
 .btn-primary { background:linear-gradient(135deg,var(--primary),var(--secondary)); color:white; }
 .btn:hover { transform:translateY(-2px); box-shadow:0 4px 12px rgba(102,126,234,.3); }
 
@@ -94,13 +68,8 @@ h1 { font-size:2.1em; font-weight:800; color:var(--primary); background:linear-g
 .badge-cat { background:#e9d8fd; color:#553c9a; border-radius:20px; padding:2px 9px; font-size:.65em; font-weight:600; }
 .no-result { text-align:center; padding:40px; color:var(--text-muted); background:#f9fafb; border-radius:20px; font-size:.95em; }
 
-/* ANCIEN :
 @media(max-width:640px) {
   body { padding:12px; }
-}
-*/
-@media(max-width:640px) {
-  body { padding:15px; }
   .card { padding:20px 14px; }
   h1 { font-size:1.6em; }
   .search-area { flex-wrap:wrap; }
