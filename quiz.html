@@ -919,7 +919,9 @@ function toggleLesson(num){
   body.classList.toggle("open",!open);
   card.classList.toggle("open",!open);
   tag.textContent=open?"▼ ouvrir":"▲ fermer";
+  if(!open && typeof highlightLessonsContent==="function") highlightLessonsContent();
 }
+
 
 // ═══════════════════════════════════════════════════════════════════
 // NIVEAUX
@@ -1019,17 +1021,15 @@ function showLessonIntro(levelNum){
   document.getElementById("lessonIntroTitle").textContent=lesson?lesson.title:lv.title;
   document.getElementById("lessonIntroObj").textContent=lv.objective;
   
-  const contentDiv = document.getElementById("lessonIntroContent");
+    const contentDiv = document.getElementById("lessonIntroContent");
   if(lesson){
     contentDiv.innerHTML = lesson.content;
   } else {
     contentDiv.innerHTML = "<p>Objectif : "+lv.objective+"</p>";
   }
-  
+  if(typeof highlightLessonsContent==="function") highlightLessonsContent();
   document.getElementById("lessonIntroLexique").href = SUBJECT_CONFIG.lexiqueFile + "?level=" + levelNum;
 }
-
-
 
 function startQuestions(){
   document.getElementById("lessonIntro").style.display="none";
